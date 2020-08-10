@@ -1,4 +1,4 @@
-var player = {x: 1, y: 1, vel: 1};
+var player = {x: 1, y: 1, v: 1};
 
 let array = [
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -41,24 +41,23 @@ function DrawArray(arr, player) {
   }
 }
 
-function MoveStar(arr, player, keyCode) {
+async function MoveStar(arr, player, key) {
   //w 
-  if((keyCode == 87) && (arr[player.x - 1][player.y] != 1)) {
-    player.x -= 1;
+  if((key == 'w') && (arr[player.x - player.v][player.y] != 1)) {
+    player.x -= player.v;
   }
   //a
-  else if ((keyCode == 65) && (arr[player.x][player.y - 1] != 1)) {
-    player.y -= 1;
+  else if ((key == 'a') && (arr[player.x][player.y - player.v] != 1)) {
+    player.y -= player.v;
   }
   //s
-  else if ((keyCode == 83) && (arr[player.x + 1][player.y] != 1)) { 
-    player.x += 1;
+  else if ((key == 's') && (arr[player.x + player.v][player.y] != 1)) { 
+    player.x += player.v;
   }
   //d
-  else if ((keyCode == 68) && (arr[player.x][player.y + 1] != 1)) { 
-    player.y += 1;
+  else if ((key == 'd') && (arr[player.x][player.y + player.v] != 1)) { 
+    player.y += player.v;
   }
-  window.requestAnimationFrame(GameLoop);
 }
 
 function sleep(ms) {
@@ -67,12 +66,21 @@ function sleep(ms) {
 
 //////////////////////////////////////////////////////////
 
+let interval = 1;
+
 async function GameLoop(){
-  DrawArray(array, player);
-  await sleep(111);
-  //window.addEventListener("click", function() { alert("x = " + player.x + "   y = " + player.y); });
-  window.addEventListener("keydown", (event) => MoveStar(array, player, event.keyCode));
-  //now it is accelerating
+document.addEventListener("keydown", 
+  (event) => { 
+    if(interval === 1){
+      MoveStar(array, player, event.key); 
+      DrawArray(array, player);
+      interval = 0; 
+    }
+  });
+  interval = 1;
+  await sleep(5);
+  window.requestAnimationFrame(GameLoop);
 }
 
-window.requestAnimationFrame(GameLoop);
+DrawArray(array, player);
+GameLoop();
