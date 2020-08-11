@@ -88,17 +88,22 @@ async function MoveStar(arr, player, key) {
 
 function MoveBullets(arr, bullets) {
   for(let i = 0; i < 3; i++) {
-    if(arr[bullets[i].x + bullets[i].dx] !== 1) {
+    if(arr[bullets[i].y][bullets[i].x + bullets[i].dx] !== 1) {
       bullets[i].x += bullets[i].dx;
       bullets[i].t++;
-      console.log("bullets[" + i + "].x = " + bullets[i].x);
+      //console.log("bullets[" + i + "].x = " + bullets[i].x);
     }
     else {
-      alert("ELSE");
-      let val = (bullets[i].dx * bullets[i].t)
-      bullets[i].x -= val;
+      bullets[i].x -= (bullets[i].dx * bullets[i].t);
       bullets[i].t = 0;
-      console.log("bullets[" + i + "].t = " + bullets[i].t);
+    }
+  }
+}
+
+function HitDetection(player, bullets) {
+  for(let i = 0; i < 3; i++) {
+    if((player.x == bullets[i].x) && (player.y == bullets[i].y)) {
+      alert("HIT");
     }
   }
 }
@@ -110,6 +115,7 @@ let interval = 1;
 async function GameLoop() {
   DrawArray(array, player);
   MoveBullets(array, bullets);
+  HitDetection(player, bullets);
   document.addEventListener("keydown", 
     (event) => { 
       if(interval === 1){
