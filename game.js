@@ -1,4 +1,4 @@
-var player = {x: 1, y: 1, v: 1};
+var player = {x: 1, y: 7, v: 1};
 var bullets = [
 {x: 4, y: 3, dx: 1, t: 0},
 {x: 10, y: 7, dx: -1, t: 0},
@@ -13,14 +13,15 @@ let array = [
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,1,1,1,0,0,0,0,0,0,0,3,1,1,1],
+[1,1,1,1,1,0,0,0,0,0,3,1,1,1,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,1,1,1,2,0,0,0,0,0,1,1,1,1,1],
+[1,1,1,1,1,2,0,0,0,1,1,1,1,1,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+[1,1,1,1,1,1,0,0,0,1,1,1,1,1,1],
+[1,1,1,1,1,1,8,8,8,1,1,1,1,1,1]
 ];
 //1 = wall
 //2 = eastward turret
@@ -34,7 +35,7 @@ function sleep(ms) {
 
 async function DrawArray(arr, player) {
   document.body.innerHTML = "";
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 16; i++) {
     for (let j = 0; j < 15; j++) {
       if (arr[i][j] == 1) {
         document.write("<span style=\"font-family: Noto Mono;\">&#124;<\/span>");
@@ -50,7 +51,7 @@ async function DrawArray(arr, player) {
         document.write("<span style=\"font-family: Noto Mono;\">&#45;<\/span>");
         }
         else if ((i == player.x) && (j == player.y)) {
-        document.write("<span style=\"font-family: Noto Mono;\">&#42;<\/span>");
+        document.write("<span style=\"font-family: Noto Mono;\">&#68;<\/span>");
         }
         else {
         document.write("<span style=\"font-family: Noto Mono;\">&nbsp;<\/span>");
@@ -62,6 +63,9 @@ async function DrawArray(arr, player) {
       else if (arr[i][j] === 3) {
         document.write("<span style=\"font-family: Noto Mono;\">&#123;<\/span>");
       }
+      else if (arr[i][j] === 8) {
+        document.write("<span style=\"font-family: Noto Mono;\">&#45;<\/span>");
+      }
     }
     document.write("<br>");
   }
@@ -69,21 +73,30 @@ async function DrawArray(arr, player) {
 
 async function MoveStar(arr, player, key) {
   //w 
-  if((key == 'w') && (arr[player.x - player.v][player.y] == 0)) {
+  if ((key == 'w') 
+      && ((arr[player.x - player.v][player.y] < 1)
+      || (arr[player.x - player.v][player.y] > 7))) {
     player.x -= player.v;
   }
   //a
-  else if ((key == 'a') && (arr[player.x][player.y - player.v] == 0)) {
+  else if ((key == 'a') 
+           && ((arr[player.x][player.y - player.v] < 1)
+           || (arr[player.x][player.y - player.v] > 7))) {
     player.y -= player.v;
   }
   //s
-  else if ((key == 's') && (arr[player.x + player.v][player.y] == 0)) { 
+  else if ((key == 's') 
+           && ((arr[player.x + player.v][player.y] < 1) 
+           || (arr[player.x + player.v][player.y] > 7))) { 
     player.x += player.v;
   }
   //d
-  else if ((key == 'd') && (arr[player.x][player.y + player.v] == 0)) { 
+  else if ((key == 'd') 
+           && ((arr[player.x][player.y + player.v] < 1) 
+           || (arr[player.x][player.y + player.v] > 7))) { 
     player.y += player.v;
   }
+  
 }
 
 function MoveBullets(arr, bullets) {
@@ -102,9 +115,18 @@ function MoveBullets(arr, bullets) {
 
 function HitDetection(player, bullets) {
   for(let i = 0; i < 3; i++) {
-    if((player.x == bullets[i].x) && (player.y == bullets[i].y)) {
-      alert("HIT");
+    if((player.y == bullets[i].x) && (player.x == bullets[i].y)) {
+    player.x = 1;
+    player.y = 7;
     }
+  }
+}
+
+function WinCondition(arr, player) {
+  if(arr[player.x][player.y] == 8) {
+    alert("you wan");
+    player.x = 1;
+    player.y = 7;
   }
 }
 
@@ -112,10 +134,8 @@ function HitDetection(player, bullets) {
 
 let interval = 1;
 
-async function GameLoop() {
+async function GameLoop_1() {
   DrawArray(array, player);
-  MoveBullets(array, bullets);
-  HitDetection(player, bullets);
   document.addEventListener("keydown", 
     (event) => { 
       if(interval === 1){
@@ -124,8 +144,11 @@ async function GameLoop() {
       }
     });
   interval = 1;
+  HitDetection(player, bullets);
+  MoveBullets(array, bullets);
+  WinCondition(array, player);
   await sleep(100);
-  window.requestAnimationFrame(GameLoop);
+  window.requestAnimationFrame(GameLoop_1);
 }
 
-window.requestAnimationFrame(GameLoop);
+window.requestAnimationFrame(GameLoop_1);
