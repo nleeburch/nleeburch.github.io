@@ -1,3 +1,7 @@
+var draw = SVG("game").size(500, 500);
+var px = 20;
+////////////////////////////////////////////
+
 var player = { x: 1, y: 1, v: 1 };
 
 ////////////////////////////////////////////
@@ -10,8 +14,8 @@ class Level {
 
 var bulletsRoom1 = [
   { x: 4, y: 3, dx: 1, dy: 0, t: 0 },
-  { x: 10, y: 7, dx: -1, dy: 0, t: 0 },
-  { x: 5, y: 11, dx: 1, dy: 0, t: 0 },
+  { x: 9, y: 7, dx: -1, dy: 0, t: 0 },
+  { x: 6, y: 11, dx: 1, dy: 0, t: 0 },
 ];
 
 let arrayRoom1 = [
@@ -93,42 +97,61 @@ function sleep(ms) {
 }
 
 async function DrawArray(Level, player) {
-  document.body.innerHTML = "";
-  let arr = Level.room;
-  let bullets = Level.bullets;
-  loop1: for (let i = 0; i < arr.length; i++) {
-    loop2: for (let j = 0; j < arr[0].length; j++) {
-      if (arr[i][j] === 0) {
+  //document.body.innerHTML = "";
+  loop1: for (let i = 0; i < Level.room.length; i++) {
+    loop2: for (let j = 0; j < Level.room[0].length; j++) {
+      if (Level.room[i][j] === 0) {
         if (i == player.x && j == player.y) {
-          document.write('<span style="font-family: Noto Mono;">&#68;</span>');
+          draw
+            .rect(px / 2, px / 2)
+            .x(j * px + 3)
+            .y(i * px + 3);
         } else {
-          for (let k = 0; k < bullets.length; k++) {
-            if (j == bullets[k].x && i == bullets[k].y) {
-              printBullet(bullets[k]);
+          for (let k = 0; k < Level.bullets.length; k++) {
+            if (j == Level.bullets[k].x && i == Level.bullets[k].y) {
+              printBullet(Level.bullets[k], i, j);
               continue loop2;
-              //break out of the loop and perhaps else statement
-              //is there a way to iterate the j for-loop?
-              //maybe I need a separate function for building shots
-              //is there a precedence I am getting wrong?
             }
           }
-          document.write('<span style="font-family: Noto Mono;">&nbsp;</span>');
+          draw
+            .rect(px, px)
+            .fill("#ffffff")
+            .x(j * px)
+            .y(i * px);
         }
-      } else if (arr[i][j] == 1) {
-        document.write('<span style="font-family: Noto Mono;">&#124;</span>');
-      } else if (arr[i][j] === 2) {
-        document.write('<span style="font-family: Noto Mono;">&#125;</span>');
-      } else if (arr[i][j] === 3) {
-        document.write('<span style="font-family: Noto Mono;">&#123;</span>');
-      } else if (arr[i][j] === 4) {
-        document.write('<span style="font-family: Noto Mono;">&#86;</span>');
-      } else if (arr[i][j] === 5) {
-        document.write('<span style="font-family: Noto Mono;">&#94;</span>');
-      } else if (arr[i][j] === 8) {
-        document.write('<span style="font-family: Noto Mono;">&#45;</span>');
+      } else if (Level.room[i][j] == 1) {
+        draw
+          .rect(px, px)
+          .fill("#000000")
+          .x(j * px)
+          .y(i * px);
+      } else if (Level.room[i][j] === 2) {
+        draw
+          .polygon("0,0 0,20 10,10")
+          .x(j * px)
+          .y(i * px);
+      } else if (Level.room[i][j] === 3) {
+        draw
+          .polygon("20,0 20,20 10,10")
+          .x(j * px + 10)
+          .y(i * px);
+      } else if (Level.room[i][j] === 4) {
+        draw
+          .polygon("0,0 20,0 10,20")
+          .x(j * px)
+          .y(i * px);
+      } else if (Level.room[i][j] === 5) {
+        draw
+          .polygon("20,20 20,0 10,0")
+          .x(j * px)
+          .y(i * px);
+      } else if (Level.room[i][j] === 8) {
+        draw
+          .rect(16, 5)
+          .x(j * px + 2)
+          .y(i * px);
       }
     }
-    document.write("<br>");
   }
 }
 
@@ -180,15 +203,27 @@ function MoveBullets(Level) {
   }
 }
 
-function printBullet(bullet) {
+function printBullet(bullet, i, j) {
   if (bullet.dx == 0 && bullet.dy > 0) {
-    document.write('<span style="font-family: Noto Mono;">&#39;</span>');
+    draw
+      .rect(6, 16)
+      .x(j * px)
+      .y(i * px + 7);
   } else if (bullet.dx == 0 && bullet.dy < 0) {
-    document.write('<span style="font-family: Noto Mono;">&#46;</span>');
+    draw
+      .rect(6, 16)
+      .x(j * px)
+      .y(i * px + 7);
   } else if (Math.abs(bullet.dx) > Math.abs(bullet.dy)) {
-    document.write('<span style="font-family: Noto Mono;">&#45;</span>');
+    draw
+      .rect(16, 5)
+      .x(j * px + 2)
+      .y(i * px);
   } else if (Math.abs(bullet.dx) < Math.abs(bullet.dy)) {
-    document.write('<span style="font-family: Noto Mono;">&#44;</span>');
+    draw
+      .rect(16, 5)
+      .x(j * px + 2)
+      .y(i * px);
   }
 }
 
