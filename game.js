@@ -96,32 +96,10 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function DrawArray(Level, player) {
-  loop1: for (let i = 0; i < Level.room.length; i++) {
-    loop2: for (let j = 0; j < Level.room[0].length; j++) {
-      if (Level.room[i][j] === 0) {
-        if (i == player.x && j == player.y) {
-          draw
-            .rect(px / 2, px / 2)
-            .x(j * px + 3)
-            .y(i * px + 3);
-        } else {
-          for (let k = 0; k < Level.bullets.length; k++) {
-            if (
-              j == Math.floor(Level.bullets[k].x) &&
-              i == Math.floor(Level.bullets[k].y)
-            ) {
-              printBullet(Level.bullets[k], i, j);
-              continue loop2;
-            }
-          }
-          draw
-            .rect(px, px)
-            .fill("#ffffff")
-            .x(j * px)
-            .y(i * px);
-        }
-      } else if (Level.room[i][j] == 1) {
+async function DrawImmutables(Level) {
+  for (let i = 0; i < Level.room.length; i++) {
+    for (let j = 0; j < Level.room[0].length; j++) {
+      if (Level.room[i][j] == 1) {
         draw
           .rect(px, px)
           .fill("#000000")
@@ -152,6 +130,37 @@ async function DrawArray(Level, player) {
           .rect(16, 5)
           .x(j * px + 2)
           .y(i * px);
+      }
+    }
+  }
+  return true;
+}
+
+function DrawMutables(Level, player) {
+  loop1: for (let i = 0; i < Level.room.length; i++) {
+    loop2: for (let j = 0; j < Level.room[0].length; j++) {
+      if (Level.room[i][j] === 0) {
+        if (i == player.x && j == player.y) {
+          draw
+            .rect(px / 2, px / 2)
+            .x(j * px + 3)
+            .y(i * px + 3);
+        } else {
+          for (let k = 0; k < Level.bullets.length; k++) {
+            if (
+              j == Math.floor(Level.bullets[k].x) &&
+              i == Math.floor(Level.bullets[k].y)
+            ) {
+              printBullet(Level.bullets[k], i, j);
+              continue loop2;
+            }
+          }
+          draw
+            .rect(px, px)
+            .fill("#ffffff")
+            .x(j * px)
+            .y(i * px);
+        }
       }
     }
   }
@@ -253,9 +262,12 @@ function WinCondition(Level, player) {
 
 let interval = 1;
 
-async function GameLoop(levelIndex) {
+async function GameLoop(levelIndex, bool) {
   let Level = allLevels[levelIndex];
-  DrawArray(Level, player);
+  if (bool == false) {
+    let roomFlag = DrawImmutables(Level);
+  }
+  DrawMutables(Level, player);
   document.addEventListener("keydown", (event) => {
     if (interval === 1) {
       MoveStar(Level, player, event.key);
@@ -268,9 +280,10 @@ async function GameLoop(levelIndex) {
   let moveToNextLevel = WinCondition(Level, player);
   if (moveToNextLevel) {
     levelIndex++;
+    roomFlag = false;
   }
   await sleep(50);
-  window.requestAnimationFrame(() => GameLoop(levelIndex));
+  window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(0));
+window.requestAnimationFrame(() => GameLoop(0, false));
