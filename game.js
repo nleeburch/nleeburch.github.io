@@ -13,9 +13,9 @@ class Level {
 }
 
 var bulletsRoom1 = [
-  { x: 4, y: 3, dx: 1, dy: 0, t: 0 },
-  { x: 9, y: 7, dx: -1, dy: 0, t: 0 },
-  { x: 6, y: 11, dx: 1, dy: 0, t: 0 },
+  { x: 4, y: 3, dx: 0.5, dy: 0, t: 0 },
+  { x: 9, y: 7, dx: -0.5, dy: 0, t: 0 },
+  { x: 6, y: 11, dx: 0.5, dy: 0, t: 0 },
 ];
 
 let arrayRoom1 = [
@@ -97,7 +97,6 @@ function sleep(ms) {
 }
 
 async function DrawArray(Level, player) {
-  //document.body.innerHTML = "";
   loop1: for (let i = 0; i < Level.room.length; i++) {
     loop2: for (let j = 0; j < Level.room[0].length; j++) {
       if (Level.room[i][j] === 0) {
@@ -108,7 +107,10 @@ async function DrawArray(Level, player) {
             .y(i * px + 3);
         } else {
           for (let k = 0; k < Level.bullets.length; k++) {
-            if (j == Level.bullets[k].x && i == Level.bullets[k].y) {
+            if (
+              j == Math.floor(Level.bullets[k].x) &&
+              i == Math.floor(Level.bullets[k].y)
+            ) {
               printBullet(Level.bullets[k], i, j);
               continue loop2;
             }
@@ -267,7 +269,7 @@ async function GameLoop(levelIndex) {
   if (moveToNextLevel) {
     levelIndex++;
   }
-  await sleep(100);
+  await sleep(50);
   window.requestAnimationFrame(() => GameLoop(levelIndex));
 }
 
