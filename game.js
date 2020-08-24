@@ -208,24 +208,24 @@ function MoveBullets(Level) {
 function printBullet(bullet, i, j) {
   if (bullet.dx == 0 && bullet.dy > 0) {
     draw
-      .rect(6, 16)
+      .rect(6, 18)
       .x(j * px)
       .y(i * px + 7);
   } else if (bullet.dx == 0 && bullet.dy < 0) {
     draw
-      .rect(6, 16)
+      .rect(6, 18)
       .x(j * px)
       .y(i * px + 7);
-  } else if (Math.abs(bullet.dx) > Math.abs(bullet.dy)) {
+  } else if (bullet.dx > bullet.dy) {
     draw
-      .rect(16, 5)
-      .x(j * px + 2)
-      .y(i * px);
-  } else if (Math.abs(bullet.dx) < Math.abs(bullet.dy)) {
+      .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
+      .x(bullet.x * px)
+      .y(i * px + 7);
+  } else if (bullet.dx < bullet.dy) {
     draw
-      .rect(16, 5)
-      .x(j * px + 2)
-      .y(i * px);
+      .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
+      .x(bullet.x * px)
+      .y(i * px + 7);
   }
 }
 
