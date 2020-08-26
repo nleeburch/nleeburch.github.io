@@ -44,16 +44,16 @@ let arrayRoom1 = [
 
 //10 bullets
 var bulletsRoom2 = [
-  { x: 2, y: 3, dx: 1, dy: 0, t: 0 }, //0
-  { x: 2, y: 8, dx: 1, dy: 0, t: 0 }, //1
-  { x: 2, y: 12, dx: 1, dy: 0, t: 0 }, //2
-  { x: 17, y: 5, dx: -1, dy: 0, t: 0 }, //3
-  { x: 17, y: 10, dx: -1, dy: 0, t: 0 }, //4
-  { x: 17, y: 14, dx: -1, dy: 0, t: 0 }, //5
-  { x: 8, y: 2, dx: 0, dy: 1, t: 0 }, //6
-  { x: 15, y: 2, dx: 0, dy: 1, t: 0 }, //7
-  { x: 4, y: 17, dx: 0, dy: -1, t: 0 }, //8
-  { x: 11, y: 17, dx: 0, dy: -1, t: 0 }, //9
+  { x: 2, y: 3, dx: 0.5, dy: 0, t: 0 }, //0
+  { x: 2, y: 8, dx: 0.5, dy: 0, t: 0 }, //1
+  { x: 2, y: 12, dx: 0.5, dy: 0, t: 0 }, //2
+  { x: 17, y: 5, dx: -0.5, dy: 0, t: 0 }, //3
+  { x: 17, y: 10, dx: -0.5, dy: 0, t: 0 }, //4
+  { x: 17, y: 14, dx: -0.5, dy: 0, t: 0 }, //5
+  { x: 8, y: 2, dx: 0, dy: 0.5, t: 0 }, //6
+  { x: 15, y: 2, dx: 0, dy: 0.5, t: 0 }, //7
+  { x: 4, y: 17, dx: 0, dy: -0.5, t: 0 }, //8
+  { x: 11, y: 17, dx: 0, dy: -0.5, t: 0 }, //9
 ];
 
 //20 x 20
@@ -99,7 +99,13 @@ function sleep(ms) {
 async function DrawImmutables(Level) {
   for (let i = 0; i < Level.room.length; i++) {
     for (let j = 0; j < Level.room[0].length; j++) {
-      if (Level.room[i][j] == 1) {
+      if (Level.room[i][j] == 0) {
+        draw
+          .rect(px, px)
+          .fill("#ffffff")
+          .x(j * px)
+          .y(i * px);
+      } else if (Level.room[i][j] == 1) {
         draw
           .rect(px, px)
           .fill("#000000")
@@ -136,25 +142,51 @@ async function DrawImmutables(Level) {
   return true;
 }
 
-function DrawMutables(Level, player) {
-  loop1: for (let i = 0; i < Level.room.length; i++) {
+function printBullet(bullet) {
+  if (bullet.dx == 0 && bullet.dy > 0) {
+    draw
+      .rect(6, 18)
+      .x(bullet.x * px)
+      .y(bullet.y * px + 7);
+  } else if (bullet.dx == 0 && bullet.dy < 0) {
+    draw
+      .rect(6, 18)
+      .x(bullet.x * px)
+      .y(bullet.y * px + 7);
+  } else if (bullet.dx > 0) {
+    draw
+      .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
+      .x(bullet.x * px)
+      .y(bullet.y * px + 7);
+  } else if (bullet.dx < 0) {
+    draw
+      .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
+      .x(bullet.x * px)
+      .y(bullet.y * px + 7);
+  }
+}
+
+async function DrawMutables(Level, player) {
+  for (let i = 0; i < Level.room.length; i++) {
     loop2: for (let j = 0; j < Level.room[0].length; j++) {
       if (Level.room[i][j] === 0) {
+        for (let k = 0; k < Level.bullets.length; k++) {
+          if (Level.bullets[k].x == j && Level.bullets[k].y == i) {
+            printBullet(Level.bullets[k]);
+            continue loop2;
+          }
+        }
         if (i == player.x && j == player.y) {
           draw
             .rect(px / 2, px / 2)
             .x(j * px + 3)
             .y(i * px + 3);
         } else {
-          for (let k = 0; k < Level.bullets.length; k++) {
-            if (
-              j == Math.floor(Level.bullets[k].x) &&
-              i == Math.floor(Level.bullets[k].y)
-            ) {
-              printBullet(Level.bullets[k], i, j);
-              continue loop2;
-            }
-          }
+          //I think I want this to succeed the bullet being drawn
+          //that's only based on position
+          //why am I even scanning the array to find the bullet
+          //why don't I just directly manipulate the data
+          //two functions draw player and draw bullets
           draw
             .rect(px, px)
             .fill("#ffffff")
@@ -214,30 +246,6 @@ function MoveBullets(Level) {
   }
 }
 
-function printBullet(bullet, i, j) {
-  if (bullet.dx == 0 && bullet.dy > 0) {
-    draw
-      .rect(6, 18)
-      .x(j * px)
-      .y(i * px + 7);
-  } else if (bullet.dx == 0 && bullet.dy < 0) {
-    draw
-      .rect(6, 18)
-      .x(j * px)
-      .y(i * px + 7);
-  } else if (bullet.dx > bullet.dy) {
-    draw
-      .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-      .x(bullet.x * px)
-      .y(i * px + 7);
-  } else if (bullet.dx < bullet.dy) {
-    draw
-      .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
-      .x(bullet.x * px)
-      .y(i * px + 7);
-  }
-}
-
 function HitDetection(Level, player) {
   for (let i = 0; i < Level.bullets.length; i++) {
     if (player.y == Level.bullets[i].x && player.x == Level.bullets[i].y) {
@@ -261,11 +269,12 @@ function WinCondition(Level, player) {
 //////////////////////////////////////////////////////////
 
 let interval = 1;
+let roomFlag = false;
 
-async function GameLoop(levelIndex, bool) {
+async function GameLoop(levelIndex, roomFlag) {
   let Level = allLevels[levelIndex];
-  if (bool == false) {
-    let roomFlag = DrawImmutables(Level);
+  if (roomFlag == false) {
+    roomFlag = DrawImmutables(Level);
   }
   DrawMutables(Level, player);
   document.addEventListener("keydown", (event) => {
@@ -282,8 +291,8 @@ async function GameLoop(levelIndex, bool) {
     levelIndex++;
     roomFlag = false;
   }
-  await sleep(50);
+  await sleep(33);
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(0, false));
+window.requestAnimationFrame(() => GameLoop(0, roomFlag));
