@@ -156,12 +156,12 @@ function printBullet(bullet) {
   } else if (bullet.dx > 0) {
     draw
       .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-      .x(bullet.x * px)
+      .x(bullet.x * px - 13)
       .y(bullet.y * px + 7);
   } else if (bullet.dx < 0) {
     draw
       .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
-      .x(bullet.x * px)
+      .x(bullet.x * px + 14)
       .y(bullet.y * px + 7);
   }
 }
@@ -185,7 +185,6 @@ async function DrawMutables(Level, player) {
           //I think I want this to succeed the bullet being drawn
           //that's only based on position
           //why am I even scanning the array to find the bullet
-          //why don't I just directly manipulate the data
           //two functions draw player and draw bullets
           draw
             .rect(px, px)
@@ -198,7 +197,7 @@ async function DrawMutables(Level, player) {
   }
 }
 
-async function MoveStar(Level, player, key) {
+async function MovePlayer(Level, player, key) {
   //w
   if (
     key == "w" &&
@@ -279,7 +278,7 @@ async function GameLoop(levelIndex, roomFlag) {
   DrawMutables(Level, player);
   document.addEventListener("keydown", (event) => {
     if (interval === 1) {
-      MoveStar(Level, player, event.key);
+      MovePlayer(Level, player, event.key);
       interval = 0;
     }
   });
