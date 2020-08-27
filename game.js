@@ -127,11 +127,6 @@ async function BuildArray(Level) {
   for (let i = 0; i < Level.room.length; i++) {
     for (let j = 0; j < Level.room[0].length; j++) {
       if (Level.room[i][j] == 0) {
-        draw
-          .rect(px, px)
-          .fill("#ffffff")
-          .x(j * px)
-          .y(i * px);
       } else if (Level.room[i][j] == 1) {
         draw
           .rect(px, px)
@@ -146,9 +141,10 @@ async function BuildArray(Level) {
         Level.bullets.push(
           draw
             .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-            .x(j * px - 13)
+            .x(j * px)
             .y(i * px + 7)
-          );
+            .attr({ dx: 1, dy: 0, t: 0 })
+        );
       } else if (Level.room[i][j] === 3) {
         draw
           .polygon("20,0 20,20 10,10")
@@ -157,31 +153,34 @@ async function BuildArray(Level) {
         Level.bullets.push(
           draw
             .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
-            .x(j * px + 14)
+            .x(j * px)
             .y(i * px + 7)
-          );
+            .attr({ dx: -1, dy: 0, t: 0 })
+        );
       } else if (Level.room[i][j] === 4) {
         draw
           .polygon("0,0 20,0 10,20")
           .x(j * px)
           .y(i * px);
-          Level.bullets.push(
-            draw
-              .rect(6, 18)
-              .x(j * px)
-              .y(i * px + 7)
-              );
+        Level.bullets.push(
+          draw
+            .rect(6, 18)
+            .x(j * px)
+            .y(i * px + 7)
+            .attr({ dx: 0, dy: 1, t: 0 })
+        );
       } else if (Level.room[i][j] === 5) {
         draw
           .polygon("20,20 20,0 10,0")
           .x(j * px)
           .y(i * px);
-          Level.bullets.push(
-            draw
-              .rect(6, 18)
-              .x(j * px)
-              .y(i * px + 7)
-              );
+        Level.bullets.push(
+          draw
+            .rect(6, 18)
+            .x(j * px)
+            .y(i * px + 7)
+            .attr({ dx: 0, dy: -1, t: 0 })
+        );
       } else if (Level.room[i][j] === 8) {
         draw
           .rect(16, 5)
@@ -197,14 +196,12 @@ async function MoveMutables(Level, player) {
   for (let i = 0; i < Level.room.length; i++) {
     loop2: for (let j = 0; j < Level.room[0].length; j++) {
       if (Level.room[i][j] === 0) {
-        }
-        if (i == player.x && j == player.y) {
-          draw
-            .rect(px / 2, px / 2)
-            .x(j * px + 3)
-            .y(i * px + 3);
-        }
-        }
+      }
+      if (i == player.x && j == player.y) {
+        draw
+          .rect(px / 2, px / 2)
+          .x(j * px + 3)
+          .y(i * px + 3);
       }
     }
   }
@@ -245,19 +242,21 @@ async function MovePlayer(Level, player, key) {
   }
 }
 
+//this needs a complete overhaul
+//the question is now how will I give each bullet its own velocity?
+//this is no longer directly accessible in a predeclared array
+//It is only an object so maybe I can give this object an attribute with simple a key-value declaration
+//then, I need more information when I create a bullet, not just its creation
+//I think I can delete this function
 function MoveBullets(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
-    Level.bullets[i].x += Level.bullets[i].dx;
-    Level.bullets[i].y += Level.bullets[i].dy;
-    Level.bullets[i].t++;
-    if (Level.room[Level.bullets[i].y][Level.bullets[i].x] == 1) {
-      Level.bullets[i].x -= Level.bullets[i].dx * Level.bullets[i].t;
-      Level.bullets[i].y -= Level.bullets[i].dy * Level.bullets[i].t;
-      Level.bullets[i].t = 0;
-    }
+    Level.bullets[i]
+      .dx(Level.bullets[i].attr("dx") * px)
+      .dy(Level.bullets[i].attr("dy") * px);
   }
 }
 
+/*
 function HitDetection(Level, player) {
   for (let i = 0; i < Level.bullets.length; i++) {
     if (player.y == Level.bullets[i].x && player.x == Level.bullets[i].y) {
@@ -267,6 +266,7 @@ function HitDetection(Level, player) {
     }
   }
 }
+*/
 
 function WinCondition(Level, player) {
   if (Level.room[player.x][player.y] == 8) {
@@ -277,7 +277,6 @@ function WinCondition(Level, player) {
   }
   return false;
 }
-
 //////////////////////////////////////////////////////////
 
 let interval = 1;
@@ -288,7 +287,7 @@ async function GameLoop(levelIndex, roomFlag) {
   if (roomFlag == false) {
     roomFlag = BuildArray(Level);
   }
-  DrawMutables(Level, player);
+  MoveMutables(Level, player);
   document.addEventListener("keydown", (event) => {
     if (interval === 1) {
       MovePlayer(Level, player, event.key);
@@ -296,7 +295,7 @@ async function GameLoop(levelIndex, roomFlag) {
     }
   });
   interval = 1;
-  HitDetection(Level, player);
+  //HitDetection(Level, player);
   MoveBullets(Level);
   let moveToNextLevel = WinCondition(Level, player);
   if (moveToNextLevel) {
