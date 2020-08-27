@@ -12,11 +12,38 @@ class Level {
   }
 }
 
-var bulletsRoom1 = [
-  { x: 4, y: 3, dx: 0.5, dy: 0, t: 0 },
-  { x: 9, y: 7, dx: -0.5, dy: 0, t: 0 },
-  { x: 6, y: 11, dx: 0.5, dy: 0, t: 0 },
-];
+//thing is, these already are objects
+//but I don't think they are the one's that I need in order to manipulate how I like
+//maybe add an existence variable to set to one or zero
+//but I think I need to make them 'elements', global variables
+//not anonymously drawn variables
+//issue is, this is going to be dependent on x,y,z conditions and not directly stated like how it is in this pong
+//at least this is what I posit
+//can I not access it specificaly as bulletsRoom1[0]
+//is that not its name?
+//if I already have an object with attributes, declared, how can i associate it with a draw.rect...?
+//is this just data? do i have to create another variable to which I associate this data
+//these aren't dom elements
+/*
+var rect   = draw.rect(20, 30)
+var circle = draw.circle(50)
+
+draw.get(0) //-> returns rect
+draw.get(1) //-> returns circle
+VERY INTERESTING
+
+can you just create a global variable in the middle of a program, yes
+can you do it without directly naming it? no
+bulletsRoom1[0].draw.rect... I want to do this
+perhaps when I initialize a bullet object, in its constructor it will perform the draw
+yes that sounds very smart
+start with the bullet array empty, as you draw the array, 
+initialize a bullet based on the turret specifics
+store each new object as an element in the bulletArray and accessible as such
+bulletsRoom1.push(draw.rect...);
+I don't think that should mess things up
+*/
+var bulletsRoom1 = [];
 
 let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -96,7 +123,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function DrawImmutables(Level) {
+async function BuildArray(Level) {
   for (let i = 0; i < Level.room.length; i++) {
     for (let j = 0; j < Level.room[0].length; j++) {
       if (Level.room[i][j] == 0) {
@@ -116,21 +143,45 @@ async function DrawImmutables(Level) {
           .polygon("0,0 0,20 10,10")
           .x(j * px)
           .y(i * px);
+        Level.bullets.push(
+          draw
+            .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
+            .x(j * px - 13)
+            .y(i * px + 7)
+          );
       } else if (Level.room[i][j] === 3) {
         draw
           .polygon("20,0 20,20 10,10")
           .x(j * px + 10)
           .y(i * px);
+        Level.bullets.push(
+          draw
+            .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
+            .x(j * px + 14)
+            .y(i * px + 7)
+          );
       } else if (Level.room[i][j] === 4) {
         draw
           .polygon("0,0 20,0 10,20")
           .x(j * px)
           .y(i * px);
+          Level.bullets.push(
+            draw
+              .rect(6, 18)
+              .x(j * px)
+              .y(i * px + 7)
+              );
       } else if (Level.room[i][j] === 5) {
         draw
           .polygon("20,20 20,0 10,0")
           .x(j * px)
           .y(i * px);
+          Level.bullets.push(
+            draw
+              .rect(6, 18)
+              .x(j * px)
+              .y(i * px + 7)
+              );
       } else if (Level.room[i][j] === 8) {
         draw
           .rect(16, 5)
@@ -142,55 +193,17 @@ async function DrawImmutables(Level) {
   return true;
 }
 
-function printBullet(bullet) {
-  if (bullet.dx == 0 && bullet.dy > 0) {
-    draw
-      .rect(6, 18)
-      .x(bullet.x * px)
-      .y(bullet.y * px + 7);
-  } else if (bullet.dx == 0 && bullet.dy < 0) {
-    draw
-      .rect(6, 18)
-      .x(bullet.x * px)
-      .y(bullet.y * px + 7);
-  } else if (bullet.dx > 0) {
-    draw
-      .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-      .x(bullet.x * px - 13)
-      .y(bullet.y * px + 7);
-  } else if (bullet.dx < 0) {
-    draw
-      .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
-      .x(bullet.x * px + 14)
-      .y(bullet.y * px + 7);
-  }
-}
-
-async function DrawMutables(Level, player) {
+async function MoveMutables(Level, player) {
   for (let i = 0; i < Level.room.length; i++) {
     loop2: for (let j = 0; j < Level.room[0].length; j++) {
       if (Level.room[i][j] === 0) {
-        for (let k = 0; k < Level.bullets.length; k++) {
-          if (Level.bullets[k].x == j && Level.bullets[k].y == i) {
-            printBullet(Level.bullets[k]);
-            continue loop2;
-          }
         }
         if (i == player.x && j == player.y) {
           draw
             .rect(px / 2, px / 2)
             .x(j * px + 3)
             .y(i * px + 3);
-        } else {
-          //I think I want this to succeed the bullet being drawn
-          //that's only based on position
-          //why am I even scanning the array to find the bullet
-          //two functions draw player and draw bullets
-          draw
-            .rect(px, px)
-            .fill("#ffffff")
-            .x(j * px)
-            .y(i * px);
+        }
         }
       }
     }
@@ -273,7 +286,7 @@ let roomFlag = false;
 async function GameLoop(levelIndex, roomFlag) {
   let Level = allLevels[levelIndex];
   if (roomFlag == false) {
-    roomFlag = DrawImmutables(Level);
+    roomFlag = BuildArray(Level);
   }
   DrawMutables(Level, player);
   document.addEventListener("keydown", (event) => {
@@ -290,7 +303,7 @@ async function GameLoop(levelIndex, roomFlag) {
     levelIndex++;
     roomFlag = false;
   }
-  await sleep(33);
+  await sleep(300);
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
