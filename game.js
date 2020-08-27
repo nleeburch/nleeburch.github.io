@@ -2,13 +2,12 @@ var draw = SVG("game").size(500, 500);
 var px = 20;
 ////////////////////////////////////////////
 
-var player = { x: 1, y: 1, v: 1 };
-
 ////////////////////////////////////////////
 class Level {
   constructor(room, bullets) {
     this.room = room;
     this.bullets = bullets;
+    this.player = [];
   }
 }
 
@@ -43,11 +42,10 @@ store each new object as an element in the bulletArray and accessible as such
 bulletsRoom1.push(draw.rect...);
 I don't think that should mess things up
 */
-var bulletsRoom1 = [];
-
+let bulletsRoom1 = [];
 let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -126,7 +124,12 @@ function sleep(ms) {
 async function BuildArray(Level) {
   for (let i = 0; i < Level.room.length; i++) {
     for (let j = 0; j < Level.room[0].length; j++) {
-      if (Level.room[i][j] == 0) {
+      if (Level.room[i][j] == "p") {
+        Level.player = draw
+          .rect(px / 2, px / 2)
+          .x(j * px + 3)
+          .y(i * px + 3)
+          .attr({ dx: 1, dy: 1 });
       } else if (Level.room[i][j] == 1) {
         draw
           .rect(px, px)
@@ -143,7 +146,7 @@ async function BuildArray(Level) {
             .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
             .x(j * px)
             .y(i * px + 7)
-            .attr({ dx: 0.4, dy: 0, t: 0 })
+            .attr({ t: 0, dx: 0.4, dy: 0 })
         );
       } else if (Level.room[i][j] === 3) {
         draw
@@ -155,7 +158,7 @@ async function BuildArray(Level) {
             .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
             .x(j * px)
             .y(i * px + 7)
-            .attr({ dx: -0.6, dy: 0, t: 0 })
+            .attr({ t: 0, dx: -0.6, dy: 0 })
         );
       } else if (Level.room[i][j] === 4) {
         draw
@@ -167,7 +170,7 @@ async function BuildArray(Level) {
             .rect(6, 18)
             .x(j * px)
             .y(i * px + 7)
-            .attr({ dx: 0, dy: 1, t: 0 })
+            .attr({ t: 0, dx: 0, dy: 1 })
         );
       } else if (Level.room[i][j] === 5) {
         draw
@@ -179,7 +182,7 @@ async function BuildArray(Level) {
             .rect(6, 18)
             .x(j * px)
             .y(i * px + 7)
-            .attr({ dx: 0, dy: -1, t: 0 })
+            .attr({ t: 0, dx: 0, dy: -1 })
         );
       } else if (Level.room[i][j] === 8) {
         draw
@@ -192,53 +195,32 @@ async function BuildArray(Level) {
   return true;
 }
 
-async function MoveMutables(Level, player) {
-  for (let i = 0; i < Level.room.length; i++) {
-    loop2: for (let j = 0; j < Level.room[0].length; j++) {
-      if (Level.room[i][j] === 0) {
-      }
-      if (i == player.x && j == player.y) {
-        draw
-          .rect(px / 2, px / 2)
-          .x(j * px + 3)
-          .y(i * px + 3);
-      }
-    }
-  }
-}
-
-async function MovePlayer(Level, player, key) {
+async function MovePlayer(Level, key) {
   //w
-  if (
-    key == "w" &&
-    (Level.room[player.x - player.v][player.y] < 1 ||
-      Level.room[player.x - player.v][player.y] > 7)
-  ) {
-    player.x -= player.v;
+  if (key == "w") {
+    Level.player.attr({ dx: 0, dy: -1 });
   }
   //a
-  else if (
-    key == "a" &&
-    (Level.room[player.x][player.y - player.v] < 1 ||
-      Level.room[player.x][player.y - player.v] > 7)
-  ) {
-    player.y -= player.v;
+  else if (key == "a") {
+    Level.player.attr({ dx: -1, dx: 0 });
   }
   //s
-  else if (
-    key == "s" &&
-    (Level.room[player.x + player.v][player.y] < 1 ||
-      Level.room[player.x + player.v][player.y] > 7)
-  ) {
-    player.x += player.v;
+  else if (key == "s") {
+    Level.player.attr({ dx: 0, dx: 1 });
   }
   //d
-  else if (
-    key == "d" &&
-    (Level.room[player.x][player.y + player.v] < 1 ||
-      Level.room[player.x][player.y + player.v] > 7)
+  else if (key == "d") {
+    Level.player.attr({ dx: 1, dx: 0 });
+  }
+  if (
+    Level.room[Math.floor((Level.player.x() + Level.player.attr("dx")) / px)][
+      Math.floor((Level.player.y() + Level.player.attr("dy")) / px)
+    ] < 1 ||
+    Level.room[Math.floor((Level.player.x() + Level.player.attr("dx")) / px)][
+      Math.floor((Level.player.y() + Level.player.attr("dy")) / px)
+    ] > 7
   ) {
-    player.y += player.v;
+    Level.player.dx(Level.player.attr("dx")).dy(Level.player.attr("dy"));
   }
 }
 
@@ -267,24 +249,29 @@ function MoveBullets(Level) {
   }
 }
 
-function HitDetection(Level, player) {
+function HitDetection(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
-    if (player.y == Level.bullets[i].x() && player.x == Level.bullets[i].y()) {
+    if (
+      Level.player.y() == Level.bullets[i].x() &&
+      Level.player.x() == Level.bullets[i].y()
+    ) {
       alert("hit");
-      player.x = 1;
-      player.y = 1;
+      Level.player.x(26);
+      Level.player.y(26);
     }
   }
 }
 
-function WinCondition(Level, player) {
-  if (Level.room[player.x][player.y] == 8) {
+function WinCondition(Level) {
+  /*
+  if (Level.room[Level.player.x()][Level.player.y()] == 8) {
     alert("you wan");
-    player.x = 1;
-    player.y = 1;
+    Level.player.x(26);
+    Level.player.y(26);
     return true;
   }
   return false;
+  */
 }
 //////////////////////////////////////////////////////////
 
@@ -296,17 +283,16 @@ async function GameLoop(levelIndex, roomFlag) {
   if (roomFlag == false) {
     roomFlag = BuildArray(Level);
   }
-  MoveMutables(Level, player);
   document.addEventListener("keydown", (event) => {
     if (interval === 1) {
-      MovePlayer(Level, player, event.key);
+      MovePlayer(Level, event.key);
       interval = 0;
     }
   });
   interval = 1;
-  HitDetection(Level, player);
+  HitDetection(Level);
   MoveBullets(Level);
-  let moveToNextLevel = WinCondition(Level, player);
+  let moveToNextLevel = WinCondition(Level);
   if (moveToNextLevel) {
     levelIndex++;
     roomFlag = false;
