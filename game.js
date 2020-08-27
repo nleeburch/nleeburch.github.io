@@ -143,7 +143,7 @@ async function BuildArray(Level) {
             .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
             .x(j * px)
             .y(i * px + 7)
-            .attr({ dx: 1, dy: 0, t: 0 })
+            .attr({ dx: 0.4, dy: 0, t: 0 })
         );
       } else if (Level.room[i][j] === 3) {
         draw
@@ -155,7 +155,7 @@ async function BuildArray(Level) {
             .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
             .x(j * px)
             .y(i * px + 7)
-            .attr({ dx: -1, dy: 0, t: 0 })
+            .attr({ dx: -0.6, dy: 0, t: 0 })
         );
       } else if (Level.room[i][j] === 4) {
         draw
@@ -252,21 +252,30 @@ function MoveBullets(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
     Level.bullets[i]
       .dx(Level.bullets[i].attr("dx") * px)
-      .dy(Level.bullets[i].attr("dy") * px);
+      .dy(Level.bullets[i].attr("dy") * px)
+      .attr("t", Level.bullets[i].attr("t") + 1);
+    if (
+      Level.room[Math.round(Level.bullets[i].y() / px)][
+        Math.round(Level.bullets[i].x() / px)
+      ] == 1
+    ) {
+      Level.bullets[i]
+        .dx(-(Level.bullets[i].attr("dx") * px) * Level.bullets[i].attr("t"))
+        .dy(-(Level.bullets[i].attr("dy") * px) * Level.bullets[i].attr("t"))
+        .attr("t", 0);
+    }
   }
 }
 
-/*
 function HitDetection(Level, player) {
   for (let i = 0; i < Level.bullets.length; i++) {
-    if (player.y == Level.bullets[i].x && player.x == Level.bullets[i].y) {
+    if (player.y == Level.bullets[i].x() && player.x == Level.bullets[i].y()) {
       alert("hit");
       player.x = 1;
       player.y = 1;
     }
   }
 }
-*/
 
 function WinCondition(Level, player) {
   if (Level.room[player.x][player.y] == 8) {
@@ -295,14 +304,14 @@ async function GameLoop(levelIndex, roomFlag) {
     }
   });
   interval = 1;
-  //HitDetection(Level, player);
+  HitDetection(Level, player);
   MoveBullets(Level);
   let moveToNextLevel = WinCondition(Level, player);
   if (moveToNextLevel) {
     levelIndex++;
     roomFlag = false;
   }
-  await sleep(300);
+  await sleep(33);
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
