@@ -198,29 +198,32 @@ async function BuildArray(Level) {
 async function MovePlayer(Level, key) {
   //w
   if (key == "w") {
-    Level.player.attr({ dx: 0, dy: -1 });
+    Level.player.attr({ dx: 0, dy: -0.5 });
   }
   //a
   else if (key == "a") {
-    Level.player.attr({ dx: -1, dx: 0 });
+    Level.player.attr({ dx: -0.5, dy: 0 });
   }
   //s
   else if (key == "s") {
-    Level.player.attr({ dx: 0, dx: 1 });
+    Level.player.attr({ dx: 0, dy: 0.5 });
   }
   //d
   else if (key == "d") {
-    Level.player.attr({ dx: 1, dx: 0 });
+    Level.player.attr({ dx: 0.5, dy: 0 });
   }
+
   if (
-    Level.room[Math.floor((Level.player.x() + Level.player.attr("dx")) / px)][
-      Math.floor((Level.player.y() + Level.player.attr("dy")) / px)
-    ] < 1 ||
-    Level.room[Math.floor((Level.player.x() + Level.player.attr("dx")) / px)][
-      Math.floor((Level.player.y() + Level.player.attr("dy")) / px)
-    ] > 7
+    Level.room[
+      Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
+    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] < 1 ||
+    Level.room[
+      Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
+    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] > 7
   ) {
-    Level.player.dx(Level.player.attr("dx")).dy(Level.player.attr("dy"));
+    Level.player
+      .dx(Level.player.attr("dx") * px)
+      .dy(Level.player.attr("dy") * px);
   }
 }
 
