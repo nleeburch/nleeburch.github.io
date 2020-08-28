@@ -121,19 +121,20 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function BuildArray(Level) {
+//need a way to erase box after level complete
+function BuildArray(Level) {
   for (let i = 0; i < Level.room.length; i++) {
     for (let j = 0; j < Level.room[0].length; j++) {
       if (Level.room[i][j] == "p") {
         Level.player = draw
           .rect(px / 2, px / 2)
+          .fill("#0a0aff")
           .x(j * px + 3)
           .y(i * px + 3)
           .attr({ dx: 1, dy: 1 });
       } else if (Level.room[i][j] == 1) {
         draw
           .rect(px, px)
-          .fill("#000000")
           .x(j * px)
           .y(i * px);
       } else if (Level.room[i][j] === 2) {
@@ -146,7 +147,7 @@ async function BuildArray(Level) {
             .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
             .x(j * px)
             .y(i * px + 7)
-            .attr({ t: 0, dx: 0.4, dy: 0 })
+            .attr({ t: 0, dx: 0.3, dy: 0 })
         );
       } else if (Level.room[i][j] === 3) {
         draw
@@ -158,7 +159,7 @@ async function BuildArray(Level) {
             .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
             .x(j * px)
             .y(i * px + 7)
-            .attr({ t: 0, dx: -0.6, dy: 0 })
+            .attr({ t: 0, dx: -0.2, dy: 0 })
         );
       } else if (Level.room[i][j] === 4) {
         draw
@@ -168,20 +169,20 @@ async function BuildArray(Level) {
         Level.bullets.push(
           draw
             .rect(6, 18)
-            .x(j * px)
-            .y(i * px + 7)
+            .x(j * px + 7)
+            .y(i * px)
             .attr({ t: 0, dx: 0, dy: 1 })
         );
       } else if (Level.room[i][j] === 5) {
         draw
-          .polygon("20,20 20,0 10,0")
+          .polygon("10,0 20,20 0,20")
           .x(j * px)
           .y(i * px);
         Level.bullets.push(
           draw
             .rect(6, 18)
-            .x(j * px)
-            .y(i * px + 7)
+            .x(j * px + 7)
+            .y(i * px)
             .attr({ t: 0, dx: 0, dy: -1 })
         );
       } else if (Level.room[i][j] === 8) {
@@ -227,12 +228,6 @@ async function MovePlayer(Level, key) {
   }
 }
 
-//this needs a complete overhaul
-//the question is now how will I give each bullet its own velocity?
-//this is no longer directly accessible in a predeclared array
-//It is only an object so maybe I can give this object an attribute with simple a key-value declaration
-//then, I need more information when I create a bullet, not just its creation
-//I think I can delete this function
 function MoveBullets(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
     Level.bullets[i]
@@ -252,11 +247,16 @@ function MoveBullets(Level) {
   }
 }
 
+//hit boxes work but are inaccurate
+//time to figure out hit boxes
+//how to create a hitbox?
+//maybe there is something in the lexicon i can use
 function HitDetection(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
     if (
-      Level.player.y() == Level.bullets[i].x() &&
-      Level.player.x() == Level.bullets[i].y()
+      Math.round(Level.player.x() / px) ==
+        Math.round(Level.bullets[i].x() / px) &&
+      Math.round(Level.player.y() / px) == Math.round(Level.bullets[i].y() / px)
     ) {
       alert("hit");
       Level.player.x(26);
@@ -266,15 +266,29 @@ function HitDetection(Level) {
 }
 
 function WinCondition(Level) {
-  /*
-  if (Level.room[Level.player.x()][Level.player.y()] == 8) {
+  if (
+    Level.room[
+      Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
+    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
+  ) {
     alert("you wan");
     Level.player.x(26);
     Level.player.y(26);
     return true;
   }
   return false;
-  */
+}
+
+function EraseArray(Level) {
+  for (let i = 0; i < Level.room.length; i++) {
+    for (let j = 0; j < Level.room[0].length; j++) {
+      draw
+        .rect(px, px)
+        .fill("#ffffff")
+        .x(j * px)
+        .y(i * px);
+    }
+  }
 }
 //////////////////////////////////////////////////////////
 
@@ -299,9 +313,10 @@ async function GameLoop(levelIndex, roomFlag) {
   if (moveToNextLevel) {
     levelIndex++;
     roomFlag = false;
+    EraseArray(Level);
   }
   await sleep(33);
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(0, roomFlag));
+window.requestAnimationFrame(() => GameLoop(1, roomFlag));
