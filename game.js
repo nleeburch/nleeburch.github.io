@@ -68,18 +68,7 @@ let arrayRoom1 = [
 /////////////////////////////////////////////
 
 //10 bullets
-var bulletsRoom2 = [
-  { x: 2, y: 3, dx: 0.5, dy: 0, t: 0 }, //0
-  { x: 2, y: 8, dx: 0.5, dy: 0, t: 0 }, //1
-  { x: 2, y: 12, dx: 0.5, dy: 0, t: 0 }, //2
-  { x: 17, y: 5, dx: -0.5, dy: 0, t: 0 }, //3
-  { x: 17, y: 10, dx: -0.5, dy: 0, t: 0 }, //4
-  { x: 17, y: 14, dx: -0.5, dy: 0, t: 0 }, //5
-  { x: 8, y: 2, dx: 0, dy: 0.5, t: 0 }, //6
-  { x: 15, y: 2, dx: 0, dy: 0.5, t: 0 }, //7
-  { x: 4, y: 17, dx: 0, dy: -0.5, t: 0 }, //8
-  { x: 11, y: 17, dx: 0, dy: -0.5, t: 0 }, //9
-];
+var bulletsRoom2 = [];
 
 //20 x 20
 let arrayRoom2 = [
@@ -171,7 +160,7 @@ function BuildArray(Level) {
             .rect(6, 18)
             .x(j * px + 7)
             .y(i * px)
-            .attr({ t: 0, dx: 0, dy: 1 })
+            .attr({ t: 0, dx: 0, dy: 0.5 })
         );
       } else if (Level.room[i][j] === 5) {
         draw
@@ -183,7 +172,7 @@ function BuildArray(Level) {
             .rect(6, 18)
             .x(j * px + 7)
             .y(i * px)
-            .attr({ t: 0, dx: 0, dy: -1 })
+            .attr({ t: 0, dx: 0, dy: -0.5 })
         );
       } else if (Level.room[i][j] === 8) {
         draw
