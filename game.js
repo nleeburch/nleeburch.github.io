@@ -67,10 +67,8 @@ let arrayRoom1 = [
 //9 = player
 /////////////////////////////////////////////
 
-//10 bullets
 var bulletsRoom2 = [];
 
-//20 x 20
 let arrayRoom2 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, "p", 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1],
@@ -110,7 +108,6 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-//need a way to erase box after level complete
 function BuildArray(Level) {
   for (let i = 0; i < Level.room.length; i++) {
     for (let j = 0; j < Level.room[0].length; j++) {
@@ -120,7 +117,8 @@ function BuildArray(Level) {
           .fill("#0a0aff")
           .x(j * px + 3)
           .y(i * px + 3)
-          .attr({ dx: 1, dy: 1 });
+          .attr({ dx: 0.5, dy: 0.5 });
+        Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
           .rect(px, px)
@@ -235,18 +233,26 @@ function MoveBullets(Level) {
   }
 }
 
-//hit boxes work but are inaccurate
-//time to figure out hit boxes
-//how to create a hitbox?
-//maybe there is something in the lexicon i can use
 function HitDetection(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
     if (
-      Math.round(Level.player.x() / px) ==
-        Math.round(Level.bullets[i].x() / px) &&
-      Math.round(Level.player.y() / px) == Math.round(Level.bullets[i].y() / px)
+      (Level.player.x() <= Level.bullets[i].x() &&
+        Level.player.x() + 9 >= Level.bullets[i].x() &&
+        Level.player.y() <= Level.bullets[i].y() &&
+        Level.player.y() + 9 >= Level.bullets[i].y()) ||
+      (Level.player.x() <= Level.bullets[i].x() + 17 &&
+        Level.player.x() + 9 >= Level.bullets[i].x() + 17 &&
+        Level.player.y() <= Level.bullets[i].y() &&
+        Level.player.y() + 9 >= Level.bullets[i].y()) ||
+      (Level.player.x() <= Level.bullets[i].x() &&
+        Level.player.x() + 9 >= Level.bullets[i].x() &&
+        Level.player.y() <= Level.bullets[i].y() + 5 &&
+        Level.player.y() + 9 >= Level.bullets[i].y() + 5) ||
+      (Level.player.x() <= Level.bullets[i].x() + 17 &&
+        Level.player.x() + 9 >= Level.bullets[i].x() + 17 &&
+        Level.player.y() <= Level.bullets[i].y() + 5 &&
+        Level.player.y() + 9 >= Level.bullets[i].y() + 5)
     ) {
-      alert("hit");
       Level.player.x(26);
       Level.player.y(26);
     }
@@ -256,8 +262,8 @@ function HitDetection(Level) {
 function WinCondition(Level) {
   if (
     Level.room[
-      Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
-    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
+      Math.floor((Level.player.y() + Level.player.attr("dy") * px) / px)
+    ][Math.floor((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
   ) {
     alert("you wan");
     Level.player.x(26);
@@ -307,4 +313,4 @@ async function GameLoop(levelIndex, roomFlag) {
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(1, roomFlag));
+window.requestAnimationFrame(() => GameLoop(0, roomFlag));
