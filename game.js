@@ -158,7 +158,7 @@ function BuildArray(Level) {
           .y(i * px);
         Level.bullets.push(
           draw
-            .rect(6, 18)
+            .polygon("0,0 3,3 6,0 6,17 3,20 0,17")
             .x(j * px + 7)
             .y(i * px)
             .attr({ t: 0, dx: 0, dy: v })
@@ -171,7 +171,7 @@ function BuildArray(Level) {
           .y(i * px);
         Level.bullets.push(
           draw
-            .rect(6, 18)
+            .polygon("3,0 6,3 6,20 3,17 0,20 0,3")
             .x(j * px + 7)
             .y(i * px)
             .attr({ t: 0, dx: 0, dy: -v })
@@ -318,4 +318,4 @@ async function GameLoop(levelIndex, roomFlag) {
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(0, roomFlag));
+window.requestAnimationFrame(() => GameLoop(1, roomFlag));
