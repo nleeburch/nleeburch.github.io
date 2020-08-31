@@ -4,11 +4,12 @@ var px = 20;
 
 ////////////////////////////////////////////
 class Level {
-  constructor(room, bullets) {
+  constructor(room, bullets, player) {
     this.room = room;
     this.bullets = bullets;
-    this.player = [];
+    this.player = {};
   }
+  //I think it has something to do with the constructor
 }
 
 //thing is, these already are objects
@@ -47,15 +48,15 @@ let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 2.33, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+  [1, 1, 1, 2.1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 3.4, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 3.1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 2.19, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 2.01, 0, 0, 0, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
@@ -68,13 +69,12 @@ let arrayRoom1 = [
 /////////////////////////////////////////////
 
 var bulletsRoom2 = [];
-
 let arrayRoom2 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, "p", 0, 0, 0, 4.35, 0, 0, 4.4, 0, 0, 0, 0, 0, 0, 4.3, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 4.35, 0, 0, 4.4, 0, 0, 0, 0, 0, 0, 4.3, 0, 0, 0, 1],
+  [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 2.22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.55, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -117,7 +117,7 @@ function BuildArray(Level) {
           .fill("#0a0aff")
           .x(j * px + 3)
           .y(i * px + 3)
-          .attr({ dx: 0.5, dy: 0.5 });
+          .attr({ dx: 0.5, dy: 0.5, id: i });
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -187,7 +187,7 @@ function BuildArray(Level) {
   return true;
 }
 
-async function MovePlayer(Level, key) {
+function MovePlayer(Level, key) {
   //w
   if (key == "w") {
     Level.player.attr({ dx: 0, dy: -0.5 });
@@ -212,9 +212,16 @@ async function MovePlayer(Level, key) {
       Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
     ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] > 7
   ) {
-    Level.player
-      .dx(Level.player.attr("dx") * px)
-      .dy(Level.player.attr("dy") * px);
+    //it is reaching here
+    //what's the fuckin problem
+    //the data is changing but the representation on screen is not for some stupid reason I dont know why
+    //for some stupid reason it is still manipulating the first Level's player
+    //why would that ever happen
+    //alert(Level.player.attr("id"));
+    Level.player.dmove(
+      Level.player.attr("dx") * px,
+      Level.player.attr("dy") * px
+    );
   }
 }
 
@@ -270,8 +277,7 @@ function WinCondition(Level) {
     ][Math.floor((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
   ) {
     alert("you wan");
-    Level.player.x(26);
-    Level.player.y(26);
+    Level.player = {};
     return true;
   }
   return false;
@@ -289,33 +295,34 @@ function EraseArray(Level) {
   }
 }
 
-//////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 
 let interval = 1;
 let roomFlag = false;
 
 async function GameLoop(levelIndex, roomFlag) {
   let Level = allLevels[levelIndex];
+  let moveToNextLevel = false;
   if (roomFlag == false) {
     roomFlag = BuildArray(Level);
   }
-  interval = 1;
-  document.addEventListener("keydown", (event) => {
+  window.document.addEventListener("keydown", (event) => {
     if (interval === 1) {
       MovePlayer(Level, event.key);
+      interval = 0;
     }
-    interval = 0;
   });
+  interval = 1;
   HitDetection(Level);
   MoveBullets(Level);
-  let moveToNextLevel = WinCondition(Level);
+  moveToNextLevel = WinCondition(Level);
   if (moveToNextLevel) {
-    levelIndex++;
     roomFlag = false;
     EraseArray(Level);
+    levelIndex++;
   }
   await sleep(33);
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(1, roomFlag));
+window.requestAnimationFrame(() => GameLoop(0, roomFlag));
