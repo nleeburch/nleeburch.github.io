@@ -9,40 +9,7 @@ class Level {
     this.bullets = bullets;
     this.player = {};
   }
-  //I think it has something to do with the constructor
 }
-
-//thing is, these already are objects
-//but I don't think they are the one's that I need in order to manipulate how I like
-//maybe add an existence variable to set to one or zero
-//but I think I need to make them 'elements', global variables
-//not anonymously drawn variables
-//issue is, this is going to be dependent on x,y,z conditions and not directly stated like how it is in this pong
-//at least this is what I posit
-//can I not access it specificaly as bulletsRoom1[0]
-//is that not its name?
-//if I already have an object with attributes, declared, how can i associate it with a draw.rect...?
-//is this just data? do i have to create another variable to which I associate this data
-//these aren't dom elements
-/*
-var rect   = draw.rect(20, 30)
-var circle = draw.circle(50)
-
-draw.get(0) //-> returns rect
-draw.get(1) //-> returns circle
-VERY INTERESTING
-
-can you just create a global variable in the middle of a program, yes
-can you do it without directly naming it? no
-bulletsRoom1[0].draw.rect... I want to do this
-perhaps when I initialize a bullet object, in its constructor it will perform the draw
-yes that sounds very smart
-start with the bullet array empty, as you draw the array, 
-initialize a bullet based on the turret specifics
-store each new object as an element in the bulletArray and accessible as such
-bulletsRoom1.push(draw.rect...);
-I don't think that should mess things up
-*/
 let bulletsRoom1 = [];
 let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -117,7 +84,7 @@ function BuildArray(Level) {
           .fill("#0a0aff")
           .x(j * px + 3)
           .y(i * px + 3)
-          .attr({ dx: 0.5, dy: 0.5, id: i });
+          .attr({ dx: 0.5, dy: 0.5 });
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -212,12 +179,6 @@ function MovePlayer(Level, key) {
       Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
     ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] > 7
   ) {
-    //it is reaching here
-    //what's the fuckin problem
-    //the data is changing but the representation on screen is not for some stupid reason I dont know why
-    //for some stupid reason it is still manipulating the first Level's player
-    //why would that ever happen
-    //alert(Level.player.attr("id"));
     Level.player.dmove(
       Level.player.attr("dx") * px,
       Level.player.attr("dy") * px
