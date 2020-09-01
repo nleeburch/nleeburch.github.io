@@ -180,12 +180,13 @@ function BuildArray(Level) {
           .x(j * px + 2)
           .y(i * px);
       } else if (Level.room[i][j] === "s") {
-        for (let k = 0; k < Level.snake.length; k++) {
+        for (let k = 0; k < 10; k++) {
           Level.snake.push(
             draw
-              .rect(px, px)
+              .rect(px - 3, px - 3)
               .x(j * px)
               .y(i * px + k * px)
+              .attr({ x: j * px, y: i * px + k * px, id: k })
           );
         }
       }
