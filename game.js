@@ -183,12 +183,14 @@ function BuildArray(Level) {
         for (let k = 0; k < 10; k++) {
           Level.snake.push(
             draw
-              .rect(px - 3, px - 3)
+              .rect(px - 2, px - 2)
+              .fill("#272")
               .x(j * px)
               .y(i * px + k * px)
-              .attr({ x: j * px, y: i * px + k * px, id: k })
+              .attr({ dx: 0, dy: 0, hp: 5 })
           );
         }
+        Level.room[i][j] = 0;
       }
     }
   }
@@ -247,8 +249,72 @@ function MoveBullets(Level) {
 }
 
 function MoveSnake(Level) {
-  //10 20x20 squares which individually have positions and interchange positions but the head determines the new position
-  //splits in half creates two smaller entities
+  let dx = Level.snake[0].x() - Level.player.x();
+  let dy = Level.snake[0].y() - Level.player.y();
+  //alert(dx);
+  if (Math.abs(dx) > Math.abs(dy) || Math.abs(dx) == Math.abs(dy)) {
+    if (dx > 0) {
+      Level.snake[0].attr({ dx: 1, dy: 0 });
+      if (
+        Level.room[Math.floor((Level.snake[0].x() + px) / px)][
+          Math.floor(Level.snake[0].y() / px)
+        ] != 1
+      ) {
+        for (let i = Level.snake.length - 1; i >= 1; i--) {
+          Level.snake[i].dx(Level.snake[i - 1].x() - Level.snake[i].x());
+          Level.snake[i].dy(Level.snake[i - 1].y() - Level.snake[i].y());
+        }
+        Level.snake[0].dx(-px);
+      }
+    } else if (dx < 0) {
+      Level.snake[0].attr({ dx: -1, dy: 0 });
+      if (
+        Level.room[Math.floor((Level.snake[0].x() - px) / px)][
+          Math.floor(Level.snake[0].y() / px)
+        ] != 1
+      ) {
+        for (let i = Level.snake.length - 1; i >= 1; i--) {
+          Level.snake[i].dx(Level.snake[i - 1].x() - Level.snake[i].x());
+          Level.snake[i].dy(Level.snake[i - 1].y() - Level.snake[i].y());
+        }
+        Level.snake[0].dx(px);
+      }
+    }
+  } else if (Math.abs(dx) < Math.abs(dy)) {
+    if (dy > 0) {
+      Level.snake[0].attr({ dx: 0, dy: 1 });
+      if (
+        Level.room[Math.floor(Level.snake[0].x() / px)][
+          Math.floor((Level.snake[0].y() + px) / px)
+        ] != 1
+      ) {
+        for (let i = Level.snake.length - 1; i >= 1; i--) {
+          Level.snake[i].dx(Level.snake[i - 1].x() - Level.snake[i].x());
+          Level.snake[i].dy(Level.snake[i - 1].y() - Level.snake[i].y());
+        }
+        Level.snake[0].dy(-px);
+      }
+    } else if (dy < 0) {
+      Level.snake[0].attr({ dx: 0, dy: -1 });
+      if (
+        Level.room[Math.floor(Level.snake[0].x() / px)][
+          Math.floor((Level.snake[0].y() - px) / px)
+        ] != 1
+      ) {
+        for (let i = Level.snake.length - 1; i >= 1; i--) {
+          Level.snake[i].dx(Level.snake[i - 1].x() - Level.snake[i].x());
+          Level.snake[i].dy(Level.snake[i - 1].y() - Level.snake[i].y());
+        }
+        Level.snake[0].dy(px);
+      }
+    }
+  }
+  //have to come up with mathematics that will give the snake enough intelligence to search for the player every 5 moves or so
+  //determine the slope of the line which passes through the player and the head of the snake
+  //if dx > dy, move in the dx direction
+  //if dy > dx, move in the dy direction
+  //if dx = dy, move in the current direction
+  //need to create a turn around function
 }
 
 function HitDetection(Level) {
@@ -306,6 +372,7 @@ function EraseArray(Level) {
 
 let interval = 1;
 let roomFlag = false;
+let snakeCounter = 0;
 
 async function GameLoop(levelIndex, roomFlag) {
   let Level = allLevels[levelIndex];
@@ -328,7 +395,14 @@ async function GameLoop(levelIndex, roomFlag) {
     EraseArray(Level);
     levelIndex++;
   }
-  await sleep(33);
+  await sleep(30);
+  if (levelIndex == 2) {
+    snakeCounter++;
+    if (snakeCounter == 20) {
+      MoveSnake(Level);
+      snakeCounter = 0;
+    }
+  }
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
