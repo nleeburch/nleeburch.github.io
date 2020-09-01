@@ -4,10 +4,11 @@ var px = 20;
 
 ////////////////////////////////////////////
 class Level {
-  constructor(room, bullets, player) {
+  constructor(room, bullets) {
     this.room = room;
     this.bullets = bullets;
     this.player = {};
+    this.snake = [];
   }
 }
 let bulletsRoom1 = [];
@@ -35,7 +36,7 @@ let arrayRoom1 = [
 //9 = player
 /////////////////////////////////////////////
 
-var bulletsRoom2 = [];
+let bulletsRoom2 = [];
 let arrayRoom2 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 4.35, 0, 0, 4.4, 0, 0, 0, 0, 0, 0, 4.3, 0, 0, 0, 1],
@@ -64,10 +65,40 @@ let arrayRoom2 = [
 //4 = southward turret (6,7)
 //5 = northward turret (8,9)
 //9 = player
+
+let bulletsRoom3 = [];
+let arrayRoom3 = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "s", 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+];
+
+///////////////////////////////////////////////////
 let Level1 = new Level(arrayRoom1, bulletsRoom1);
 let Level2 = new Level(arrayRoom2, bulletsRoom2);
+let Level3 = new Level(arrayRoom3, bulletsRoom3);
 
-let allLevels = [Level1, Level2];
+let allLevels = [Level1, Level2, Level3];
 
 ////////////////////////////////////////////////////
 
@@ -148,6 +179,15 @@ function BuildArray(Level) {
           .rect(16, 5)
           .x(j * px + 2)
           .y(i * px);
+      } else if (Level.room[i][j] === "s") {
+        for (let k = 0; k < Level.snake.length; k++) {
+          Level.snake.push(
+            draw
+              .rect(px, px)
+              .x(j * px)
+              .y(i * px + k * px)
+          );
+        }
       }
     }
   }
@@ -203,6 +243,11 @@ function MoveBullets(Level) {
         .attr("t", 0);
     }
   }
+}
+
+function MoveSnake(Level) {
+  //10 20x20 squares which individually have positions and interchange positions but the head determines the new position
+  //splits in half creates two smaller entities
 }
 
 function HitDetection(Level) {
@@ -286,4 +331,4 @@ async function GameLoop(levelIndex, roomFlag) {
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(0, roomFlag));
+window.requestAnimationFrame(() => GameLoop(2, roomFlag));
