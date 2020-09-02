@@ -70,7 +70,7 @@ let bulletsRoom3 = [];
 let arrayRoom3 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -79,8 +79,8 @@ let arrayRoom3 = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "s", 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -115,7 +115,7 @@ function BuildArray(Level) {
           .fill("#0a0aff")
           .x(j * px + 3)
           .y(i * px + 3)
-          .attr({ dx: 0.5, dy: 0.5 });
+          .attr({ dx: 0, dy: 0, startX: j * px + 3, startY: i * px + 3 });
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -131,7 +131,7 @@ function BuildArray(Level) {
         Level.bullets.push(
           draw
             .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-            .x(j * px)
+            .x(j * px + 40)
             .y(i * px + 7)
             .attr({ t: 0, dx: v, dy: 0 })
         );
@@ -248,28 +248,65 @@ function MoveBullets(Level) {
   }
 }
 
+/*
+ , = player
+ . = bullet
+-------------------
+    .   .  p.x >= b.x , p.x + 9 <= b.x + 17
+    ., ,.  p.y <= b.y + 5 , p.y + 9 >= b.y + 5       
+     , ,
+-------------------
+     , ,   p.x >= b.x , p.x + 9 <= b.x + 17
+    ., ,.  p.y <= b.y , p.y + 9 >= b.y
+    .   .
+-------------------
+    .   .  p.x <= b.x + 17 , p.x + 9 >= b.x + 17
+    .  ,., p.y <= b.y + 5 , p.y + 9 >= b.y + 5
+       , ,
+-------------------    
+       , , p.x <= b.x + 17 , p.x + 9 >= b.x + 17
+    .  ,., p.y <= b.y , p.y + 9 >= b.y
+    .   .
+-------------------
+   , ,     p.x <= b.x , p.x + 9 >= b.x
+   ,.,  .  p.y <= b.y , p.y + 9 >= b.y
+    .   .
+-------------------
+    .   .  p.x <= b.x , p.x + 9 >= b.x
+   ,.,  .  p.y <= b.y + 5 , p.y + 9 >= b.y + 5
+   , ,
+-------------------
+*/
 function BulletHitDetection(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
     if (
-      (Level.player.x() <= Level.bullets[i].x() &&
-        Level.player.x() + 9 >= Level.bullets[i].x() &&
+      (Level.player.x() >= Level.bullets[i].x() &&
+        Level.player.x() + 9 <= Level.bullets[i].x() + 17 &&
+        Level.player.y() <= Level.bullets[i].y() + 5 &&
+        Level.player.y() + 9 >= Level.bullets[i].y() + 5) ||
+      (Level.player.x() >= Level.bullets[i].x() + 17 &&
+        Level.player.x() + 9 <= Level.bullets[i].x() + 17 &&
         Level.player.y() <= Level.bullets[i].y() &&
         Level.player.y() + 9 >= Level.bullets[i].y()) ||
       (Level.player.x() <= Level.bullets[i].x() + 17 &&
         Level.player.x() + 9 >= Level.bullets[i].x() + 17 &&
-        Level.player.y() <= Level.bullets[i].y() &&
-        Level.player.y() + 9 >= Level.bullets[i].y()) ||
-      (Level.player.x() <= Level.bullets[i].x() &&
-        Level.player.x() + 9 >= Level.bullets[i].x() &&
         Level.player.y() <= Level.bullets[i].y() + 5 &&
         Level.player.y() + 9 >= Level.bullets[i].y() + 5) ||
       (Level.player.x() <= Level.bullets[i].x() + 17 &&
         Level.player.x() + 9 >= Level.bullets[i].x() + 17 &&
+        Level.player.y() <= Level.bullets[i].y() &&
+        Level.player.y() + 9 >= Level.bullets[i].y()) ||
+      (Level.player.x() <= Level.bullets[i].x() &&
+        Level.player.x() + 9 >= Level.bullets[i].x() &&
+        Level.player.y() <= Level.bullets[i].y() &&
+        Level.player.y() + 9 >= Level.bullets[i].y()) ||
+      (Level.player.x() <= Level.bullets[i].x() &&
+        Level.player.x() + 9 >= Level.bullets[i].x() &&
         Level.player.y() <= Level.bullets[i].y() + 5 &&
         Level.player.y() + 9 >= Level.bullets[i].y() + 5)
     ) {
-      Level.player.x(26);
-      Level.player.y(26);
+      Level.player.x(Level.player.attr("startX"));
+      Level.player.y(Level.player.attr("startY"));
     }
   }
 }
@@ -293,11 +330,13 @@ function MoveSnake(Level, snakeMoveCounter) {
     }
   }
   //maybe the gate has to be refined
+  // == 0 works better than != 1
+  // the snake wont go all the way to the bottom
   if (
     Level.room[
-      Math.round((Level.snake[0].x() + Level.snake[0].attr("dx") * px) / px)
-    ][Math.round((Level.snake[0].y() + Level.snake[0].attr("dy") * px) / px)] !=
-    1
+      Math.floor((Level.snake[0].x() + Level.snake[0].attr("dx") * px) / px)
+    ][Math.floor((Level.snake[0].y() + Level.snake[0].attr("dy") * px) / px)] ==
+    0
   ) {
     for (let i = Level.snake.length - 1; i >= 1; i--) {
       Level.snake[i].x(Level.snake[i - 1].x());
@@ -310,28 +349,74 @@ function MoveSnake(Level, snakeMoveCounter) {
 
 //what if you only ran the function when in a radius of the player was an entity
 //would maybe save computation
+//this is not working how I think it is
+// but it works fine with bullets
+/*
+-------------------
+     , ,   p.x >= s.x , p.x <= s.x + 19
+    ., ,.  p.y <= s.y , p.y + 9 >= s.y
+    .   .
+-------------------
+    .   .  p.x >= s.x , p.x <= s.x + 19
+    ., ,.  p.y <= s.y + 5 , p.y + 9 >= s.y + 19
+     , ,
+-------------------
+   ,.,  .  p.x <= s.x , p.x + 9 >= s.x
+   ,.,  .  p.y >= s.y , p.y + 9 <= s.y + 19
+-------------------
+    .  ,.,  p.x <= s.x + 17 , p.x + 9 >= s.x + 19
+    .  ,.,  p.y >= s.y , p.y + 9 <= s.y + 19
+-------------------
+    ., ,.   p.x >= s.x , p.x <= s.x + 19
+    ., ,.   p.y >= s.y , p.y + 9 <= s.y + 19
+-------------------
+*/
 function SnakeHitDetection(Level) {
   for (let i = 0; i < Level.snake.length; i++) {
     if (
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() <= Level.snake[i].x() + 19 &&
+        Level.player.y() >= Level.snake[i].y() &&
+        Level.player.y() + 9 <= Level.snake[i].y() + 19) ||
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() <= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() + 19 &&
+        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
       (Level.player.x() <= Level.snake[i].x() &&
         Level.player.x() + 9 >= Level.snake[i].x() &&
+        Level.player.y() >= Level.snake[i].y() &&
+        Level.player.y() + 9 <= Level.snake[i].y() + 19) ||
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() + 9 <= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() + 19 &&
+        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
+      (Level.player.x() >= Level.snake[i].x() + 19 &&
+        Level.player.x() + 9 <= Level.snake[i].x() + 19 &&
         Level.player.y() <= Level.snake[i].y() &&
         Level.player.y() + 9 >= Level.snake[i].y()) ||
       (Level.player.x() <= Level.snake[i].x() + 19 &&
         Level.player.x() + 9 >= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() + 19 &&
+        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
+      (Level.player.x() <= Level.snake[i].x() + 17 &&
+        Level.player.x() + 9 >= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() &&
+        Level.player.y() + 9 >= Level.snake[i].y()) ||
+      (Level.player.x() <= Level.snake[i].x() &&
+        Level.player.x() + 9 >= Level.snake[i].x() &&
         Level.player.y() <= Level.snake[i].y() &&
         Level.player.y() + 9 >= Level.snake[i].y()) ||
       (Level.player.x() <= Level.snake[i].x() &&
         Level.player.x() + 9 >= Level.snake[i].x() &&
         Level.player.y() <= Level.snake[i].y() + 19 &&
         Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
-      (Level.player.x() <= Level.snake[i].x() + 19 &&
-        Level.player.x() + 9 >= Level.snake[i].x() + 19 &&
-        Level.player.y() <= Level.snake[i].y() + 19 &&
-        Level.player.y() + 9 >= Level.snake[i].y() + 19)
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() <= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() &&
+        Level.player.y() + 9 >= Level.snake[i].y())
     ) {
-      Level.player.x(26);
-      Level.player.y(26);
+      Level.player.x(Level.player.attr("startX"));
+      Level.player.y(Level.player.attr("startY"));
     }
   }
 }
@@ -341,8 +426,8 @@ function SnakeHitDetection(Level) {
 function WinCondition(Level) {
   if (
     Level.room[
-      Math.floor((Level.player.y() + Level.player.attr("dy") * px) / px)
-    ][Math.floor((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
+      Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
+    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
   ) {
     alert("you wan");
     Level.player = {};
@@ -391,12 +476,12 @@ async function GameLoop(levelIndex, roomFlag) {
     EraseArray(Level);
     levelIndex++;
   }
-  await sleep(30);
+
   if (levelIndex == 2) {
     SnakeHitDetection(Level);
     snakeCounter++;
     if (snakeCounter == 4) {
-      MoveSnake(Level, snakeMoveCounter);
+      //MoveSnake(Level, snakeMoveCounter);
       snakeCounter = 0;
       if (snakeMoveCounter == 2) {
         snakeMoveCounter = -1;
@@ -404,6 +489,8 @@ async function GameLoop(levelIndex, roomFlag) {
       snakeMoveCounter++;
     }
   }
+
+  await sleep(30);
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
