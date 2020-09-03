@@ -11,6 +11,7 @@ class Level {
     this.snake = [];
   }
 }
+////////////////////////////////////////////
 let bulletsRoom1 = [];
 let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -34,8 +35,8 @@ let arrayRoom1 = [
 //2 = eastward turret
 //3 = westward turret
 //9 = player
-/////////////////////////////////////////////
 
+/////////////////////////////////////////////
 let bulletsRoom2 = [];
 let arrayRoom2 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -65,7 +66,7 @@ let arrayRoom2 = [
 //4 = southward turret (6,7)
 //5 = northward turret (8,9)
 //9 = player
-
+/////////////////////////////////////////////
 let bulletsRoom3 = [];
 let arrayRoom3 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -79,8 +80,6 @@ let arrayRoom3 = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "s", 0, 1],
-  [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -90,18 +89,17 @@ let arrayRoom3 = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
-
 ///////////////////////////////////////////////////
 let Level1 = new Level(arrayRoom1, bulletsRoom1);
 let Level2 = new Level(arrayRoom2, bulletsRoom2);
 let Level3 = new Level(arrayRoom3, bulletsRoom3);
-
+///////////////////////////////////////////////////
 let allLevels = [Level1, Level2, Level3];
-
-////////////////////////////////////////////////////
-
+///////////////////////////////////////////////////
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -131,7 +129,7 @@ function BuildArray(Level) {
         Level.bullets.push(
           draw
             .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-            .x(j * px + 40)
+            .x(j * px)
             .y(i * px + 7)
             .attr({ t: 0, dx: v, dy: 0 })
         );
@@ -311,6 +309,7 @@ function BulletHitDetection(Level) {
   }
 }
 
+//this needs to be improved
 function MoveSnake(Level, snakeMoveCounter) {
   let dx = Level.snake[0].x() - Level.player.x();
   let dy = Level.snake[0].y() - Level.player.y();
@@ -329,9 +328,10 @@ function MoveSnake(Level, snakeMoveCounter) {
       }
     }
   }
-  //maybe the gate has to be refined
-  // == 0 works better than != 1
-  // the snake wont go all the way to the bottom
+  //the snake wont go all the way to the bottom
+  //it is not traversing the boundary of the previous level
+  //do I need to switch from reading arrays to reading pixel color
+  //omg that shouldn't be too hard but wtf why
   if (
     Level.room[
       Math.floor((Level.snake[0].x() + Level.snake[0].attr("dx") * px) / px)
@@ -454,34 +454,35 @@ let interval = 1;
 let roomFlag = false;
 let snakeCounter = 0;
 let snakeMoveCounter = 0;
+let CurrentLevel = {};
 
 async function GameLoop(levelIndex, roomFlag) {
-  let Level = allLevels[levelIndex];
+  CurrentLevel = allLevels[levelIndex];
   let moveToNextLevel = false;
   if (roomFlag == false) {
-    roomFlag = BuildArray(Level);
+    roomFlag = BuildArray(CurrentLevel);
   }
   window.document.addEventListener("keydown", (event) => {
     if (interval === 1) {
-      MovePlayer(Level, event.key);
+      MovePlayer(CurrentLevel, event.key);
       interval = 0;
     }
   });
   interval = 1;
-  BulletHitDetection(Level);
-  MoveBullets(Level);
-  moveToNextLevel = WinCondition(Level);
+  BulletHitDetection(CurrentLevel);
+  MoveBullets(CurrentLevel);
+  moveToNextLevel = WinCondition(CurrentLevel);
   if (moveToNextLevel) {
     roomFlag = false;
-    EraseArray(Level);
+    EraseArray(CurrentLevel);
     levelIndex++;
   }
 
   if (levelIndex == 2) {
-    SnakeHitDetection(Level);
+    SnakeHitDetection(CurrentLevel);
     snakeCounter++;
     if (snakeCounter == 4) {
-      //MoveSnake(Level, snakeMoveCounter);
+      MoveSnake(CurrentLevel, snakeMoveCounter);
       snakeCounter = 0;
       if (snakeMoveCounter == 2) {
         snakeMoveCounter = -1;
@@ -494,4 +495,4 @@ async function GameLoop(levelIndex, roomFlag) {
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(2, roomFlag));
+window.requestAnimationFrame(() => GameLoop(0, roomFlag));
