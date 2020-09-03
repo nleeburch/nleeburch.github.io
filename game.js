@@ -328,14 +328,10 @@ function MoveSnake(Level, snakeMoveCounter) {
       }
     }
   }
-  //the snake wont go all the way to the bottom
-  //it is not traversing the boundary of the previous level
-  //do I need to switch from reading arrays to reading pixel color
-  //omg that shouldn't be too hard but wtf why
   if (
     Level.room[
-      Math.floor((Level.snake[0].x() + Level.snake[0].attr("dx") * px) / px)
-    ][Math.floor((Level.snake[0].y() + Level.snake[0].attr("dy") * px) / px)] ==
+      Math.floor((Level.snake[0].y() + Level.snake[0].attr("dy") * px) / px)
+    ][Math.floor((Level.snake[0].x() + Level.snake[0].attr("dx") * px) / px)] ==
     0
   ) {
     for (let i = Level.snake.length - 1; i >= 1; i--) {
@@ -438,7 +434,7 @@ function WinCondition(Level) {
 
 function EraseArray(Level) {
   for (let i = 0; i < Level.room.length; i++) {
-    for (let j = 0; j < Level.room[0].length; j++) {
+    for (let j = 0; j < Level.room[i].length; j++) {
       draw
         .rect(px, px)
         .fill("#ffffff")
@@ -495,4 +491,4 @@ async function GameLoop(levelIndex, roomFlag) {
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(0, roomFlag));
+window.requestAnimationFrame(() => GameLoop(2, roomFlag));
