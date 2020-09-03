@@ -343,10 +343,6 @@ function MoveSnake(Level, snakeMoveCounter) {
   }
 }
 
-//what if you only ran the function when in a radius of the player was an entity
-//would maybe save computation
-//this is not working how I think it is
-// but it works fine with bullets
 /*
 -------------------
      , ,   p.x >= s.x , p.x <= s.x + 19
@@ -416,8 +412,6 @@ function SnakeHitDetection(Level) {
     }
   }
 }
-//need to create a turn around function
-//it needs to not go past walls
 
 function WinCondition(Level) {
   if (
