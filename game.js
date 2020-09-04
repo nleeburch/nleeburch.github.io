@@ -70,29 +70,35 @@ let arrayRoom2 = [
 let bulletsRoom3 = [];
 let arrayRoom3 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 4.14, 0, 0, 0, 0, 4.13, 0, 0, 0, 0, 4.12, 0, 0, 0, 0, 1],
   [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.14, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.13, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "s", 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.12, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "s", 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.11, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 5.12, 0, 0, 0, 0, 5.13, 0, 0, 0, 0, 5.14, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
+//1 = wall
+//2 = eastward turret  (0,1,2)
+//3 = westward turret  (3,4,5)
+//4 = southward turret (6,7)
+//5 = northward turret (8,9)
+//9 = player
 ///////////////////////////////////////////////////
 let Level1 = new Level(arrayRoom1, bulletsRoom1);
 let Level2 = new Level(arrayRoom2, bulletsRoom2);
@@ -119,7 +125,7 @@ function BuildArray(Level) {
             startX: j * px + 3,
             startY: i * px + 3,
           });
-        Level.player.ammo = [null, null, null, null, null];
+        Level.player.ammo = [null, null, null];
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -240,6 +246,8 @@ function ControlPlayer(Level, key) {
         }
       }
     }
+    //this one shoots down left and right at the same time
+    //why are they shooting multiple directions
     case "ArrowDown": {
       for (let i = 0; i < Level.player.ammo.length; i++) {
         if (Level.player.ammo[i] == null) {
@@ -263,6 +271,7 @@ function ControlPlayer(Level, key) {
             .y(Level.player.y())
             .attr({ dx: -0.5, dy: 0 });
           break;
+          //shouldn't this break; force only one bullet at a time
         }
       }
     }
@@ -327,7 +336,6 @@ function MoveBullets(Level) {
         ] == 1
       ) {
         Level.player.ammo[j].remove();
-        //I want to make sure this does actually remove but when there are a bunch of bullets it fucks it up
         Level.player.ammo[j] = null;
         break;
       }
@@ -464,6 +472,17 @@ function HandleSnake(Level, i) {
     Level.snake[i].fill("#232");
   } else if (Level.snake[i].attr("hp") == 0) {
     Level.snake[i].fill("#222");
+  }
+
+  let snakeHpCounter = 0;
+  for (let j = 0; j < Level.snake.length; j++) {
+    if (Level.snake[j].attr("hp") == 0) {
+      snakeHpCounter++;
+    }
+  }
+
+  if (snakeHpCounter == Level.snake.length - 1) {
+    alert("dead");
   }
 }
 
@@ -626,10 +645,10 @@ async function GameLoop(levelIndex, roomFlag) {
   if (levelIndex == 2) {
     SnakeHitDetection(CurrentLevel);
     snakeCounter++;
-    if (snakeCounter >= 4) {
-      //MoveSnake(CurrentLevel, snakeMoveCounter);
+    if (snakeCounter >= 12) {
+      MoveSnake(CurrentLevel, snakeMoveCounter);
       snakeCounter = 0;
-      if (snakeMoveCounter == 2) {
+      if (snakeMoveCounter == 5) {
         snakeMoveCounter = -1;
       }
       snakeMoveCounter++;
