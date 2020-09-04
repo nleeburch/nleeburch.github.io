@@ -113,7 +113,13 @@ function BuildArray(Level) {
           .fill("#0a0aff")
           .x(j * px + 3)
           .y(i * px + 3)
-          .attr({ dx: 0, dy: 0, startX: j * px + 3, startY: i * px + 3 });
+          .attr({
+            dx: 0,
+            dy: 0,
+            startX: j * px + 3,
+            startY: i * px + 3,
+            bullets: [],
+          });
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -195,23 +201,70 @@ function BuildArray(Level) {
   return true;
 }
 
-function MovePlayer(Level, key) {
+//I would like to smoothen this so it doesn't linger before full speed
+function ControlPlayer(Level, key) {
   //w
   if (key == "w") {
     Level.player.attr({ dx: 0, dy: -0.5 });
+    MovePlayer(Level);
   }
   //a
   else if (key == "a") {
     Level.player.attr({ dx: -0.5, dy: 0 });
+    MovePlayer(Level);
   }
   //s
   else if (key == "s") {
     Level.player.attr({ dx: 0, dy: 0.5 });
+    MovePlayer(Level);
   }
   //d
   else if (key == "d") {
     Level.player.attr({ dx: 0.5, dy: 0 });
+    MovePlayer(Level);
   }
+  if (Level.player.bullets.length <= 5) {
+    if (key == "ArrowUp") {
+      Level.player.bullets.push(
+        draw
+          .polygon("3,0 6,3 6,20 3,17 0,20 0,3")
+          .fill("#f00")
+          .x(Level.player.x())
+          .y(Level.player.y())
+          .attr({ dx: 0, dy: -0.5 })
+      );
+    } else if (key == "ArrowDown") {
+      Level.player.bullets.push(
+        draw
+          .polygon("0,0 3,3 6,0 6,17 3,20 0,17")
+          .fill("#f00")
+          .x(Level.player.x())
+          .y(Level.player.y())
+          .attr({ dx: 0, dy: 0.5 })
+      );
+    } else if (key == "ArrowLeft") {
+      Level.player.bullets.push(
+        draw
+          .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
+          .fill("#f00")
+          .x(Level.player.x())
+          .y(Level.player.y())
+          .attr({ dx: -0.5, dy: 0 })
+      );
+    } else if (key == "ArrowRight") {
+      Level.player.bullets.push(
+        draw
+          .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
+          .fill("#f00")
+          .x(Level.player.x())
+          .y(Level.player.y())
+          .attr({ dx: 0.5, dy: 0 })
+      );
+    }
+  }
+}
+
+function MovePlayer(Level) {
   if (
     Level.room[
       Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
@@ -242,6 +295,20 @@ function MoveBullets(Level) {
         .dx(-(Level.bullets[i].attr("dx") * px) * Level.bullets[i].attr("t"))
         .dy(-(Level.bullets[i].attr("dy") * px) * Level.bullets[i].attr("t"))
         .attr("t", 0);
+    }
+  }
+
+  for (let i = 0; i < Level.player.bullets.length; i++) {
+    Level.player.bullets[i]
+      .dx(Level.player.bullets[i].attr("dx") * px)
+      .dy(Level.player.bullets[i].attr("dy") * px);
+    if (
+      Level.room[Math.round(Level.player.bullets[i].y() / px)][
+        Math.round(Level.player.bullets[i].x() / px)
+      ] == 1
+    ) {
+      Level.player.bullets[i].remove();
+      Level.player.bullets.splice(i, i);
     }
   }
 }
@@ -309,7 +376,6 @@ function BulletHitDetection(Level) {
   }
 }
 
-//this needs to be improved
 function MoveSnake(Level, snakeMoveCounter) {
   let dx = Level.snake[0].x() - Level.player.x();
   let dy = Level.snake[0].y() - Level.player.y();
@@ -454,7 +520,7 @@ async function GameLoop(levelIndex, roomFlag) {
   }
   window.document.addEventListener("keydown", (event) => {
     if (interval === 1) {
-      MovePlayer(CurrentLevel, event.key);
+      ControlPlayer(CurrentLevel, event.key);
       interval = 0;
     }
   });
@@ -471,8 +537,8 @@ async function GameLoop(levelIndex, roomFlag) {
   if (levelIndex == 2) {
     SnakeHitDetection(CurrentLevel);
     snakeCounter++;
-    if (snakeCounter == 4) {
-      MoveSnake(CurrentLevel, snakeMoveCounter);
+    if (snakeCounter >= 8) {
+      //MoveSnake(CurrentLevel, snakeMoveCounter);
       snakeCounter = 0;
       if (snakeMoveCounter == 2) {
         snakeMoveCounter = -1;
