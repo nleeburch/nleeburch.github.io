@@ -125,7 +125,7 @@ function BuildArray(Level) {
             startX: j * px + 3,
             startY: i * px + 3,
           });
-        Level.player.ammo = [null, null, null];
+        Level.player.ammo = [null, null, null, null];
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -197,7 +197,7 @@ function BuildArray(Level) {
               .fill("#272")
               .x(j * px)
               .y(i * px + k * px)
-              .attr({ dx: 0, dy: 0, hp: 5 })
+              .attr({ dx: 0, dy: 0, hp: 1, is: "alive" })
           );
         }
       }
@@ -242,12 +242,10 @@ function ControlPlayer(Level, key) {
             .x(Level.player.x())
             .y(Level.player.y())
             .attr({ dx: 0, dy: -0.5 });
-          break;
+          return;
         }
       }
     }
-    //this one shoots down left and right at the same time
-    //why are they shooting multiple directions
     case "ArrowDown": {
       for (let i = 0; i < Level.player.ammo.length; i++) {
         if (Level.player.ammo[i] == null) {
@@ -257,7 +255,7 @@ function ControlPlayer(Level, key) {
             .x(Level.player.x())
             .y(Level.player.y())
             .attr({ dx: 0, dy: 0.5 });
-          break;
+          return;
         }
       }
     }
@@ -270,8 +268,8 @@ function ControlPlayer(Level, key) {
             .x(Level.player.x())
             .y(Level.player.y())
             .attr({ dx: -0.5, dy: 0 });
-          break;
-          //shouldn't this break; force only one bullet at a time
+          return;
+          //weird fix but ok
         }
       }
     }
@@ -284,7 +282,7 @@ function ControlPlayer(Level, key) {
             .x(Level.player.x())
             .y(Level.player.y())
             .attr({ dx: 0.5, dy: 0 });
-          break;
+          return;
         }
       }
     }
@@ -450,9 +448,9 @@ function BulletHitDetection(Level) {
             Level.player.ammo[j].y() <= Level.snake[i].y() &&
             Level.player.ammo[j].y() + 5 >= Level.snake[i].y())
         ) {
-          HandleSnake(Level, i);
           Level.player.ammo[j].remove();
           Level.player.ammo[j] = null;
+          HandleSnake(Level, i);
           break;
         }
       }
@@ -476,12 +474,13 @@ function HandleSnake(Level, i) {
 
   let snakeHpCounter = 0;
   for (let j = 0; j < Level.snake.length; j++) {
-    if (Level.snake[j].attr("hp") == 0) {
+    if (Level.snake[j].attr("hp") <= 0) {
       snakeHpCounter++;
     }
   }
 
-  if (snakeHpCounter == Level.snake.length - 1) {
+  if (snakeHpCounter == Level.snake.length) {
+    Level.snake[0].attr({ is: "dead" });
     alert("dead");
   }
 }
@@ -596,7 +595,7 @@ function WinCondition(Level) {
     ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
   ) {
     alert("you wan");
-    Level.player = {};
+  } else if (Level.snake[0].attr("is") == "dead") {
     return true;
   }
   return false;
@@ -636,23 +635,25 @@ async function GameLoop(levelIndex, roomFlag) {
   BulletHitDetection(CurrentLevel);
   MoveBullets(CurrentLevel);
   let moveToNextLevel = WinCondition(CurrentLevel);
-  if (moveToNextLevel) {
-    roomFlag = false;
-    EraseArray(CurrentLevel);
-    levelIndex++;
-  }
 
   if (levelIndex == 2) {
     SnakeHitDetection(CurrentLevel);
     snakeCounter++;
-    if (snakeCounter >= 12) {
-      MoveSnake(CurrentLevel, snakeMoveCounter);
+    if (snakeCounter >= 100) {
+      //MoveSnake(CurrentLevel, snakeMoveCounter);
       snakeCounter = 0;
       if (snakeMoveCounter == 5) {
         snakeMoveCounter = -1;
       }
       snakeMoveCounter++;
     }
+  }
+
+  if (moveToNextLevel) {
+    roomFlag = false;
+    EraseArray(CurrentLevel);
+    Level.player = {};
+    levelIndex++;
   }
 
   await sleep(30);
