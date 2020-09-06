@@ -4,18 +4,19 @@ var px = 20;
 
 ////////////////////////////////////////////
 class Level {
-  constructor(room, bullets) {
+  constructor(room, bullets, id) {
     this.room = room;
     this.bullets = bullets;
     this.player = {};
     this.snake = [];
+    this.id = id;
   }
 }
 ////////////////////////////////////////////
 let bulletsRoom1 = [];
 let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 2.1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -27,7 +28,7 @@ let arrayRoom1 = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 2.01, 0, 0, 0, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, "p", 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 8, 8, 8, 1, 1, 1, 1, 1, 1],
 ];
@@ -100,9 +101,9 @@ let arrayRoom3 = [
 //5 = northward turret (8,9)
 //9 = player
 ///////////////////////////////////////////////////
-let Level1 = new Level(arrayRoom1, bulletsRoom1);
-let Level2 = new Level(arrayRoom2, bulletsRoom2);
-let Level3 = new Level(arrayRoom3, bulletsRoom3);
+let Level1 = new Level(arrayRoom1, bulletsRoom1, 1);
+let Level2 = new Level(arrayRoom2, bulletsRoom2, 2);
+let Level3 = new Level(arrayRoom3, bulletsRoom3, 3);
 ///////////////////////////////////////////////////
 let allLevels = [Level1, Level2, Level3];
 ///////////////////////////////////////////////////
@@ -126,6 +127,7 @@ function BuildArray(Level) {
             startY: i * px + 3,
           });
         Level.player.ammo = [null, null, null, null];
+        Level.player.id = Level.id;
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -207,82 +209,83 @@ function BuildArray(Level) {
 }
 
 //I would like to smoothen this so it doesn't linger before full speed
+//create a gate such that it only manipulates the current level's player if id's match
 function ControlPlayer(Level, key) {
-  //w
-  switch (key) {
-    case "w": {
+  if (Level.id == Level.player.id) {
+    //w
+    if (key == "w") {
       Level.player.attr({ dx: 0, dy: -0.5 });
       MovePlayer(Level);
-      break;
     }
     //a
-    case "a": {
+    else if (key == "a") {
       Level.player.attr({ dx: -0.5, dy: 0 });
       MovePlayer(Level);
-      break;
     }
     //s
-    case "s": {
+    else if (key == "s") {
       Level.player.attr({ dx: 0, dy: 0.5 });
       MovePlayer(Level);
-      break;
     }
     //d
-    case "d": {
+    else if (key == "d") {
       Level.player.attr({ dx: 0.5, dy: 0 });
       MovePlayer(Level);
-      break;
-    }
-    case "ArrowUp": {
-      for (let i = 0; i < Level.player.ammo.length; i++) {
-        if (Level.player.ammo[i] == null) {
-          Level.player.ammo[i] = draw
-            .polygon("3,0 6,3 6,20 3,17 0,20 0,3")
-            .fill("#f00")
-            .x(Level.player.x())
-            .y(Level.player.y())
-            .attr({ dx: 0, dy: -0.5 });
-          return;
+    } else if (key == "ArrowUp") {
+      if (Level.id == 3) {
+        for (let i = 0; i < Level.player.ammo.length; i++) {
+          if (Level.player.ammo[i] == null) {
+            Level.player.ammo[i] = draw
+              .polygon("3,0 6,3 6,20 3,17 0,20 0,3")
+              .fill("#f00")
+              .x(Level.player.x())
+              .y(Level.player.y())
+              .attr({ dx: 0, dy: -0.5 });
+            return;
+          }
         }
       }
-    }
-    case "ArrowDown": {
-      for (let i = 0; i < Level.player.ammo.length; i++) {
-        if (Level.player.ammo[i] == null) {
-          Level.player.ammo[i] = draw
-            .polygon("0,0 3,3 6,0 6,17 3,20 0,17")
-            .fill("#f00")
-            .x(Level.player.x())
-            .y(Level.player.y())
-            .attr({ dx: 0, dy: 0.5 });
-          return;
+    } else if (key == "ArrowDown") {
+      if (Level.id == 3) {
+        for (let i = 0; i < Level.player.ammo.length; i++) {
+          if (Level.player.ammo[i] == null) {
+            Level.player.ammo[i] = draw
+              .polygon("0,0 3,3 6,0 6,17 3,20 0,17")
+              .fill("#f00")
+              .x(Level.player.x())
+              .y(Level.player.y())
+              .attr({ dx: 0, dy: 0.5 });
+            return;
+          }
         }
       }
-    }
-    case "ArrowLeft": {
-      for (let i = 0; i < Level.player.ammo.length; i++) {
-        if (Level.player.ammo[i] == null) {
-          Level.player.ammo[i] = draw
-            .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
-            .fill("#f00")
-            .x(Level.player.x())
-            .y(Level.player.y())
-            .attr({ dx: -0.5, dy: 0 });
-          return;
-          //weird fix but ok
+    } else if (key == "ArrowLeft") {
+      if (Level.id == 3) {
+        for (let i = 0; i < Level.player.ammo.length; i++) {
+          if (Level.player.ammo[i] == null) {
+            Level.player.ammo[i] = draw
+              .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
+              .fill("#f00")
+              .x(Level.player.x())
+              .y(Level.player.y())
+              .attr({ dx: -0.5, dy: 0 });
+            return;
+            //weird fix but ok
+          }
         }
       }
-    }
-    case "ArrowRight": {
-      for (let i = 0; i < Level.player.ammo.length; i++) {
-        if (Level.player.ammo[i] == null) {
-          Level.player.ammo[i] = draw
-            .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-            .fill("#f00")
-            .x(Level.player.x())
-            .y(Level.player.y())
-            .attr({ dx: 0.5, dy: 0 });
-          return;
+    } else if (key == "ArrowRight") {
+      if (Level.id == 3) {
+        for (let i = 0; i < Level.player.ammo.length; i++) {
+          if (Level.player.ammo[i] == null) {
+            Level.player.ammo[i] = draw
+              .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
+              .fill("#f00")
+              .x(Level.player.x())
+              .y(Level.player.y())
+              .attr({ dx: 0.5, dy: 0 });
+            return;
+          }
         }
       }
     }
@@ -324,19 +327,21 @@ function MoveBullets(Level) {
     }
   }
 
-  for (let j = 0; j < Level.player.ammo.length; j++) {
-    if (Level.player.ammo[j] != null) {
-      Level.player.ammo[j]
-        .dx(Level.player.ammo[j].attr("dx") * px)
-        .dy(Level.player.ammo[j].attr("dy") * px);
-      if (
-        Level.room[Math.round(Level.player.ammo[j].y() / px)][
-          Math.round(Level.player.ammo[j].x() / px)
-        ] == 1
-      ) {
-        Level.player.ammo[j].remove();
-        Level.player.ammo[j] = null;
-        break;
+  if (Level.id == 3) {
+    for (let j = 0; j < Level.player.ammo.length; j++) {
+      if (Level.player.ammo[j] != null) {
+        Level.player.ammo[j]
+          .dx(Level.player.ammo[j].attr("dx") * px)
+          .dy(Level.player.ammo[j].attr("dy") * px);
+        if (
+          Level.room[Math.round(Level.player.ammo[j].y() / px)][
+            Math.round(Level.player.ammo[j].x() / px)
+          ] == 1
+        ) {
+          Level.player.ammo[j].remove();
+          Level.player.ammo[j] = null;
+          break;
+        }
       }
     }
   }
@@ -590,14 +595,31 @@ function SnakeHitDetection(Level) {
 }
 
 function WinCondition(Level) {
-  if (
-    Level.room[
-      Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
-    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
-  ) {
-    alert("you wan");
-  } else if (Level.snake[0].attr("is") == "dead") {
-    return true;
+  if (Level.id == 1) {
+    if (
+      Level.room[
+        Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
+      ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
+    ) {
+      alert("you wan");
+      Level.player = {};
+      return true;
+    }
+  } else if (Level.id == 2) {
+    if (
+      Level.room[
+        Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
+      ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
+    ) {
+      alert("you wan");
+      Level.player = {};
+      return true;
+    }
+  } else if (Level.id == 3) {
+    if (Level.snake[0].attr("is") == "dead") {
+      Level.player = {};
+      return true;
+    }
   }
   return false;
 }
@@ -626,21 +648,29 @@ async function GameLoop(levelIndex, roomFlag) {
   if (roomFlag == false) {
     roomFlag = BuildArray(CurrentLevel);
   }
-  window.document.addEventListener("keydown", (event) => {
-    if (interval === 1) {
-      ControlPlayer(CurrentLevel, event.key);
-      interval = 0;
-    }
-  });
+
+  document.addEventListener(
+    "keydown",
+    function onKeyDown(event) {
+      if (interval === 1) {
+        ControlPlayer(CurrentLevel, event.key);
+        interval = 0;
+      }
+      document.removeEventListener("keydown", onKeyDown, false);
+      //I have no clue why addign this worked but it did
+    },
+    false
+  );
   interval = 1;
   BulletHitDetection(CurrentLevel);
   MoveBullets(CurrentLevel);
   let moveToNextLevel = WinCondition(CurrentLevel);
 
   if (levelIndex == 2) {
+    MoveBullets(CurrentLevel);
     SnakeHitDetection(CurrentLevel);
     snakeCounter++;
-    if (snakeCounter >= 14) {
+    if (snakeCounter >= 20) {
       //MoveSnake(CurrentLevel, snakeMoveCounter);
       snakeCounter = 0;
       if (snakeMoveCounter == 4) {
@@ -653,7 +683,6 @@ async function GameLoop(levelIndex, roomFlag) {
   if (moveToNextLevel) {
     roomFlag = false;
     EraseArray(CurrentLevel);
-    Level.player = {};
     levelIndex++;
   }
 
@@ -661,4 +690,14 @@ async function GameLoop(levelIndex, roomFlag) {
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(2, roomFlag));
+window.requestAnimationFrame(() => GameLoop(0, roomFlag));
+
+/*
+fix the level to level bug
+there is just something that fucks up moving from level to level
+its as if levelindex doesn't include the new player
+for what reason would it continue manipulating the previous level's player object when I am on the next level
+do I have to differentiate them by sayin
+fix the wincondition bug
+getting hit means you restart completely
+*/
