@@ -127,7 +127,6 @@ function BuildArray(Level) {
             startY: i * px + 3,
           });
         Level.player.ammo = [null, null, null, null];
-        Level.player.id = Level.id;
         Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         draw
@@ -211,81 +210,79 @@ function BuildArray(Level) {
 //I would like to smoothen this so it doesn't linger before full speed
 //create a gate such that it only manipulates the current level's player if id's match
 function ControlPlayer(Level, key) {
-  if (Level.id == Level.player.id) {
-    //w
-    if (key == "w") {
-      Level.player.attr({ dx: 0, dy: -0.5 });
-      MovePlayer(Level);
-    }
-    //a
-    else if (key == "a") {
-      Level.player.attr({ dx: -0.5, dy: 0 });
-      MovePlayer(Level);
-    }
-    //s
-    else if (key == "s") {
-      Level.player.attr({ dx: 0, dy: 0.5 });
-      MovePlayer(Level);
-    }
-    //d
-    else if (key == "d") {
-      Level.player.attr({ dx: 0.5, dy: 0 });
-      MovePlayer(Level);
-    } else if (key == "ArrowUp") {
-      if (Level.id == 3) {
-        for (let i = 0; i < Level.player.ammo.length; i++) {
-          if (Level.player.ammo[i] == null) {
-            Level.player.ammo[i] = draw
-              .polygon("3,0 6,3 6,20 3,17 0,20 0,3")
-              .fill("#f00")
-              .x(Level.player.x())
-              .y(Level.player.y())
-              .attr({ dx: 0, dy: -0.5 });
-            return;
-          }
+  //w
+  if (key == "w") {
+    Level.player.attr({ dx: 0, dy: -0.5 });
+    MovePlayer(Level);
+  }
+  //a
+  else if (key == "a") {
+    Level.player.attr({ dx: -0.5, dy: 0 });
+    MovePlayer(Level);
+  }
+  //s
+  else if (key == "s") {
+    Level.player.attr({ dx: 0, dy: 0.5 });
+    MovePlayer(Level);
+  }
+  //d
+  else if (key == "d") {
+    Level.player.attr({ dx: 0.5, dy: 0 });
+    MovePlayer(Level);
+  } else if (key == "ArrowUp") {
+    if (Level.id == 3) {
+      for (let i = 0; i < Level.player.ammo.length; i++) {
+        if (Level.player.ammo[i] == null) {
+          Level.player.ammo[i] = draw
+            .polygon("3,0 6,3 6,20 3,17 0,20 0,3")
+            .fill("#f00")
+            .x(Level.player.x())
+            .y(Level.player.y())
+            .attr({ dx: 0, dy: -0.5 });
+          return;
         }
       }
-    } else if (key == "ArrowDown") {
-      if (Level.id == 3) {
-        for (let i = 0; i < Level.player.ammo.length; i++) {
-          if (Level.player.ammo[i] == null) {
-            Level.player.ammo[i] = draw
-              .polygon("0,0 3,3 6,0 6,17 3,20 0,17")
-              .fill("#f00")
-              .x(Level.player.x())
-              .y(Level.player.y())
-              .attr({ dx: 0, dy: 0.5 });
-            return;
-          }
+    }
+  } else if (key == "ArrowDown") {
+    if (Level.id == 3) {
+      for (let i = 0; i < Level.player.ammo.length; i++) {
+        if (Level.player.ammo[i] == null) {
+          Level.player.ammo[i] = draw
+            .polygon("0,0 3,3 6,0 6,17 3,20 0,17")
+            .fill("#f00")
+            .x(Level.player.x())
+            .y(Level.player.y())
+            .attr({ dx: 0, dy: 0.5 });
+          return;
         }
       }
-    } else if (key == "ArrowLeft") {
-      if (Level.id == 3) {
-        for (let i = 0; i < Level.player.ammo.length; i++) {
-          if (Level.player.ammo[i] == null) {
-            Level.player.ammo[i] = draw
-              .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
-              .fill("#f00")
-              .x(Level.player.x())
-              .y(Level.player.y())
-              .attr({ dx: -0.5, dy: 0 });
-            return;
-            //weird fix but ok
-          }
+    }
+  } else if (key == "ArrowLeft") {
+    if (Level.id == 3) {
+      for (let i = 0; i < Level.player.ammo.length; i++) {
+        if (Level.player.ammo[i] == null) {
+          Level.player.ammo[i] = draw
+            .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
+            .fill("#f00")
+            .x(Level.player.x())
+            .y(Level.player.y())
+            .attr({ dx: -0.5, dy: 0 });
+          return;
+          //weird fix but ok
         }
       }
-    } else if (key == "ArrowRight") {
-      if (Level.id == 3) {
-        for (let i = 0; i < Level.player.ammo.length; i++) {
-          if (Level.player.ammo[i] == null) {
-            Level.player.ammo[i] = draw
-              .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
-              .fill("#f00")
-              .x(Level.player.x())
-              .y(Level.player.y())
-              .attr({ dx: 0.5, dy: 0 });
-            return;
-          }
+    }
+  } else if (key == "ArrowRight") {
+    if (Level.id == 3) {
+      for (let i = 0; i < Level.player.ammo.length; i++) {
+        if (Level.player.ammo[i] == null) {
+          Level.player.ammo[i] = draw
+            .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
+            .fill("#f00")
+            .x(Level.player.x())
+            .y(Level.player.y())
+            .attr({ dx: 0.5, dy: 0 });
+          return;
         }
       }
     }
@@ -657,7 +654,6 @@ async function GameLoop(levelIndex, roomFlag) {
         interval = 0;
       }
       document.removeEventListener("keydown", onKeyDown, false);
-      //I have no clue why addign this worked but it did
     },
     false
   );
@@ -693,11 +689,5 @@ async function GameLoop(levelIndex, roomFlag) {
 window.requestAnimationFrame(() => GameLoop(0, roomFlag));
 
 /*
-fix the level to level bug
-there is just something that fucks up moving from level to level
-its as if levelindex doesn't include the new player
-for what reason would it continue manipulating the previous level's player object when I am on the next level
-do I have to differentiate them by sayin
-fix the wincondition bug
 getting hit means you restart completely
 */
