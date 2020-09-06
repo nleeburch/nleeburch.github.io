@@ -610,7 +610,6 @@ function WinCondition(Level) {
       ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
     ) {
       alert("you wan");
-      Level.player = {};
       return true;
     }
   } else if (Level.id == 2) {
@@ -620,12 +619,10 @@ function WinCondition(Level) {
       ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == 8
     ) {
       alert("you wan");
-      Level.player = {};
       return true;
     }
   } else if (Level.id == 3) {
     if (Level.snake[0].attr("is") == "dead") {
-      Level.player = {};
       return true;
     }
   }
