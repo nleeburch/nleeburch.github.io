@@ -1,8 +1,6 @@
 var draw = SVG("game").size(500, 500);
 var px = 20;
 ////////////////////////////////////////////
-
-////////////////////////////////////////////
 class Level {
   constructor(room, bullets, id) {
     this.room = room;
@@ -16,19 +14,19 @@ class Level {
 let bulletsRoom1 = [];
 let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 2.1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 3.1, 1, 1, 1, 1],
+  [1, 1, 1, 2.15, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 2.01, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 3.15, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, "p", 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 2.1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 8, 8, 8, 1, 1, 1, 1, 1, 1],
 ];
@@ -41,24 +39,24 @@ let arrayRoom1 = [
 let bulletsRoom2 = [];
 let arrayRoom2 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 4.35, 0, 0, 4.4, 0, 0, 0, 0, 0, 0, 4.3, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 4.2, 0, 0, 4.4, 0, 0, 0, 0, 0, 0, 4.3, 0, 0, 0, 1],
   [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.55, 1],
+  [1, 2.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.5, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.44, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.4, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.33, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.3, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.55, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-  [1, 0, 0, 0, 5.35, 0, 0, 0, 0, 0, 0, 5.4, 0, 0, 0, 1, 0, 0, 0, 1],
+  [1, 0, 0, 0, 5.3, 0, 0, 0, 0, 0, 0, 5.4, 0, 0, 0, 1, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 8, 1],
 ];
 //1 = wall
@@ -71,27 +69,27 @@ let arrayRoom2 = [
 let bulletsRoom3 = [];
 let arrayRoom3 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 4.14, 0, 0, 0, 0, 4.13, 0, 0, 0, 0, 4.17, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 4.022, 0, 0, 0, 0, 4.033, 0, 0, 0, 0, 4.044, 0, 0, 0, 0, 1],
   [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.14, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.022, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.13, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "s", 0, 1],
+  [1, 2.05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.12, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.033, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.044, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "s", 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.16, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.044, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2.18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 5.14, 0, 0, 0, 0, 5.15, 0, 0, 0, 0, 5.17, 0, 0, 1],
+  [1, 2.033, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.055, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2.022, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 5.044, 0, 0, 0, 0, 5.033, 0, 0, 0, 0, 5.022, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 //1 = wall
@@ -125,7 +123,6 @@ function BuildArray(Level) {
             dy: 0,
             startX: j * px + 3,
             startY: i * px + 3,
-            hp: 3,
           });
         Level.player.ammo = [null, null, null, null];
         Level.player.id = Level.id;
@@ -197,7 +194,7 @@ function BuildArray(Level) {
           Level.snake.push(
             draw
               .rect(px - 2, px - 2)
-              .fill("#272")
+              .fill("#292")
               .x(j * px)
               .y(i * px + k * px)
               .attr({ dx: 0, dy: 0, hp: 5, is: "alive" })
@@ -210,7 +207,6 @@ function BuildArray(Level) {
 }
 
 //I would like to smoothen this so it doesn't linger before full speed
-//create a gate such that it only manipulates the current level's player if id's match
 function ControlPlayer(Level, key) {
   if (Level.player.id == Level.id) {
     //w
@@ -241,7 +237,7 @@ function ControlPlayer(Level, key) {
               .fill("#f00")
               .x(Level.player.x())
               .y(Level.player.y())
-              .attr({ dx: 0, dy: -0.5 });
+              .attr({ dx: 0, dy: -0.1 });
             return;
           }
         }
@@ -255,7 +251,7 @@ function ControlPlayer(Level, key) {
               .fill("#f00")
               .x(Level.player.x())
               .y(Level.player.y())
-              .attr({ dx: 0, dy: 0.5 });
+              .attr({ dx: 0, dy: 0.1 });
             return;
           }
         }
@@ -269,7 +265,7 @@ function ControlPlayer(Level, key) {
               .fill("#f00")
               .x(Level.player.x())
               .y(Level.player.y())
-              .attr({ dx: -0.5, dy: 0 });
+              .attr({ dx: -0.1, dy: 0 });
             return;
             //weird fix but ok
           }
@@ -284,7 +280,7 @@ function ControlPlayer(Level, key) {
               .fill("#f00")
               .x(Level.player.x())
               .y(Level.player.y())
-              .attr({ dx: 0.5, dy: 0 });
+              .attr({ dx: 0.1, dy: 0 });
             return;
           }
         }
@@ -405,13 +401,7 @@ function BulletHitDetection(Level) {
         Level.player.y() <= Level.bullets[i].y() + 5 &&
         Level.player.y() + 9 >= Level.bullets[i].y() + 5)
     ) {
-      Level.player.attr("hp", Level.player.attr("hp") - 1);
-      if (Level.player.attr("hp") == 0) {
-        //restart the game
-        //need an hp counter somewhere
-        //need like a stat box
-        //HP: 3   Level: 1
-      }
+      alert("you died");
       Level.player.x(Level.player.attr("startX"));
       Level.player.y(Level.player.attr("startY"));
     }
@@ -475,15 +465,15 @@ function BulletHitDetection(Level) {
 function HandleSnake(Level, i) {
   Level.snake[i].attr("hp", Level.snake[i].attr("hp") - 1);
   if (Level.snake[i].attr("hp") == 4) {
-    Level.snake[i].fill("#262");
+    Level.snake[i].fill("#282");
   } else if (Level.snake[i].attr("hp") == 3) {
-    Level.snake[i].fill("#252");
+    Level.snake[i].fill("#272");
   } else if (Level.snake[i].attr("hp") == 2) {
-    Level.snake[i].fill("#242");
+    Level.snake[i].fill("#262");
   } else if (Level.snake[i].attr("hp") == 1) {
-    Level.snake[i].fill("#232");
+    Level.snake[i].fill("#252");
   } else if (Level.snake[i].attr("hp") == 0) {
-    Level.snake[i].fill("#222");
+    Level.snake[i].fill("#000");
   }
 
   let snakeHpCounter = 0;
@@ -495,7 +485,7 @@ function HandleSnake(Level, i) {
 
   if (snakeHpCounter == Level.snake.length) {
     Level.snake[0].attr({ is: "dead" });
-    alert("dead");
+    alert("dead snake");
   }
 }
 
@@ -642,11 +632,10 @@ function EraseArray(Level) {
 }
 
 ///////////////////////////////////////////////
-
 let interval = 1;
 let roomFlag = false;
 let snakeCounter = 0;
-let snakeMoveCounter = 0;
+let snakeDirectionCounter = 0;
 
 async function GameLoop(levelIndex, roomFlag) {
   let CurrentLevel = allLevels[levelIndex];
@@ -674,13 +663,13 @@ async function GameLoop(levelIndex, roomFlag) {
     MoveBullets(CurrentLevel);
     SnakeHitDetection(CurrentLevel);
     snakeCounter++;
-    if (snakeCounter >= 20) {
-      //MoveSnake(CurrentLevel, snakeMoveCounter);
+    if (snakeCounter >= 30) {
+      MoveSnake(CurrentLevel, snakeDirectionCounter);
       snakeCounter = 0;
-      if (snakeMoveCounter == 4) {
-        snakeMoveCounter = -1;
+      if (snakeDirectionCounter == 4) {
+        snakeDirectionCounter = -1;
       }
-      snakeMoveCounter++;
+      snakeDirectionCounter++;
     }
   }
 
@@ -688,14 +677,23 @@ async function GameLoop(levelIndex, roomFlag) {
     roomFlag = false;
     EraseArray(CurrentLevel);
     levelIndex++;
+    if (levelIndex == 3) {
+      levelIndex = 0;
+    }
   }
 
-  await sleep(30);
   window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
 }
 
 window.requestAnimationFrame(() => GameLoop(0, roomFlag));
 
 /*
-getting hit means you restart completely
+something wrong with hitboxes on third level
+next level works like a treadmill where dependent on the position of the player and his direction
+the map moves along with him
+add jumping
+make mario pretty much
+and physics
+
+I think I'll need to start a new project
 */
