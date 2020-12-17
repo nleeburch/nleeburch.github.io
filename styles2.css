@@ -1,23 +1,104 @@
+/* This is for the home page of nleeburch.github.io */
+
+@font-face {
+font-family: 'TF2Secondary';
+src: url('fonts/TF2Secondary.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+font-display: swap;
+}
+
+@font-face {
+font-family: 'TF2Build';
+src: url('fonts/TF2Build.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+font-display: swap;
+}
+@font-face {
+font-family: 'TF2Professor';
+src: url('fonts/TF2Professor.woff') format('woff');
+font-weight: normals;
+font-style: normal;
+font-display: swap;
+}
+
 body {
 display: grid;
-grid-template-rows: 20% auto;
-grid-template-columns: 20% auto;
+margin: 0;
+padding: 0;
+grid-template-rows: 15% 33% 52%;
+grid-template-columns: 18% 30% 52%;
 }
 
 #top-banner {
-grid-rows: 1/3;
-grid-columns: 1/2;
-background-color: red;
+background-color: rgb(255, 104, 104);
+grid-row: 1/2;
+grid-column: 1/4;
+display: grid;
+grid-template-rows: 50% 50%;
+}
+#top-banner-1 {
+font-family: 'TF2Build';
+font-size: 40px;
+color: white;
+grid-row: 1/2;
+display: flex;
+justify-content: center;
+}
+#top-banner-2 {
+grid-row:2/3;
+display: grid;
+grid-template-columns: 33% 33% 33%;
+justify-content: space-evenly;
+padding: 7px;
+}
+#top-banner-2-1{
+grid-column: 1/2;
+background-color:Crimson;
+border: 3px solid white;
+border-radius: 5px;
+}
+#top-banner-2-2{
+grid-column: 2/3;
+background-color: FireBrick;
+border: 3px solid white;
+border-radius: 5px;
+}
+#top-banner-2-3{
+grid-column: 3/4;
+background-color: Maroon;
+border: 3px solid white;
+border-radius: 5px;
 }
 
-#left-sidebar {
-grid-rows: 1/2;
-grid-columns: 1/3;
-background-color: blue;
+#left-banner {
+background-color: rgb(113,175,255);
+font-family: 'TF2Professor';
+color: White;
+font-size: 30px;
+grid-row: 2/4;
+grid-column: 1/2;
+padding: 5px;
 }
 
-#display-box {
-grid-rows: 2/3;
-grid-columns: 2/3;
-background-color: red;
+#text-box {
+font-family: 'TF2Secondary';
+font-size: 20px;
+grid-row: 2/4;
+grid-column: 2/4;
+display: grid;
+grid-template-rows: 95% 5%;
+}
+
+#text {
+grid-row: 1/2;
+}
+
+#bottom-banner{
+background-color: rgb(255,228,151);
+font-family: 'TF2Build';
+grid-row: 2/3;
+display: flex;
+justify-content: center;
 }
