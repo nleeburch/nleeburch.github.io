@@ -11,7 +11,7 @@
 <div id="top-banner-2-1">J A Z Z</div>
 <div id="top-banner-2-2">C O O K I N G</div>
 <div id="top-banner-2-3">L E A R N I N G</div>
-<div id="top-banner-2-4">B L O G</div>
+<div id="top-banner-2-4">B L O G P O S T S</div>
 </div>
 </div>
 
@@ -24,32 +24,38 @@ Projects:</br>
 
 <div id="text-box">
 Welcome to my blog of jazz, cooking, fitness, and learning about whatever I learn about.
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
-1</br>
+<hr>
+   
+<div id="output">
+
+<input type="file" name="inputfile" id="inputfile"> </br> 
+<script> 
+document.getElementById('inputfile')
+.addEventListener('change', function() 
+{ 
+	var fr=new FileReader(); 
+	<!--function definition-->
+	fr.onload=function()
+	{
+		let doc = new DOMParser()
+		.parseFromString(fr.result, "text/html");
+		document.getElementById('output')
+		.innerHTML = doc.body.innerHTML;
+	<!--issue is the mark up language isn't actualizing-->
+	<!--that's the last thing I need to happen-->
+	}
+	fr.readAsText(this.files[0]);
+})
+</script>
+
+</div> 
+<hr>
+
+
 </div>
 
 
-
-<div id="bottom-banner">last updated: 12/17/2020 </div>
+<!--I wonder if I can automate this-->
+<div id="bottom-banner">last updated: 12/19/2020</div>
 
 </body>
