@@ -1,0 +1,30 @@
+#game {
+  font-family: Noto Mono;
+  display: grid;
+  grid-template-columns: 18vw 20vw;
+  grid-gap: 10px;
+  margin: 0;
+  padding: 5px;
+}
+
+#data-box {
+  background-color: rgb(255, 228, 151);
+  font-size: 12;
+  grid-column: 1/2;
+  word-wrap: wrap;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 50vh;
+  width: 16vw;
+  padding: 3%;
+}
+
+#game-box {
+  grid-column: 2/3;
+}
+
+.scale {
+  font-family: Noto Mono;
+  width: 11vw;
+  font-size: 10;
+}

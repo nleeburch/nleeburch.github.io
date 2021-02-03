@@ -1,0 +1,107 @@
+@font-face {
+  font-family: "TF2Secondary";
+  src: url("fonts/TF2Secondary.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TF2Build";
+  src: url("fonts/TF2Build.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TF2Professor";
+  src: url("fonts/TF2Professor.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#top-banner {
+  background-color: rgb(255, 104, 104);
+  font-family: "TF2Build";
+  color: white;
+  font-size: 2.5vw;
+}
+#top-banner-button-box {
+  display: flex;
+  justify-content: space-between;
+}
+#top-banner-button {
+  background-color: Tomato;
+  font-family: "TF2Build";
+  color: white;
+  border-radius: 5px;
+  border: 3px solid white;
+  width: 17%;
+}
+#top-banner-button:hover {
+  background-color: rgb(255, 159, 131);
+}
+
+#left-banner {
+  background-color: rgb(113, 175, 255);
+  font-family: "TF2Build";
+  font-size: 1vw;
+  color: White;
+  height: 79.7%;
+  word-wrap: wrap;
+}
+#left-banner-button {
+  background-color: rgb(113, 175, 255);
+  color: white;
+  font-size: 1vw;
+  border-radius: 5px;
+  border: 2px solid white;
+  white-space: normal;
+  width: 90%;
+  margin-left: 5%;
+}
+#left-banner-button:hover {
+  background-color: rgb(125, 200, 255);
+}
+
+#main {
+  height: 79.7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#content-box {
+  font-family: "TF2Secondary";
+  font-size: 1vw;
+  padding: 1vw;
+  display: flex;
+  align-content: space-between;
+  justify-content: start;
+}
+#content-block {
+  background-color: rgb(255, 228, 151);
+  font-size: 1.2vw;
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 2vw;
+  margin: auto;
+  word-wrap: wrap;
+  width: 30%;
+}
+#content-image {
+  border-radius: 5px;
+  margin: auto;
+  height: 15vw;
+  width: 15vw;
+}
+#bottom-banner {
+  background-color: rgb(255, 228, 151);
+  font-family: "TF2Build";
+  border: 1px solid black;
+}

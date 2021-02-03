@@ -1,7 +1,7 @@
 //draws the box in which SVG elements reside
-var draw = SVG("game").size(500, 500);
+var draw = SVG("game-box").size(1000, 1000);
 //standard unit of measurement
-var px = 20;
+let px = 20;
 ////////////////////////////////////////////
 class Level {
   constructor(room, bullets, id) {
@@ -17,7 +17,7 @@ class Level {
 let bulletsRoom1 = [];
 let arrayRoom1 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 2.15, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -28,7 +28,7 @@ let arrayRoom1 = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 2.1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, "p", 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 8, 8, 8, 1, 1, 1, 1, 1, 1],
@@ -44,7 +44,7 @@ let bulletsRoom2 = [];
 let arrayRoom2 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 0, 0, 0, 0, 4.2, 0, 0, 4.4, 0, 0, 0, 0, 0, 0, 4.3, 0, 0, 0, 1],
-  [1, 0, "p", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 2.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.5, 1],
@@ -60,14 +60,14 @@ let arrayRoom2 = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 2.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-  [1, 0, 0, 0, 5.3, 0, 0, 0, 0, 0, 0, 5.4, 0, 0, 0, 1, 0, 0, 0, 1],
+  [1, 0, 0, 0, 5.3, 0, 0, 0, 0, 0, 0, 5.4, 0, 0, 0, 1, 0, "p", 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 8, 1],
 ];
 //1 = wall
-//2 = eastward turret 
-//3 = westward turret 
-//4 = southward turret 
-//5 = northward turret 
+//2 = eastward turret
+//3 = westward turret
+//4 = southward turret
+//5 = northward turret
 //8 = goal
 //9 = player
 /////////////////////////////////////////////
@@ -98,10 +98,10 @@ let arrayRoom3 = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 //1 = wall
-//2 = eastward turret 
-//3 = westward turret 
-//4 = southward turret 
-//5 = northward turret 
+//2 = eastward turret
+//3 = westward turret
+//4 = southward turret
+//5 = northward turret
 //8 = goal
 //9 = player
 //"s" = snake head
@@ -129,12 +129,10 @@ function BuildArray(Level) {
             startX: j * px + 3,
             startY: i * px + 3,
           });
-          //max four bullets at a time
+        //max four bullets at a time
         Level.player.ammo = [null, null, null, null];
         //necessary data to navigate around a stupid bug when changing levels
         Level.player.id = Level.id;
-        //then set the room position to 0;
-        Level.room[i][j] = 0;
       } else if (Level.room[i][j] == 1) {
         //draws the wall
         draw
@@ -148,61 +146,72 @@ function BuildArray(Level) {
         draw
           .polygon("0,0 0,20 10,10")
           .x(j * px)
-          .y(i * px);
-          //pushes the bullet onto the Level's bullet array
-          //initializes the bullet as an SVG element
+          .y(i * px)
+          .scale(px / 20);
+        //pushes the bullet onto the Level's bullet array
+        //initializes the bullet as an SVG element
         Level.bullets.push(
           draw
             .polygon("0,0 15,0 18,3 15,6 0,6 3,3")
             .x(j * px)
-            .y(i * px + 7)
+            .y(i * px + 0.4 * px)
             .attr({ t: 0, dx: v, dy: 0 })
+            .scale(px / 20)
         );
-      } 
+      }
       //this turret/bullet process is the same for all turrets (3,4,5)
       else if (Math.floor(Level.room[i][j]) === 3) {
+        //westward turret
         let v = Level.room[i][j] - Math.floor(Level.room[i][j]);
         draw
-          .polygon("20,0 20,20 10,10")
-          .x(j * px + 10)
-          .y(i * px);
+          .polygon("10,0 10,20 0,10")
+          .x(j * px + 0.5 * px)
+          .y(i * px)
+          .scale(px / 20);
         Level.bullets.push(
           draw
             .polygon("5,0 20,0 17,3 20,6 5,6 2,3")
             .x(j * px)
-            .y(i * px + 7)
+            .y(i * px + 0.4 * px)
             .attr({ t: 0, dx: -v, dy: 0 })
+            .scale(px / 20)
         );
       } else if (Math.floor(Level.room[i][j]) === 4) {
+        //southward turret
         let v = Level.room[i][j] - Math.floor(Level.room[i][j]);
         draw
           .polygon("0,0 20,0 10,20")
           .x(j * px)
-          .y(i * px);
+          .y(i * px)
+          .scale(px / 20);
         Level.bullets.push(
           draw
             .polygon("0,0 3,3 6,0 6,17 3,20 0,17")
-            .x(j * px + 7)
+            .x(j * px + 0.4 * px)
             .y(i * px)
             .attr({ t: 0, dx: 0, dy: v })
+            .scale(px / 20)
         );
       } else if (Math.floor(Level.room[i][j]) === 5) {
+        //northward turret
         let v = Level.room[i][j] - Math.floor(Level.room[i][j]);
         draw
           .polygon("10,0 20,20 0,20")
           .x(j * px)
-          .y(i * px);
+          .y(i * px)
+          .scale(px / 20);
         Level.bullets.push(
           draw
             .polygon("3,0 6,3 6,20 3,17 0,20 0,3")
-            .x(j * px + 7)
+            .x(j * px + 0.4 * px)
             .y(i * px)
             .attr({ t: 0, dx: 0, dy: -v })
+            .scale(px / 20)
         );
       } else if (Level.room[i][j] === 8) {
         draw
           .rect(16, 5)
-          .x(j * px + 2)
+          .x(j * px)
           .y(i * px);
       } else if (Level.room[i][j] === "s") {
         for (let k = 0; k < 10; k++) {
@@ -213,13 +222,13 @@ function BuildArray(Level) {
               .fill("#292")
               .x(j * px)
               .y(i * px + k * px)
-              .attr({ dx: 0, dy: 0, hp: 5, is: "alive" })
+              .attr({ dx: 0, dy: 0, hp: 1, is: "alive" })
           );
         }
       }
     }
   }
-  //sets roomFlag to true so that this function needs only run a single time
+  //sets buildFlag to true so that this function needs only run a single time
   return true;
 }
 
@@ -227,26 +236,23 @@ function BuildArray(Level) {
 function ControlPlayer(Level, key) {
   //only affects the player object which matches its id with that of the level
   //something happens where the gameloop continues to affect the previous level's player object
-  //this bypasses that stupidity 
+  //this bypasses that stupidity
   if (Level.player.id == Level.id) {
     if (key == "w") {
       //sets dx, dy based on the key
       Level.player.attr({ dx: 0, dy: -0.5 });
       //calls a function which handles the players movement
       MovePlayer(Level);
-    }
-    else if (key == "a") {
+    } else if (key == "a") {
       Level.player.attr({ dx: -0.5, dy: 0 });
       MovePlayer(Level);
-    }
-    else if (key == "s") {
+    } else if (key == "s") {
       Level.player.attr({ dx: 0, dy: 0.5 });
       MovePlayer(Level);
-    }
-    else if (key == "d") {
+    } else if (key == "d") {
       Level.player.attr({ dx: 0.5, dy: 0 });
       MovePlayer(Level);
-    } 
+    }
     //for shooting
     else if (key == "ArrowUp") {
       //only available on level 3
@@ -261,8 +267,8 @@ function ControlPlayer(Level, key) {
               .x(Level.player.x())
               .y(Level.player.y())
               .attr({ dx: 0, dy: -0.1 });
-              //return forces only a single shot
-              //fixes multiple multidirectional bullet bug
+            //return forces only a single shot
+            //fixes multiple multidirectional bullet bug
             return;
           }
         }
@@ -321,7 +327,10 @@ function MovePlayer(Level) {
     ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] < 1 ||
     Level.room[
       Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
-    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] > 7
+    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] > 7 ||
+    Level.room[
+      Math.round((Level.player.y() + Level.player.attr("dy") * px) / px)
+    ][Math.round((Level.player.x() + Level.player.attr("dx") * px) / px)] == "p"
   ) {
     //then you may proceed
     Level.player.dmove(
@@ -362,7 +371,7 @@ function MoveBullets(Level) {
           .dx(Level.player.ammo[j].attr("dx") * px)
           .dy(Level.player.ammo[j].attr("dy") * px);
         //if the bullet hits a wall
-          if (
+        if (
           Level.room[Math.round(Level.player.ammo[j].y() / px)][
             Math.round(Level.player.ammo[j].x() / px)
           ] == 1
@@ -409,7 +418,7 @@ possible scenarios for player bullet interaction
    , ,
 -------------------
 */
-function BulletHitDetection(Level) {
+function PlayerHitDetection(Level) {
   for (let i = 0; i < Level.bullets.length; i++) {
     //all these conditionals account for the above
     if (
@@ -443,92 +452,88 @@ function BulletHitDetection(Level) {
       //return player to the start
       Level.player.x(Level.player.attr("startX"));
       Level.player.y(Level.player.attr("startY"));
+      return "player_hit";
     }
   }
 
-  //checks player-bullet/snake collision
   for (let i = 0; i < Level.snake.length; i++) {
-    for (let j = 0; j < Level.player.ammo.length; j++) {
-      if (Level.player.ammo[j] != null) {
-        if (
-          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
-            Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].y() >= Level.snake[i].y() &&
-            Level.player.ammo[j].y() + 5 <= Level.snake[i].y() + 19) ||
-          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
-            Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
-          (Level.player.ammo[j].x() <= Level.snake[i].x() &&
-            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() &&
-            Level.player.ammo[j].y() >= Level.snake[i].y() &&
-            Level.player.ammo[j].y() + 5 <= Level.snake[i].y() + 19) ||
-          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
-            Level.player.ammo[j].x() + 17 <= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
-          (Level.player.ammo[j].x() >= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].x() + 17 <= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y()) ||
-          (Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
-          (Level.player.ammo[j].x() <= Level.snake[i].x() + 17 &&
-            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y()) ||
-          (Level.player.ammo[j].x() <= Level.snake[i].x() &&
-            Level.player.ammo[j].x() + 9 >= Level.snake[i].x() &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y()) ||
-          (Level.player.ammo[j].x() <= Level.snake[i].x() &&
-            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
-          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
-            Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
-            Level.player.ammo[j].y() <= Level.snake[i].y() &&
-            Level.player.ammo[j].y() + 5 >= Level.snake[i].y())
-        ) {
-          Level.player.ammo[j].remove();
-          Level.player.ammo[j] = null;
-          //handles the collision
-          HandleSnake(Level, i);
-          break;
-        }
-      }
+    if (
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() <= Level.snake[i].x() + 19 &&
+        Level.player.y() >= Level.snake[i].y() &&
+        Level.player.y() + 9 <= Level.snake[i].y() + 19) ||
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() <= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() + 19 &&
+        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
+      (Level.player.x() <= Level.snake[i].x() &&
+        Level.player.x() + 9 >= Level.snake[i].x() &&
+        Level.player.y() >= Level.snake[i].y() &&
+        Level.player.y() + 9 <= Level.snake[i].y() + 19) ||
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() + 9 <= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() + 19 &&
+        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
+      (Level.player.x() >= Level.snake[i].x() + 19 &&
+        Level.player.x() + 9 <= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() &&
+        Level.player.y() + 9 >= Level.snake[i].y()) ||
+      (Level.player.x() <= Level.snake[i].x() + 19 &&
+        Level.player.x() + 9 >= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() + 19 &&
+        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
+      (Level.player.x() <= Level.snake[i].x() + 17 &&
+        Level.player.x() + 9 >= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() &&
+        Level.player.y() + 9 >= Level.snake[i].y()) ||
+      (Level.player.x() <= Level.snake[i].x() &&
+        Level.player.x() + 9 >= Level.snake[i].x() &&
+        Level.player.y() <= Level.snake[i].y() &&
+        Level.player.y() + 9 >= Level.snake[i].y()) ||
+      (Level.player.x() <= Level.snake[i].x() &&
+        Level.player.x() + 9 >= Level.snake[i].x() &&
+        Level.player.y() <= Level.snake[i].y() + 19 &&
+        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
+      (Level.player.x() >= Level.snake[i].x() &&
+        Level.player.x() <= Level.snake[i].x() + 19 &&
+        Level.player.y() <= Level.snake[i].y() &&
+        Level.player.y() + 9 >= Level.snake[i].y())
+    ) {
+      alert("the snake ate you");
+      Level.player.x(Level.player.attr("startX"));
+      Level.player.y(Level.player.attr("startY"));
+      return "player_hit";
     }
   }
+  return "fugetabotit";
 }
 
 function HandleSnake(Level, i) {
+  let hpCounter = 0;
+  for (let k = 0; k < Level.snake.length; k++) {
+    hpCounter += Level.snake[k].attr("hp");
+  }
+  document.getElementById("snake").innerText = "Snek HP: " + (hpCounter - 1);
+
+  //handles death
+  if (hpCounter == 1) {
+    Level.snake[0].attr({ is: "dead" });
+    alert("dead snake");
+    document.getElementById("snake").innerText = "";
+  }
+
   //change color of snake segment based on hp value
   Level.snake[i].attr("hp", Level.snake[i].attr("hp") - 1);
   if (Level.snake[i].attr("hp") == 4) {
     Level.snake[i].fill("#282");
   } else if (Level.snake[i].attr("hp") == 3) {
-    Level.snake[i].fill("#272");
+    Level.snake[i].fill("#277");
   } else if (Level.snake[i].attr("hp") == 2) {
-    Level.snake[i].fill("#262");
+    Level.snake[i].fill("#272");
   } else if (Level.snake[i].attr("hp") == 1) {
-    Level.snake[i].fill("#252");
+    Level.snake[i].fill("#267");
   } else if (Level.snake[i].attr("hp") == 0) {
     Level.snake[i].fill("#000");
-  }
-
-  //for loop to check if snake is fully dead
-  let snakeHpCounter = 0;
-  for (let j = 0; j < Level.snake.length; j++) {
-    if (Level.snake[j].attr("hp") <= 0) {
-      snakeHpCounter++;
-    }
-  }
-  //handles death
-  if (snakeHpCounter == Level.snake.length) {
-    Level.snake[0].attr({ is: "dead" });
-    alert("dead snake");
   }
 }
 
@@ -592,51 +597,61 @@ player-snake hit detection
 adds to the collection of hitbox checks from bullet collision
 */
 function SnakeHitDetection(Level) {
+  //checks player-bullet/snake collision
   for (let i = 0; i < Level.snake.length; i++) {
-    if (
-      (Level.player.x() >= Level.snake[i].x() &&
-        Level.player.x() <= Level.snake[i].x() + 19 &&
-        Level.player.y() >= Level.snake[i].y() &&
-        Level.player.y() + 9 <= Level.snake[i].y() + 19) ||
-      (Level.player.x() >= Level.snake[i].x() &&
-        Level.player.x() <= Level.snake[i].x() + 19 &&
-        Level.player.y() <= Level.snake[i].y() + 19 &&
-        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
-      (Level.player.x() <= Level.snake[i].x() &&
-        Level.player.x() + 9 >= Level.snake[i].x() &&
-        Level.player.y() >= Level.snake[i].y() &&
-        Level.player.y() + 9 <= Level.snake[i].y() + 19) ||
-      (Level.player.x() >= Level.snake[i].x() &&
-        Level.player.x() + 9 <= Level.snake[i].x() + 19 &&
-        Level.player.y() <= Level.snake[i].y() + 19 &&
-        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
-      (Level.player.x() >= Level.snake[i].x() + 19 &&
-        Level.player.x() + 9 <= Level.snake[i].x() + 19 &&
-        Level.player.y() <= Level.snake[i].y() &&
-        Level.player.y() + 9 >= Level.snake[i].y()) ||
-      (Level.player.x() <= Level.snake[i].x() + 19 &&
-        Level.player.x() + 9 >= Level.snake[i].x() + 19 &&
-        Level.player.y() <= Level.snake[i].y() + 19 &&
-        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
-      (Level.player.x() <= Level.snake[i].x() + 17 &&
-        Level.player.x() + 9 >= Level.snake[i].x() + 19 &&
-        Level.player.y() <= Level.snake[i].y() &&
-        Level.player.y() + 9 >= Level.snake[i].y()) ||
-      (Level.player.x() <= Level.snake[i].x() &&
-        Level.player.x() + 9 >= Level.snake[i].x() &&
-        Level.player.y() <= Level.snake[i].y() &&
-        Level.player.y() + 9 >= Level.snake[i].y()) ||
-      (Level.player.x() <= Level.snake[i].x() &&
-        Level.player.x() + 9 >= Level.snake[i].x() &&
-        Level.player.y() <= Level.snake[i].y() + 19 &&
-        Level.player.y() + 9 >= Level.snake[i].y() + 19) ||
-      (Level.player.x() >= Level.snake[i].x() &&
-        Level.player.x() <= Level.snake[i].x() + 19 &&
-        Level.player.y() <= Level.snake[i].y() &&
-        Level.player.y() + 9 >= Level.snake[i].y())
-    ) {
-      Level.player.x(Level.player.attr("startX"));
-      Level.player.y(Level.player.attr("startY"));
+    for (let j = 0; j < Level.player.ammo.length; j++) {
+      if (Level.player.ammo[j] != null) {
+        if (
+          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
+            Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].y() >= Level.snake[i].y() &&
+            Level.player.ammo[j].y() + 5 <= Level.snake[i].y() + 19) ||
+          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
+            Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
+          (Level.player.ammo[j].x() <= Level.snake[i].x() &&
+            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() &&
+            Level.player.ammo[j].y() >= Level.snake[i].y() &&
+            Level.player.ammo[j].y() + 5 <= Level.snake[i].y() + 19) ||
+          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
+            Level.player.ammo[j].x() + 17 <= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
+          (Level.player.ammo[j].x() >= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].x() + 17 <= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y()) ||
+          (Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
+          (Level.player.ammo[j].x() <= Level.snake[i].x() + 17 &&
+            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y()) ||
+          (Level.player.ammo[j].x() <= Level.snake[i].x() &&
+            Level.player.ammo[j].x() + 9 >= Level.snake[i].x() &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y()) ||
+          (Level.player.ammo[j].x() <= Level.snake[i].x() &&
+            Level.player.ammo[j].x() + 17 >= Level.snake[i].x() &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() + 19 &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y() + 19) ||
+          (Level.player.ammo[j].x() >= Level.snake[i].x() &&
+            Level.player.ammo[j].x() <= Level.snake[i].x() + 19 &&
+            Level.player.ammo[j].y() <= Level.snake[i].y() &&
+            Level.player.ammo[j].y() + 5 >= Level.snake[i].y())
+        ) {
+          Level.player.ammo[j].remove();
+          Level.player.ammo[j] = null;
+          //handles the collision
+          if (Level.snake[i].attr("hp") > 0) {
+            HandleSnake(Level, i);
+          }
+          break;
+        }
+      }
     }
   }
 }
@@ -676,7 +691,9 @@ function WinCondition(Level) {
 }
 
 //used after level completion
-function EraseArray(Level) {
+function EraseLevel(Level) {
+  Level.snake = [];
+  Level.bullets = [];
   for (let i = 0; i < Level.room.length; i++) {
     for (let j = 0; j < Level.room[i].length; j++) {
       draw
@@ -691,21 +708,35 @@ function EraseArray(Level) {
 ///////////////////////////////////////////////
 //interval fixes the nuisance bug which causes the EventListener to be called many many times
 let interval = 1;
-let roomFlag = false;
+let buildFlag = false;
 let snakeCounter = 0;
 let snakeDirectionCounter = 0;
 
-async function GameLoop(levelIndex, roomFlag) {
+async function GameLoop(levelIndex, buildFlag) {
   let CurrentLevel = allLevels[levelIndex];
+
   //only calls BuildArray once
-  if (roomFlag == false) {
-    roomFlag = BuildArray(CurrentLevel);
+  if (buildFlag == false) {
+    buildFlag = BuildArray(CurrentLevel);
   }
+
+  document.getElementById("change_size").onclick = function () {
+    if (document.getElementById("scale").value >= 10) {
+      EraseLevel(CurrentLevel);
+      buildFlag = false;
+      px = document.getElementById("scale").value;
+      document.getElementById("scale").value = "";
+      let temp_levelIndex = levelIndex;
+      //wtf it just works now?
+    } else {
+      alert("invalid scale value");
+      document.getElementById("scale").value = "";
+    }
+  };
 
   document.addEventListener(
     "keydown",
     function onKeyDown(event) {
-      //ControlPlayer only calls once
       if (interval === 1) {
         ControlPlayer(CurrentLevel, event.key);
         interval = 0;
@@ -715,13 +746,14 @@ async function GameLoop(levelIndex, roomFlag) {
     },
     false
   );
+
   interval = 1;
-  BulletHitDetection(CurrentLevel);
+  let player_dead = PlayerHitDetection(CurrentLevel);
   MoveBullets(CurrentLevel);
   let moveToNextLevel = WinCondition(CurrentLevel);
 
   if (levelIndex == 2) {
-    MoveBullets(CurrentLevel);
+    //MoveBullets(CurrentLevel);
     SnakeHitDetection(CurrentLevel);
     snakeCounter++;
     if (snakeCounter >= 30) {
@@ -734,19 +766,25 @@ async function GameLoop(levelIndex, roomFlag) {
     }
   }
 
+  if (player_dead == "player_hit") {
+    levelIndex = 0;
+    buildFlag = false;
+    EraseLevel(CurrentLevel);
+  }
+
   if (moveToNextLevel) {
-    roomFlag = false;
-    EraseArray(CurrentLevel);
+    buildFlag = false;
+    EraseLevel(CurrentLevel);
     levelIndex++;
     if (levelIndex == 3) {
       levelIndex = 0;
     }
   }
 
-  window.requestAnimationFrame(() => GameLoop(levelIndex, roomFlag));
+  window.requestAnimationFrame(() => GameLoop(levelIndex, buildFlag));
 }
 
-window.requestAnimationFrame(() => GameLoop(0, roomFlag));
+window.requestAnimationFrame(() => GameLoop(0, buildFlag));
 
 /*
 something wrong with hitboxes on third level

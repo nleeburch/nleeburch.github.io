@@ -1,15 +1,23 @@
 <html>
   <head>
-    <link href="gamestyles.css" rel="stylesheet" type="text/css" />
+    <link href="game.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8" />
   </head>
 
-  <a href="index.html">go back to main page</a
-  ><br />
-
-  <body>
-    <div id="game"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.6/svg.min.js"></script>
-    <script src="game.js"></script>
-  </body>
+  <div id="game">
+    <div id="data-box">
+      <a href="index_bootstrap.html">return to home</a>
+      <hr />
+      HOW TO PLAY<br />
+      MOVE - WASD<br />
+      SHOOT - Arrow Keys<br />
+      <button id="change_size" class="scale">Change Size</button>
+      <input type="number" class="scale" placeholder="default: 20" />
+      <hr />
+      <div id="snake"></div>
+    </div>
+    <div id="game-box"></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.6/svg.min.js"></script>
+  <script src="game.js"></script>
 </html>
