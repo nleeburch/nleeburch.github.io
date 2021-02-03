@@ -51,15 +51,15 @@ body {
   font-size: 20px;
   color: white;
   grid-row: 2/3;
-  display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
+  display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
   grid-gap: 4px;
   padding: 7px;
 }
 #top-banner-2-button-1 {
   grid-column: 1/2;
-  background-color: Tomato;
+  background-color: maroon;
   border: 3px solid white;
   font-family: "TF2Build";
   font-size: 2vw;
@@ -74,7 +74,7 @@ body {
 }
 #top-banner-2-button-2 {
   grid-column: 2/3;
-  background-color: rgb(220, 20, 60);
+  background-color: maroon;
   border: 3px solid white;
   font-family: "TF2Build";
   font-size: 2vw;
@@ -89,7 +89,7 @@ body {
 }
 #top-banner-2-button-3 {
   grid-column: 3/4;
-  background-color: rgb(178, 34, 34);
+  background-color: maroon;
   border: 3px solid white;
   font-family: "TF2Build";
   font-size: 2vw;
