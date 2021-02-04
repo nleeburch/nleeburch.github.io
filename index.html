@@ -1,48 +1,133 @@
 <head>
-<link href="index.css" rel="stylesheet" type="text/css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="index.css" rel="stylesheet" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous"
+  />
 </head>
-
 <body>
+  <div class="container-fluid" style="background-color: rgb(245, 245, 245)">
+    <div class="row" id="top-banner">
+      <div class="row" style="margin: 1vw">
+        <div class="col-xs-12 text-center">
+          Nicholas Burch's Super Magnificent Website Extravaganza 3.0
+        </div>
+      </div>
+      <div
+        class="row text-center"
+        style="margin: 1vw"
+        id="top-banner-button-box"
+      >
+        <a href="index.html" class="col-*-8 btn btn-default" id="top-banner-button">HOME/PROJECTS</a>
+        <a href="jazz.html" class="col-*-8 btn btn-default" id="top-banner-button">JAZZ</a>
+      </div>
+    </div>
 
-<div id="top-banner">
-<div id="top-banner-1">Nicholas Burch's Super Magnificent Website Extravaganza 2.0</div>
-<div id="top-banner-2">
-<button type="button" id="top-banner-2-button-1" onclick="window.location.href='index.html'">H O M E</button>
-<button type="button" id="top-banner-2-button-2" onclick="window.location.href='jazz.html'">J A Z Z</button>
-<button type="button" id="top-banner-2-button-3" onclick="window.location.href='cooking.html'">C O O K I N G</button>
-<button type="button" id="top-banner-2-button-4" onclick="window.location.href='learning.html'">L E A R N I N G</button>
-<button type="button" id="top-banner-2-button-5" onclick="window.location.href='index_bootstrap.html'">B O O T S T R A P</button>
-</div>
-</div>
+    <div class="row">
+      <div class="col-xs-2 text-center" id="left-banner">
+        <div class="row">
+        <div class="col-*-*">LINKS</div>
+        </div>
+        <hr>
+        <div class="row">
+            <a href="https://i.imgur.com/Os4FsbV_d.jpg?maxwidth=640&shape=thumb&fidelity=medium" class="btn btn-default btn-block col-*-*" id="left-banner-button">Thomas The Tank Engine Leadsheet</a>
+        </div>
+        <br>
+        <div class="row">
+            <a href="https://jazztrumpetlicks.com/2009/05/a-bebop-exercise-that-will-help-develop-your-use-of-arpeggios/" class="btn btn-default btn-block col-*-*" id="left-banner-button">Bebop Exercise</a>
+        </div>
+        <br>
+        <div class="row">
+            <a href="https://www.thefederalistpapers.org/wp-content/uploads/2012/12/Two-Treatises-of-Government-by-John-Locke.pdf" class="btn btn-default btn-block col-*-*" id="left-banner-button">Two Treatises of Government by John Locke</a>
+        </div>
+        <br>
+        <div class="row">
+            <a href="http://www.halgalper.com/great-quotes/" class="btn btn-default btn-block col-*-*" id="left-banner-button">Hal Galper's Website</a>
+        </div>
+        <br>
+        <div class="row">
+            <a href="https://www.sharpgoatranch.com/goatmilk.htm" class="btn btn-default btn-block col-*-*" id="left-banner-button">Raw Goat Milk Website</a>
+        </div>
+        <br>
+        <div class="row">
+          <a href="https://mtcapra.com/product/goat-milk-cream-capra-cream/" class="btn btn-default btn-block col-*-*" id="left-banner-button">Goat Milk Cream Powder</a>
+        </div>
+        <br>
+      </div>
 
-<div id="left-banner">
-Projects:</br>
-<a style="color: white;"  href="game.html">Escape The Room Game</a>
-</br></br>
-<a style="color: white;" href="IntelliJ HTML.html">IntelliJ Code Editor CSS Model</a>
-</br></br>
-<a style="color: white;" href="landing_page.html">Simple Landing Page Design</a>
-</br></br>
-</div>
+      <div class="col-xs-10" id="main">
+        <div class="row" id="content-box">
+          <div class="col-*-3" id="content-block">
+            <div class="row">
+              <div class="col-*-12 text-center">
+                <a href="game.html">Escape The Room Game</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-*-12 text-center">
+                JavaScript Adventure Game using the SVG library
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-*-12">
+                <img
+                  class="img-responsive"
+                  src="images/escape_the_room.JPG"
+                  id="content-image"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-*-3" id="content-block">
+            <div class="row">
+              <div class="col-*-12 text-center">
+                <a href="IntelliJ HTML.html">IntelliJ Code Editor CSS Model</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-*-12 text-center">
+                Model of the Intelli J Code Editor using HTML/CSS Grid and Flex
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-*-12">
+                <img
+                  class="img-responsive"
+                  src="images/intelli_j_code_editor.jpg"
+                  id="content-image"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-*-3" id="content-block">
+            <div class="row">
+              <div class="col-*-12 text-center">
+                <a href="landing_page.html">Simple Landing Page Design</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-*-12 text-center">
+                Quick model of a simple landing page made with HTML/CSS
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-*-12">
+                <img
+                  class="img-responsive"
+                  src="images/image 3.jpg"
+                  id="content-image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
-<div id="text-box">
-Welcome to my blog of jazz, cooking, fitness, and learning about whatever I learn about.
-<hr>
-<p>A little bit about me:
-I grew up in Southern California playing video games, eating In-N-Out, and being stupid.
-I went to compulsory education in the cities of Thousand Oaks and Moorpark.
-The weather there is supremely nice practically all year round.
-After graduating high school in 2016, I attended Moorpark College to study math, philosophy, and music for 4 years.
-The lockdowns came during my first semester at UCI and so I left to Texas to move out of my MOM's house to live on my own.</p>
-</div>
-<hr>
-
-
-</div>
-
-
-<!--I wonder if I can automate this-->
-<div id="bottom-banner">last updated: 12/19/2020</div>
-
+        <div class="row" id="bottom-banner">
+          <div class="col-*-12 text-center">Made With Bootstrap 2/4/21</div>
+        </div>
+    </div>
+  </div>
 </body>

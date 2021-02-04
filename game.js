@@ -721,12 +721,12 @@ async function GameLoop(levelIndex, buildFlag) {
   }
 
   document.getElementById("change_size").onclick = function () {
+    alert(1);
     if (document.getElementById("scale").value >= 10) {
       EraseLevel(CurrentLevel);
       buildFlag = false;
       px = document.getElementById("scale").value;
       document.getElementById("scale").value = "";
-      let temp_levelIndex = levelIndex;
       //wtf it just works now?
     } else {
       alert("invalid scale value");

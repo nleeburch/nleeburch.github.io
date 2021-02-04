@@ -1,49 +1,85 @@
 <head>
-    <link href="index.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    
-    <body>
-    
-    <div id="top-banner">
-    <div id="top-banner-1">Nicholas Burch's Super Magnificent Website Extravaganza 2.0</div>
-    <div id="top-banner-2">
-        <button type="button" id="top-banner-2-button-1" onclick="window.location.href='index.html'">H O M E</button>
-        <button type="button" id="top-banner-2-button-2" onclick="window.location.href='jazz.html'">J A Z Z</button>
-        <button type="button" id="top-banner-2-button-3" onclick="window.location.href='cooking.html'">C O O K I N G</button>
-        <button type="button" id="top-banner-2-button-4" onclick="window.location.href='learning.html'">L E A R N I N G</button>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid" style="background-color: rgb(245, 245, 245)">
+      <div class="row" id="top-banner">
+        <div class="row" style="margin: 1vw">
+          <div class="col-xs-12 text-center">
+            Nicholas Burch's Super Magnificent Website Extravaganza 3.0
+          </div>
+        </div>
+        <div
+          class="row text-center"
+          style="margin: 1vw"
+          id="top-banner-button-box"
+        >
+          <a href="index.html" class="col-*-8 btn btn-default" id="top-banner-button">HOME/PROJECTS</a>
+          <a href="jazz.html" class="col-*-8 btn btn-default" id="top-banner-button">JAZZ</a>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-xs-2 text-center" id="left-banner">
+          <div class="row">
+          <div class="col-*-*">LINKS</div>
+          </div>
+          <hr>
+          <div class="row">
+              <a href="https://i.imgur.com/Os4FsbV_d.jpg?maxwidth=640&shape=thumb&fidelity=medium" class="btn btn-default btn-block col-*-*" id="left-banner-button">Thomas The Tank Engine Leadsheet</a>
+          </div>
+          <br>
+          <div class="row">
+              <a href="https://jazztrumpetlicks.com/2009/05/a-bebop-exercise-that-will-help-develop-your-use-of-arpeggios/" class="btn btn-default btn-block col-*-*" id="left-banner-button">Bebop Exercise</a>
+          </div>
+          <br>
+          <div class="row">
+              <a href="https://www.thefederalistpapers.org/wp-content/uploads/2012/12/Two-Treatises-of-Government-by-John-Locke.pdf" class="btn btn-default btn-block col-*-*" id="left-banner-button">Two Treatises of Government by John Locke</a>
+          </div>
+          <br>
+          <div class="row">
+              <a href="http://www.halgalper.com/great-quotes/" class="btn btn-default btn-block col-*-*" id="left-banner-button">Hal Galper's Website</a>
+          </div>
+          <br>
+          <div class="row">
+              <a href="https://www.sharpgoatranch.com/goatmilk.htm" class="btn btn-default btn-block col-*-*" id="left-banner-button">Raw Goat Milk Website</a>
+          </div>
+          <br>
+          <div class="row">
+            <a href="https://mtcapra.com/product/goat-milk-cream-capra-cream/" class="btn btn-default btn-block col-*-*" id="left-banner-button">Goat Milk Cream Powder</a>
+          </div>
+          <br>
+        </div>
+  
+        <div class="col-xs-10" id="main">
+          <div class="row" id="content-box">
+            <div class="col-*-12" id="content-block" style="width: 100%; padding: 1vw; word-wrap: wrap;">
+              <div class="row">
+                <div class="col-*-12 text-center" id="text-box">
+                    There are three fundamental jazz patterns: Diatonic or within a scale, Chromatic, Arpeggiatic. 
+                    To learn improvisation, I practice the infinite patterns that fall within these categories in all 12 keys.
+                    For example:<br>
+                    <img src="chromatic-16th-runs.jpg" alt="chromatic 16th runs" style="border: 2px solid black; border-radius: 5px;"><br>
+                    I call this <strong>"Chromatic 16th Runs"</strong>. This micro-progresses and macro-progresses chromatically.
+                    You can change this up by macro-progressing by minor 3rds, major 2nds, or even diatonically in and through all 12 keys.
+                    Additionally, I practice transcribing and playing solos by ear.
+                    Aside from these jazz techniques, I practice long tones and lip slurs.
+                    One important note: rest just as much as you play so you can practice all through the day and not bust your chops.
+                </div>
+            </div>
+          </div>
+          </div>
+  
+          <div class="row" id="bottom-banner">
+            <div class="col-*-12 text-center">Made With Bootstrap 2/4/21</div>
+          </div>
+      </div>
     </div>
-    </div>
-    
-    <div id="left-banner">
-    Projects:</br>
-    <a style="color: white;"  href="game.html">Escape The Room Game</a>
-    </br></br>
-    <a style="color: white;" href="IntelliJ HTML.html">IntelliJ Code Editor CSS Model</a>
-    </br></br>
-    <a style="color: white;" href="landing_page.html">Simple Landing Page Design</a>
-    </br></br>
-    </div>
-    
-    <pre id="text-box">
-    There are three fundamental jazz patterns:
-        Diatonic or within a scale
-        Chromatic
-        Arpeggiatic
-    To learn improvisation, I practice the infinite patterns that fall within these categories in all 12 keys.
-    For example:
-    <img src="chromatic-16th-runs.jpg" alt="chromatic 16th runs">
-    I call this "Chromatic 16th Runs". 
-    This micro-progresses and macro-progresses chromatically.
-    You can change this up by macro-progressing by minor 3rds, major 2nds, or even diatonically in and through all 12 keys.
-    Additionally, I practice transcribing and playing solos by ear.
-    Aside from these jazz techniques, I practice long tones and lip slurs.
-    One important note: rest just as much as you play so you can practice all through the day and not bust your chops. 
-    <hr>
-    </pre>
-    
-    
-    <!--I wonder if I can automate this-->
-    <div id="bottom-banner">last updated: 12/19/2020</div>
-    
-    </body>
+  </body>

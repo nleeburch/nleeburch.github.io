@@ -1,5 +1,3 @@
-/* This is for the home page of nleeburch.github.io */
-
 @font-face {
   font-family: "TF2Secondary";
   src: url("fonts/TF2Secondary.woff") format("woff");
@@ -18,7 +16,7 @@
 @font-face {
   font-family: "TF2Professor";
   src: url("fonts/TF2Professor.woff") format("woff");
-  font-weight: normals;
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
@@ -30,146 +28,81 @@ body {
 
 #top-banner {
   background-color: rgb(255, 104, 104);
-  height: 15%;
-  width: 100%;
-  display: grid;
-  grid-template-rows: 50% 50%;
-  justify-content: space-around;
-  position: fixed;
-  z-index: 1;
-}
-#top-banner-1 {
   font-family: "TF2Build";
-  font-size: 2.7vw;
   color: white;
-  grid-row: 1/2;
-  display: flex;
-  justify-content: center;
+  font-size: 2.5vw;
 }
-#top-banner-2 {
-  font-family: "TF2Build";
-  font-size: 20px;
-  color: white;
-  grid-row: 2/3;
+#top-banner-button-box {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  grid-gap: 4px;
-  padding: 7px;
+  justify-content: space-between;
 }
-#top-banner-2-button-1 {
-  grid-column: 1/2;
-  background-color: maroon;
-  border: 3px solid white;
+#top-banner-button {
+  background-color: Tomato;
   font-family: "TF2Build";
-  font-size: 2vw;
   color: white;
   border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: 3px solid white;
+  width: 17%;
 }
-#top-banner-2-button-1:hover {
+#top-banner-button:hover {
   background-color: rgb(255, 159, 131);
-}
-#top-banner-2-button-2 {
-  grid-column: 2/3;
-  background-color: maroon;
-  border: 3px solid white;
-  font-family: "TF2Build";
-  font-size: 2vw;
-  color: white;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#top-banner-2-button-2:hover {
-  background-color: rgb(220, 80, 120);
-}
-#top-banner-2-button-3 {
-  grid-column: 3/4;
-  background-color: maroon;
-  border: 3px solid white;
-  font-family: "TF2Build";
-  font-size: 2vw;
-  color: white;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#top-banner-2-button-3:hover {
-  background-color: rgb(178, 94, 94);
-}
-#top-banner-2-button-4 {
-  grid-column: 4/5;
-  background-color: Maroon;
-  border: 3px solid white;
-  font-family: "TF2Build";
-  font-size: 2vw;
-  color: white;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#top-banner-2-button-4:hover {
-  background-color: rgb(128, 100, 100);
-}
-#top-banner-2-button-5 {
-  grid-column: 5/6;
-  background-color: Maroon;
-  border: 3px solid white;
-  font-family: "TF2Build";
-  font-size: 2vw;
-  color: white;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#top-banner-2-button-5:hover {
-  background-color: rgb(128, 100, 100);
 }
 
 #left-banner {
   background-color: rgb(113, 175, 255);
-  font-family: "TF2Professor";
+  font-family: "TF2Build";
+  font-size: 1vw;
   color: White;
-  font-size: 2.2vw;
-  position: fixed;
-  top: 15%;
-  height: 85%;
-  width: 14%;
-  padding: 5px;
-  z-index: 2;
+  height: 79.7%;
+  word-wrap: wrap;
+}
+#left-banner-button {
+  background-color: rgb(113, 175, 255);
+  color: white;
+  font-size: 1vw;
+  border-radius: 5px;
+  border: 2px solid white;
+  white-space: normal;
+  width: 90%;
+  margin-left: 5%;
+}
+#left-banner-button:hover {
+  background-color: rgb(125, 200, 255);
 }
 
-#text-box {
+#main {
+  height: 79.7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#content-box {
   font-family: "TF2Secondary";
-  font-size: 1.4vw;
-  height: 500%;
-  width: 84%;
-  left: 14.75%;
-  top: 15%;
-  position: relative;
-  z-index: 0;
-  background-color: rgb(245, 245, 245);
+  font-size: 1vw;
   padding: 1vw;
+  display: flex;
+  align-content: space-between;
+  justify-content: start;
 }
-
+#content-block {
+  background-color: rgb(255, 228, 151);
+  font-size: 1.2vw;
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 2vw;
+  margin: auto;
+  word-wrap: wrap;
+  width: 30%;
+}
+#content-image {
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: auto;
+  height: 15vw;
+  width: 15vw;
+}
 #bottom-banner {
   background-color: rgb(255, 228, 151);
   font-family: "TF2Build";
-  height: 1%;
-  width: 87%;
-  bottom: 0;
-  right: 0;
-  position: fixed;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
+  border: 1px solid black;
 }
