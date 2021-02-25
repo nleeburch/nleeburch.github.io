@@ -9,44 +9,54 @@
 <body>
   <div class="App">
     <script src="bitcoinsafe.js"></script>
+    <div>bitcoinsafe</div>
     <div id="first-page">
-      <div>bitcoinsafe</div>
       <br />
       <div>
-        <input
-          type="radio"
-          id="privacy"
-          name="choice-1"
-          required
-          onclick="choice1 = 'privacy'; enableButton()"
-        />
-        <label for="privacy"> privacy </label> vs.
-        <input
-          type="radio"
-          id="setup-speed"
-          name="choice-1"
-          required
-          onclick="choice1 = 'setupspeed'; enableButton()"
-        />
-        <label for="setup-speed"> setup speed</label>
+        <button>
+          <input
+            type="radio"
+            id="privacy"
+            name="choice-1"
+            required
+            onclick="choice1 = 'privacy'; enableButton()"
+          />
+          <label for="privacy"> privacy </label>
+        </button>
+        vs.
+        <button>
+          <input
+            type="radio"
+            id="setup-speed"
+            name="choice-1"
+            required
+            onclick="choice1 = 'setupspeed'; enableButton()"
+          />
+          <label for="setup-speed"> setup speed</label>
+        </button>
       </div>
       <div>
-        <input
-          type="radio"
-          id="security"
-          name="choice-2"
-          required
-          onclick="choice2 = 'security'; enableButton()"
-        />
-        <label for="security"> security </label> vs.
-        <input
-          type="radio"
-          id="spending-speed"
-          name="choice-2"
-          required
-          onclick="choice2 = 'spendingspeed'; enableButton()"
-        />
-        <label for="spending-speed"> spending speed</label>
+        <button>
+          <input
+            type="radio"
+            id="security"
+            name="choice-2"
+            required
+            onclick="choice2 = 'security'; enableButton()"
+          />
+          <label for="security"> security </label>
+        </button>
+        vs.
+        <button>
+          <input
+            type="radio"
+            id="spending-speed"
+            name="choice-2"
+            required
+            onclick="choice2 = 'spendingspeed'; enableButton()"
+          />
+          <label for="spending-speed"> spending speed</label>
+        </button>
       </div>
       <button id="submit" disabled onclick="handleClick()">Submit</button>
     </div>

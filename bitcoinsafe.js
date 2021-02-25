@@ -62,6 +62,9 @@ async function fetchData() {
           break;
         }
         case 1: {
+          tempCell = document.createElement("a");
+          tempCell.href = entries[i][j];
+          tempCell.innerText = entries[i][j];
           tempCell.classList.add("url", "cell");
           break;
         }
