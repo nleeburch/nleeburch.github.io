@@ -1,0 +1,69 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="index.css" media="screen" />
+</head>
+<body>
+  <div class="App">
+    <script src="index.js"></script>
+    <div id="first-page">
+      <div>bitcoinsafe</div>
+      <br />
+      <div>
+        <input
+          type="radio"
+          id="privacy"
+          name="choice-1"
+          required
+          onclick="choice1 = 'privacy'; enableButton()"
+        />
+        <label for="privacy"> privacy </label> vs.
+        <input
+          type="radio"
+          id="setup-speed"
+          name="choice-1"
+          required
+          onclick="choice1 = 'setupspeed'; enableButton()"
+        />
+        <label for="setup-speed"> setup speed</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="security"
+          name="choice-2"
+          required
+          onclick="choice2 = 'security'; enableButton()"
+        />
+        <label for="security"> security </label> vs.
+        <input
+          type="radio"
+          id="spending-speed"
+          name="choice-2"
+          required
+          onclick="choice2 = 'spendingspeed'; enableButton()"
+        />
+        <label for="spending-speed"> spending speed</label>
+      </div>
+      <button id="submit" disabled onclick="handleClick()">Submit</button>
+    </div>
+
+    <div class="second-page" id="second-page" hidden>
+      <div id="matrix">
+        <div class="row">
+          <div class="name cell legend">name</div>
+          <div class="url cell legend">url</div>
+          <div class="completeinstructions cell legend">
+            complete instructions
+          </div>
+          <div class="setupspeed cell legend">setup speed</div>
+          <div class="cost cell legend">cost</div>
+          <div class="privacy cell legend">privacy</div>
+          <div class="theftprevention cell legend">theft prevention</div>
+          <div class="lossprevention cell legend">loss prevention</div>
+          <div class="safesetup cell legend">safe setup</div>
+          <div class="inheritancesafety cell legend">inheritance safety</div>
+          <div class="comments cell legend">comments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

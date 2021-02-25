@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.second-page {
+  background-color: #282c34;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  height: 12vh;
+}
+
+.cell {
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: center;
+  align-items: center;
+  word-wrap: wrap;
+  margin: 1px;
+  font-size: 12px;
+  color: black;
+  background-color: white;
+}
+
+.name {
+  font-size: 12px;
+  width: 10vw;
+}
+
+.url {
+  font-size: 12px;
+  width: 10vw;
+}
+
+.completeinstructions {
+  font-size: 20px;
+  width: 4vw;
+}
+
+.setupspeed {
+  font-size: 20px;
+  width: 10vw;
+}
+
+.cost {
+  font-size: 20px;
+  width: 6vw;
+}
+
+.privacy {
+  font-size: 20px;
+  width: 4vw;
+}
+
+.theftprevention {
+  font-size: 20px;
+  width: 4vw;
+}
+
+.lossprevention {
+  font-size: 20px;
+  width: 4vw;
+}
+
+.safesetup {
+  font-size: 20px;
+  width: 4vw;
+}
+
+.inheritancesafety {
+  font-size: 20px;
+  width: 4vw;
+}
+
+.comments {
+  font-size: 12px;
+  width: 24vw;
+}
+
+.legend {
+  font-size: 10px;
+  height: 2vw;
+  align-self: flex-end;
+}
