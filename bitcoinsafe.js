@@ -6,7 +6,7 @@ function swapStyleSheet(sheet) {
   document.getElementById("pagestyle").setAttribute("href", sheet);
 }
 
-function handleReturn() {
+function handleRestart() {
   window.location.reload(true);
 }
 
@@ -20,6 +20,8 @@ function handleButton(string) {
         "5px solid rgb(146, 199, 255)";
       document.getElementById("setupspeed").style.border =
         "0px solid rgb(0, 123, 255)";
+      document.getElementById("setupspeed").style.backgroundColor =
+        "rgb(0, 123, 255)";
       break;
     }
     case "setupspeed": {
@@ -30,6 +32,8 @@ function handleButton(string) {
         "5px solid rgb(146, 199, 255)";
       document.getElementById("privacy").style.border =
         "0px solid rgb(0, 123, 255)";
+      document.getElementById("privacy").style.backgroundColor =
+        "rgb(0, 123, 255)";
       break;
     }
     case "security": {
@@ -40,6 +44,8 @@ function handleButton(string) {
         "5px solid rgb(146, 199, 255)";
       document.getElementById("spendingspeed").style.border =
         "0px solid rgb(0, 123, 255)";
+      document.getElementById("spendingspeed").style.backgroundColor =
+        "rgb(0, 123, 255)";
       break;
     }
     case "spendingspeed": {
@@ -50,6 +56,8 @@ function handleButton(string) {
         "5px solid rgb(146, 199, 255)";
       document.getElementById("security").style.border =
         "0px solid rgb(0, 123, 255)";
+      document.getElementById("security").style.backgroundColor =
+        "rgb(0, 123, 255)";
       break;
     }
   }

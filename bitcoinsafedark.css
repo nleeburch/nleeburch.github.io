@@ -82,7 +82,7 @@ button:disabled {
   margin: 0;
 }
 
-#return {
+#restart {
   position: absolute;
   top: 10px;
   left: 10px;
