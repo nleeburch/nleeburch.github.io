@@ -1,0 +1,181 @@
+body {
+  margin: 0;
+  padding: 10px;
+  background-color: rgb(30, 30, 30);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.App {
+  text-align: center;
+  background-color: rgb(30, 30, 30);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+button {
+  background-color: rgb(0, 123, 255);
+  color: white;
+  font-size: calc(10px + 2vmin);
+  border: 0px solid rgb(0, 123, 255);
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: rgb(0, 100, 200);
+  transition-duration: 0.1s;
+}
+
+button:disabled {
+  background-color: rgb(155, 155, 255);
+}
+
+#theme {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+.first-page {
+  display: grid;
+  grid-template-rows: 80px 80px 80px;
+  grid-template-columns: 240px 240px;
+  grid-gap: 3px;
+}
+
+#privacy {
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+#setupspeed {
+  grid-row: 1/2;
+  grid-column: 2/3;
+}
+#security {
+  grid-row: 2/3;
+  grid-column: 1/2;
+}
+#spendingspeed {
+  grid-row: 2/3;
+  grid-column: 2/3;
+}
+#submit {
+  grid-row: 3/4;
+  grid-column: 1/3;
+  cursor: pointer;
+}
+
+.second-page {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 0;
+}
+
+.matrix {
+  background-color: rgb(0, 123, 255);
+  padding: 3px;
+  border: 3px solid rgb(0, 123, 255);
+  border-radius: 5px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  height: 12vh;
+}
+
+.cell {
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: center;
+  align-items: center;
+  margin: 1px;
+  font-size: 12px;
+  color: white;
+  background-color: rgb(30, 30, 30);
+}
+
+.cell:hover {
+  background-color: rgb(0, 100, 200);
+  transition-duration: 0.3s;
+  color: white;
+}
+
+.name {
+  font-size: 16px;
+  width: 16vw;
+}
+
+.url {
+  font-size: 12px;
+  width: 16vw;
+}
+
+.completeinstructions {
+  font-size: 20px;
+  width: 5vw;
+}
+
+.setupspeed {
+  font-size: 18px;
+  width: 7vw;
+}
+
+.cost {
+  font-size: 16px;
+  width: 5vw;
+}
+
+.privacy {
+  font-size: 20px;
+  width: 3vw;
+}
+
+.theftprevention {
+  font-size: 20px;
+  width: 5vw;
+}
+
+.lossprevention {
+  font-size: 20px;
+  width: 5vw;
+}
+
+.safesetup {
+  font-size: 20px;
+  width: 3vw;
+}
+
+.inheritancesafety {
+  font-size: 20px;
+  width: 5vw;
+}
+
+.comments {
+  font-size: 12px;
+  width: 20vw;
+  word-wrap: wrap;
+}
+
+.spendspeed {
+  font-size: 16px;
+  width: 5vw;
+}
+
+.legend {
+  font-size: 12px;
+  height: 5vh;
+  align-self: flex-end;
+}

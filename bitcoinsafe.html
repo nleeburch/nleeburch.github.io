@@ -1,82 +1,67 @@
 <head>
   <link
+    id="pagestyle"
     rel="stylesheet"
     type="text/css"
-    href="bitcoinsafe.css"
+    href="bitcoinsafelight.css"
     media="screen"
   />
 </head>
 <body>
   <div class="App">
     <script src="bitcoinsafe.js"></script>
-    <div>bitcoinsafe</div>
-    <div id="first-page">
+    <div>
+      BitcoinSafe
+      <div id="theme">
+        <button id="style1" onclick="swapStyleSheet('bitcoinsafelight.css')">
+          light
+        </button>
+        <button id="style2" onclick="swapStyleSheet('bitcoinsafedark.css')">
+          dark
+        </button>
+      </div>
+      <hr />
+    </div>
+    <div id="first-page" class="first-page">
+      <button id="privacy" onclick="handleButton('privacy'); enableSubmit();">
+        Privacy
+      </button>
+      <button
+        id="setupspeed"
+        onclick="handleButton('setupspeed'); enableSubmit();"
+      >
+        Setup Speed
+      </button>
+      <button id="security" onclick="handleButton('security'); enableSubmit();">
+        Security
+      </button>
+      <button
+        id="spendingspeed"
+        onclick="handleButton('spendingspeed'); enableSubmit();"
+      >
+        Spending Speed
+      </button>
       <br />
-      <div>
-        <button>
-          <input
-            type="radio"
-            id="privacy"
-            name="choice-1"
-            required
-            onclick="choice1 = 'privacy'; enableButton()"
-          />
-          <label for="privacy"> privacy </label>
-        </button>
-        vs.
-        <button>
-          <input
-            type="radio"
-            id="setup-speed"
-            name="choice-1"
-            required
-            onclick="choice1 = 'setupspeed'; enableButton()"
-          />
-          <label for="setup-speed"> setup speed</label>
-        </button>
-      </div>
-      <div>
-        <button>
-          <input
-            type="radio"
-            id="security"
-            name="choice-2"
-            required
-            onclick="choice2 = 'security'; enableButton()"
-          />
-          <label for="security"> security </label>
-        </button>
-        vs.
-        <button>
-          <input
-            type="radio"
-            id="spending-speed"
-            name="choice-2"
-            required
-            onclick="choice2 = 'spendingspeed'; enableButton()"
-          />
-          <label for="spending-speed"> spending speed</label>
-        </button>
-      </div>
-      <button id="submit" disabled onclick="handleClick()">Submit</button>
+      <button id="submit" disabled onclick="handleSubmit()">Submit</button>
     </div>
 
     <div class="second-page" id="second-page" hidden>
-      <div id="matrix">
-        <div class="row">
-          <div class="name cell legend">name</div>
-          <div class="url cell legend">url</div>
+      <div id="matrix" class="matrix">
+        <div class="row legend">
+          <div class="name cell legend">Name</div>
+          <div class="url cell legend">URL</div>
           <div class="completeinstructions cell legend">
-            complete instructions
+            Complete Instructions
           </div>
-          <div class="setupspeed cell legend">setup speed</div>
-          <div class="cost cell legend">cost</div>
-          <div class="privacy cell legend">privacy</div>
-          <div class="theftprevention cell legend">theft prevention</div>
-          <div class="lossprevention cell legend">loss prevention</div>
-          <div class="safesetup cell legend">safe setup</div>
-          <div class="inheritancesafety cell legend">inheritance safety</div>
-          <div class="comments cell legend">comments</div>
+          <div class="setupspeed cell legend">Setup Speed</div>
+          <div class="cost cell legend">Cost</div>
+          <div class="privacy cell legend">Privacy</div>
+          <div class="theftprevention cell legend">Theft Prevention</div>
+          <div class="lossprevention cell legend">Loss Prevention</div>
+          <div class="safesetup cell legend">Safe Setup</div>
+          <div class="inheritancesafety cell legend">Inheritance Safety</div>
+          <div class="spendspeed cell legend">Spend Speed</div>
+          <div class="comments cell legend">Comments</div>
         </div>
       </div>
     </div>

@@ -2,7 +2,56 @@ var choice1 = "";
 var choice2 = "";
 var entries = [];
 
-function enableButton() {
+function swapStyleSheet(sheet) {
+  document.getElementById("pagestyle").setAttribute("href", sheet);
+}
+
+function handleButton(string) {
+  switch (string) {
+    case "privacy": {
+      choice1 = string;
+      document.getElementById("privacy").style.backgroundColor =
+        "rgb(0, 100, 200)";
+      document.getElementById("privacy").style.border =
+        "5px solid rgb(146, 199, 255)";
+      document.getElementById("setupspeed").style.border =
+        "0px solid rgb(0, 123, 255)";
+      break;
+    }
+    case "setupspeed": {
+      choice1 = string;
+      document.getElementById("setupspeed").style.backgroundColor =
+        "rgb(0, 100, 200)";
+      document.getElementById("setupspeed").style.border =
+        "5px solid rgb(146, 199, 255)";
+      document.getElementById("privacy").style.border =
+        "0px solid rgb(0, 123, 255)";
+      break;
+    }
+    case "security": {
+      choice2 = string;
+      document.getElementById("security").style.backgroundColor =
+        "rgb(0, 100, 200)";
+      document.getElementById("security").style.border =
+        "5px solid rgb(146, 199, 255)";
+      document.getElementById("spendingspeed").style.border =
+        "0px solid rgb(0, 123, 255)";
+      break;
+    }
+    case "spendingspeed": {
+      choice2 = string;
+      document.getElementById("spendingspeed").style.backgroundColor =
+        "rgb(0, 100, 200)";
+      document.getElementById("spendingspeed").style.border =
+        "5px solid rgb(146, 199, 255)";
+      document.getElementById("security").style.border =
+        "0px solid rgb(0, 123, 255)";
+      break;
+    }
+  }
+}
+
+function enableSubmit() {
   if ((choice1 && choice2) !== "") {
     document.getElementById("submit").disabled = false;
   }
@@ -13,6 +62,7 @@ async function fetchData() {
     "https://spreadsheets.google.com/feeds/list/1BxAiGnhCfFifd6T6Ky1m3gwdePvuS6QteXsc5KadlPI/od6/public/full?alt=json"
   );
   let data = await response.json();
+  console.log(data);
   for (let i = 0; i < data.feed.entry.length; i++) {
     let newEntry = [
       data.feed.entry[i].gsx$name.$t,
@@ -25,6 +75,7 @@ async function fetchData() {
       data.feed.entry[i].gsx$lossprevention.$t,
       data.feed.entry[i].gsx$safesetup.$t,
       data.feed.entry[i].gsx$inheritancesafety.$t,
+      data.feed.entry[i].gsx$spendspeed.$t,
       data.feed.entry[i].gsx$comments_8.$t,
     ];
     entries.push(newEntry);
@@ -42,7 +93,8 @@ async function fetchData() {
     7 - lossprevention
     8 - safesetup
     9 - inheritancesafety
-    10 - comments
+    10 - spendspeed
+    11 - comments
     */
 
   let tempRow = {};
@@ -101,6 +153,10 @@ async function fetchData() {
           break;
         }
         case 10: {
+          tempCell.classList.add("spendspeed", "cell");
+          break;
+        }
+        case 11: {
           tempCell.classList.add("comments", "cell");
           break;
         }
@@ -108,11 +164,26 @@ async function fetchData() {
       document.getElementById("row " + i).appendChild(tempCell);
     }
   }
-  console.log(tempRow);
 }
 
-function handleClick() {
-  document.getElementById("first-page").hidden = true;
-  document.getElementById("second-page").hidden = false;
-  fetchData();
+async function fetchTwitterData() {
+  let response = await fetch(
+    "https://api.twitter.com/2/users/by/JWWeatherman_/:JWWeatherman_"
+  );
+  let data = await response.json();
+  console.log(data);
 }
+
+function handleSubmit() {
+  document.getElementById("first-page").hidden = true;
+  document.getElementById("first-page").style.display = "none";
+  fetchData();
+  //fetchTwitterData();
+  document.getElementById("second-page").hidden = false;
+}
+
+/*
+Questions:
+Where do I pull the average review rate data?
+What is the other math I gotta bust out?
+*/
