@@ -30,6 +30,7 @@ body {
 #title {
   font-size: 40px;
   font-family: Ubuntu-BoldItalic;
+  text-shadow: 2px 2px 2px #a0a0a0;
 }
 
 button {
