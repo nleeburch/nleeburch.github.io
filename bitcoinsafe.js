@@ -6,6 +6,10 @@ function swapStyleSheet(sheet) {
   document.getElementById("pagestyle").setAttribute("href", sheet);
 }
 
+function handleReturn() {
+  window.location.reload(true);
+}
+
 function handleButton(string) {
   switch (string) {
     case "privacy": {
@@ -64,6 +68,9 @@ async function fetchData() {
   let data = await response.json();
   console.log(data);
   for (let i = 0; i < data.feed.entry.length; i++) {
+    if (data.feed.entry[i].gsx$completeinstructions.$t <= 3) {
+      continue;
+    }
     let newEntry = [
       data.feed.entry[i].gsx$name.$t,
       data.feed.entry[i].gsx$url.$t,
