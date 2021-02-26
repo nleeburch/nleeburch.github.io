@@ -7,6 +7,14 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+@font-face {
+  font-family: "Ubuntu-BoldItalic";
+  src: url("Ubuntu-BoldItalic.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .App {
   text-align: center;
   background-color: rgb(30, 30, 30);
@@ -17,6 +25,11 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.title {
+  font-size: 40px;
+  font-family: Ubuntu-BoldItalic;
 }
 
 button {

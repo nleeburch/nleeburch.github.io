@@ -7,6 +7,14 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+@font-face {
+  font-family: "Ubuntu-BoldItalic";
+  src: url("Ubuntu-BoldItalic.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .App {
   text-align: center;
   background-color: rgb(255, 255, 255);
@@ -19,6 +27,12 @@ body {
   color: black;
 }
 
+.title {
+  font-size: 40px;
+  font-family: Ubuntu-BoldItalic;
+  text-shadow: 2px 2px 2px #a0a0a0;
+}
+
 button {
   background-color: rgb(0, 123, 255);
   color: white;
@@ -27,6 +41,7 @@ button {
   border-radius: 10px;
   cursor: pointer;
   outline: none;
+  box-shadow: 2px 2px 2px #a0a0a0;
 }
 
 button:hover {
@@ -98,6 +113,7 @@ button:disabled {
   padding: 1px;
   margin: 3px;
   background-color: rgb(0, 123, 255);
+  box-shadow: 2px 2px 2px #a0a0a0;
 }
 
 .profile {
@@ -123,6 +139,7 @@ button:disabled {
   padding: 3px;
   border: 3px solid rgb(0, 123, 255);
   border-radius: 5px;
+  box-shadow: 2px 2px 2px #a0a0a0;
 }
 
 .row {
