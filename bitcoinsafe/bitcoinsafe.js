@@ -165,7 +165,6 @@ function mergeEntries() {
     //create a mergedEntry
     let mergedEntry = tempArray[0];
     for (let a = 4; a <= 20; a += 2) {
-      mergedEntry[a] = mergedEntry[0] + ": " + mergedEntry[a];
       if (a == 6 || a == 20) {
         mergedEntry[a] =
           mergedEntry[0] +
