@@ -53,6 +53,34 @@ button:disabled {
   background-color: rgb(155, 155, 255);
 }
 
+.control-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid rgb(0, 123, 255);
+  border-radius: 10px;
+  padding: 1px;
+  margin: 3px;
+  background-color: rgb(0, 123, 255);
+  box-shadow: 2px 2px 2px #a0a0a0;
+}
+
+.control {
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  border: 0px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.control:hover {
+  background-color: rgb(155, 155, 255);
+  transition-duration: 0.1s;
+}
+
 #theme {
   position: absolute;
   top: 10px;
@@ -118,6 +146,8 @@ button:disabled {
 
 .profile {
   background-color: white;
+  color: black;
+  font-size: 12px;
   border-radius: 10px;
   padding: 3px;
   margin: 1px;
@@ -164,6 +194,27 @@ button:disabled {
   background-color: rgb(0, 100, 200);
   transition-duration: 0.3s;
   color: white;
+}
+
+.cell:active .comment {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(0, 100, 200);
+  transition-duration: 0.3s;
+  color: white;
+}
+
+.comment {
+  text-align: center;
+  display: none;
+  position: absolute;
+  word-wrap: wrap;
+  width: 150px;
+  padding: 2px;
+  font-size: 12px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border: 1px solid black;
 }
 
 .name {
@@ -216,19 +267,28 @@ button:disabled {
   width: 5vw;
 }
 
-.comments {
-  font-size: 12px;
-  width: 20vw;
-  word-wrap: wrap;
-}
-
 .spendspeed {
   font-size: 16px;
   width: 5vw;
+}
+
+.easytosetup {
+  font-size: 12px;
+  width: 20vw;
+  word-wrap: wrap;
 }
 
 .legend {
   font-size: 12px;
   height: 5vh;
   align-self: flex-end;
+}
+
+.bottom {
+  height: 4vw;
+  font-size: 40px;
+  font-family: Ubuntu-BoldItalic;
+  text-shadow: 2px 2px 2px #a0a0a0;
+  color: black;
+  margin: 5px;
 }
