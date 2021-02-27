@@ -94,9 +94,12 @@ function buildCell(i, j, cellClass, cellType, comment) {
   tempCell.innerText = entries[i][j];
   tempCell.id = "cell " + i + " " + j;
   tempCell.classList.add(cellClass, "cell");
+  if (cellType == "a") {
+    tempCell.setAttribute("href", entries[i][j]);
+  }
   document.getElementById("row " + i).appendChild(tempCell);
 
-  if (comment == true) {
+  if (comment == true && entries[i][j + 1] !== "") {
     //create + position + append tempComment
     tempComment = document.createElement("div");
     if (cellClass == "name") {
