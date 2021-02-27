@@ -1,9 +1,13 @@
 var choice1 = "";
 var choice2 = "";
 var entries = [];
+let sortedEntries = [];
+let profileList = [];
+let tempArray = [];
 let tempRow = {};
 let tempCell = {};
 let tempComment = {};
+let mergeFlag = 1;
 
 function swapStyleSheet(sheet) {
   document.getElementById("pagestyle").setAttribute("href", sheet);
@@ -66,6 +70,18 @@ function handleButton(string) {
   }
 }
 
+function handleProfileCheck(id) {
+  if (document.getElementById(id).checked) {
+    profileList.push(id);
+  } else {
+    for (let i = 0; i < profileList.length; i++) {
+      if (profileList[i] == id) {
+        profileList.splice(i, 1);
+      }
+    }
+  }
+}
+
 function enableSubmit() {
   if ((choice1 && choice2) !== "") {
     document.getElementById("submit").disabled = false;
@@ -83,7 +99,11 @@ function buildCell(i, j, cellClass, cellType, comment) {
   if (comment == true) {
     //create + position + append tempComment
     tempComment = document.createElement("div");
-    tempComment.innerText = entries[i][0] + ": " + entries[i][j + 1] + "\n";
+    if (cellClass == "name") {
+      tempComment.innerText = "Reviewers: " + entries[i][0];
+    } else {
+      tempComment.innerText = entries[i][j + 1];
+    }
     tempComment.id = "comment " + i + " " + j;
     tempComment.classList.add("comment");
     //position
@@ -99,7 +119,9 @@ function buildCell(i, j, cellClass, cellType, comment) {
     document.getElementById("cell " + i + " " + j).appendChild(tempComment);
   }
 }
-/* 
+
+function mergeEntries() {
+  /* 
     KEY:
     0 - reviewer
     1 - name
@@ -124,83 +146,99 @@ function buildCell(i, j, cellClass, cellType, comment) {
     20 - comments_9 (spendspeed)
     21 - easytosetup
     */
-function mergeEntries() {
-  let tempArray = [];
-  let sortedEntries = [];
-  for (let i = 0; i < entries.length; i++) {
-    tempArray = [entries[i]];
-    for (let j = i + 1; j < entries.length; j++) {
-      if (entries[j][1] == entries[i][1]) {
-        tempArray.push[entries[j]];
-      }
-      for (let k = 0; k < tempArray.length; k++) {
-        for (let h = 0; h < tempArray[k].length; h++) {
-          switch (h) {
-            case 3: {
-              //complete instructions
-            }
-          }
-        }
+  while (entries.length > 0) {
+    tempArray = [entries[0]];
+    for (let j = 1; j < entries.length; j++) {
+      //if we find a different review of the same name
+      if (entries[j][1] == entries[0][1]) {
+        //push that review onto tempArray
+        tempArray.push(entries[j]);
+        //then splice the review out of entries
+        entries.splice(j, 1);
       }
     }
-    //do math
-    /*
-        let mergedEntry = [
-          entries[i][0],
-          entries[i][1],
-          entries[i][2],
-          entries[i][3] *,
-          entries[i][4],
-          entries[i][5] **,
-          entries[i][6],
-          entries[i][7],
-          entries[i][8],
-          entries[i][9] *,
-          entries[i][10],
-          entries[i][11] *,
-          entries[i][12],
-          entries[i][13] *,
-          entries[i][14],
-          entries[i][15] *,
-          entries[i][16],
-          entries[i][17] *,
-          entries[i][18],
-          entries[i][19],
-          entries[i][20],
-          entries[i][21]
-        ]
-        */
-    //create + push newEntry onto sortedEntries
-    //delete the old entries from entries
+    //once you are all done, go ahead and splice out the first review
+    entries.splice(0, 1);
+    //create a mergedEntry
+    let mergedEntry = tempArray[0];
+    for (let a = 4; a <= 20; a += 2) {
+      mergedEntry[a] = mergedEntry[0] + ": " + mergedEntry[a];
+      if (a == 6 || a == 20) {
+        mergedEntry[a] =
+          mergedEntry[0] +
+          ": " +
+          mergedEntry[a] +
+          " (rating: " +
+          mergedEntry[a - 1] +
+          ")";
+      }
+    }
+    let h = 1;
+    for (h; h < tempArray.length; h++) {
+      mergedEntry[0] += ", " + tempArray[h][0];
+      mergedEntry[3] = parseInt(mergedEntry[3]) + parseInt(tempArray[h][3]);
+      mergedEntry[4] += "\n" + tempArray[h][0] + ": " + tempArray[h][4];
+      mergedEntry[5] += "*";
+      mergedEntry[6] +=
+        "\n" +
+        tempArray[h][0] +
+        ": " +
+        tempArray[h][6] +
+        "\n (rating: " +
+        tempArray[h][5] +
+        ")";
+      mergedEntry[8] += "\n" + tempArray[h][0] + ": " + tempArray[h][8];
+      mergedEntry[9] = parseInt(mergedEntry[9]) + parseInt(tempArray[h][9]);
+      mergedEntry[10] += "\n" + tempArray[h][0] + ": " + tempArray[h][10];
+      mergedEntry[11] = parseInt(mergedEntry[11]) + parseInt(tempArray[h][11]);
+      mergedEntry[12] += "\n" + tempArray[h][0] + ": " + tempArray[h][12];
+      mergedEntry[13] = parseInt(mergedEntry[13]) + parseInt(tempArray[h][13]);
+      mergedEntry[14] += "\n" + tempArray[h][0] + ": " + tempArray[h][14];
+      mergedEntry[15] = parseInt(mergedEntry[15]) + parseInt(tempArray[h][15]);
+      mergedEntry[16] += "\n" + tempArray[h][0] + ": " + tempArray[h][16];
+      mergedEntry[17] = parseInt(mergedEntry[17]) + parseInt(tempArray[h][17]);
+      mergedEntry[18] += "\n" + tempArray[h][0] + ": " + tempArray[h][18];
+      mergedEntry[19] += "*";
+      mergedEntry[20] +=
+        "\n" +
+        tempArray[h][0] +
+        ": " +
+        tempArray[h][20] +
+        "\n (rating: " +
+        tempArray[h][19] +
+        ")";
+    }
+    if (h >= 1) {
+      mergedEntry[3] /= h;
+      mergedEntry[9] /= h;
+      mergedEntry[11] /= h;
+      mergedEntry[13] /= h;
+      mergedEntry[15] /= h;
+      mergedEntry[17] /= h;
+    }
+    sortedEntries.push(mergedEntry);
+    i = 0;
   }
-  /*
-  determine all the reviews of the same product,
-  identical [i][1](name) but different [i][0](reviewer)
-  I think I am guarenteed the different reviewers
-  let sortedEntries = []
-  each element is the compiled aggregate of the different reviews of the same product
-  so go to the first entry,
-  find its name
-  find all the other entries with that same name
-  do math to create a mergedEntry
-  push onto sortedEntries
-  set entries = sortedEntries;
-  */
+  return sortedEntries;
 }
 
 async function fetchData() {
+  entries = [];
+  sortedEntries = [];
   let response = await fetch(
     "https://spreadsheets.google.com/feeds/list/1BxAiGnhCfFifd6T6Ky1m3gwdePvuS6QteXsc5KadlPI/od6/public/full?alt=json"
   );
   let data = await response.json();
-  console.log(data);
   for (let i = 0; i < data.feed.entry.length; i++) {
-    if (data.feed.entry[i].gsx$completeinstructions.$t <= 3) {
-      continue;
+    for (let j = 0; j < profileList.length; j++) {
+      if (data.feed.entry[i].gsx$reviewer.$t == profileList[j]) {
+        j = -1;
+        i++;
+      }
     }
     /*
-    if (choice1 = "privacy") {
-
+    if (data.feed.entry[i].gsx$completeinstructions.$t <= 3) {
+      continue;
     }
     */
     let newEntry = [
@@ -229,7 +267,10 @@ async function fetchData() {
     ];
     entries.push(newEntry);
   }
-  console.log(entries);
+
+  if (mergeFlag == 1) {
+    entries = mergeEntries();
+  }
 
   for (let i = 0; i < entries.length; i++) {
     tempRow = document.createElement("div");
@@ -239,7 +280,7 @@ async function fetchData() {
     for (let j = 0; j < entries[i].length; j++) {
       switch (j) {
         case 1: {
-          buildCell(i, j, "name", "div");
+          buildCell(i, j, "name", "div", true);
           break;
         }
         case 2: {
@@ -290,8 +331,70 @@ async function fetchData() {
         }
       }
     }
-    console.log(document.getElementById("row " + i));
   }
+}
+
+function buildLegendCell(className, text) {
+  let cell = document.createElement("div");
+  cell.classList.add(className, "cell", "legend");
+  cell.innerText = text;
+  return cell;
+}
+
+function buildLegend() {
+  tempRow = document.createElement("div");
+  tempRow.classList.add("row", "legend");
+
+  tempRow.appendChild(buildLegendCell("name", "Name"));
+  tempRow.appendChild(buildLegendCell("url", "URL"));
+  tempRow.appendChild(
+    buildLegendCell("completeinstructions", "Complete Instructions")
+  );
+  tempRow.appendChild(buildLegendCell("setupspeed", "Setup Speed"));
+  tempRow.appendChild(buildLegendCell("cost", "Cost"));
+  tempRow.appendChild(buildLegendCell("privacy", "Privacy"));
+  tempRow.appendChild(buildLegendCell("theftprevention", "Theft Prevention"));
+  tempRow.appendChild(buildLegendCell("lossprevention", "Loss Prevention"));
+  tempRow.appendChild(buildLegendCell("safesetup", "Safe Setup"));
+  tempRow.appendChild(
+    buildLegendCell("inheritancesafety", "Inheritance Safety")
+  );
+  tempRow.appendChild(buildLegendCell("spendspeed", "Spend Speed"));
+  tempRow.appendChild(buildLegendCell("easytosetup", "Easy To Setup/Great UX"));
+
+  document.getElementById("matrix").appendChild(tempRow);
+  /*
+  <div class="row legend" >
+    <div class="name cell legend">Name</div>
+    <div class="url cell legend">URL</div>
+    <div class="completeinstructions cell legend">Complete Instructions</div>
+    <div class="setupspeed cell legend">Setup Speed</div>
+    <div class="cost cell legend">Cost</div>
+    <div class="privacy cell legend">Privacy</div>
+    <div class="theftprevention cell legend">Theft Prevention</div>
+    <div class="lossprevention cell legend">Loss Prevention</div>
+    <div class="safesetup cell legend">Safe Setup</div>
+    <div class="inheritancesafety cell legend">Inheritance Safety</div>
+    <div class="spendspeed cell legend">Spend Speed</div>
+    <div class="easytosetup cell legend">Easy To Setup/Great UX</div>
+  </div>
+  */
+}
+
+function handleReload() {
+  document.getElementById("matrix").innerHTML = "";
+  buildLegend();
+  fetchData();
+}
+
+function handleMergeUnmerge() {
+  mergeFlag = mergeFlag ? 0 : 1;
+  if (mergeFlag) {
+    document.getElementById("merge/unmerge").innerText = "Unmerge";
+  } else {
+    document.getElementById("merge/unmerge").innerText = "Merge";
+  }
+  handleReload();
 }
 
 function handleSubmit() {

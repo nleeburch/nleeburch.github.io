@@ -204,9 +204,9 @@ button:disabled {
   display: none;
   position: absolute;
   word-wrap: wrap;
-  width: 150px;
+  width: 300px;
   padding: 2px;
-  font-size: 12px;
+  font-size: 14px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border: 1px solid black;

@@ -48,26 +48,42 @@
     <div class="second-page" id="second-page" hidden>
       <button id="restart" onclick="handleRestart()">restart</button>
       <div id="profiles" class="profiles">
-        <div class="profile" id="JWWeatherman_">
+        <div>Exclude reviews:</div>
+        <div class="profile">
           <img src="reviewers/JWWeatherman_.jpg" class="profile-picture" />
           JW Weatherman
-          <input type="checkbox" name="JWWeatherman_" />
+          <input
+            type="checkbox"
+            id="JW Weatherman"
+            onchange="handleProfileCheck(id)"
+          />
         </div>
-        <div class="profile" id="Bob">
+        <div class="profile">
           <img src="reviewers/Bob.jpg" class="profile-picture" />
           Bob
-          <input type="checkbox" name="Bob" />
+          <input type="checkbox" id="Bob" onchange="handleProfileCheck(id)" />
         </div>
-        <div class="profile" id="BenWestgate_">
+        <div class="profile">
           <img src="reviewers/BenWestgate_.jpg" class="profile-picture" />
           Ben Westgate
-          <input type="checkbox" name="BenWestgate_" />
+          <input
+            type="checkbox"
+            id="Ben Westgate"
+            onchange="handleProfileCheck(id)"
+          />
         </div>
       </div>
       <div class="control-panel">
-        <button class="control">A-Z</button>
-        <button class="control">Refresh</button>
-        <button class="control">Undo</button>
+        <button
+          class="control"
+          id="merge/unmerge"
+          onclick="handleMergeUnmerge()"
+        >
+          Unmerge
+        </button>
+        <button class="control" id="reload" onclick="handleReload()">
+          Reload
+        </button>
       </div>
       <div id="matrix" class="matrix">
         <div class="row legend">
