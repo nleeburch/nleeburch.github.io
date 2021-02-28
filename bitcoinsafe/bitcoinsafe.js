@@ -308,6 +308,7 @@ async function fetchData() {
     entries = mergeEntries();
   }
 
+  document.getElementById("entries").innerText = "Entries: " + entries.length;
   for (let i = 0; i < entries.length; i++) {
     tempRow = document.createElement("div");
     tempRow.classList.add("row");
