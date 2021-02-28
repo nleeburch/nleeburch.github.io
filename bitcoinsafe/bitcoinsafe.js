@@ -30,7 +30,8 @@ function handleButton(string) {
         "0px solid rgb(0, 123, 255)";
       document.getElementById("setupspeed").style.backgroundColor =
         "rgb(0, 123, 255)";
-      document.getElementById("privacy-2").style.border = "3px solid black";
+      document.getElementById("privacy-2").style.border =
+        "3px solid rgb(255, 180, 0)";
       document.getElementById("setupspeed-2").style.border =
         "0px solid rgb(0, 123, 255)";
       break;
@@ -47,7 +48,8 @@ function handleButton(string) {
         "rgb(0, 123, 255)";
       document.getElementById("privacy-2").style.border =
         "0px solid rgb(0, 123, 255)";
-      document.getElementById("setupspeed-2").style.border = "3px solid black";
+      document.getElementById("setupspeed-2").style.border =
+        "3px solid rgb(255, 180, 0)";
       break;
     }
     case "security": {
@@ -60,7 +62,8 @@ function handleButton(string) {
         "0px solid rgb(0, 123, 255)";
       document.getElementById("spendspeed").style.backgroundColor =
         "rgb(255, 123, 0)";
-      document.getElementById("security-2").style.border = "3px solid black";
+      document.getElementById("security-2").style.border =
+        "3px solid rgb(255, 180, 0)";
       document.getElementById("spendspeed-2").style.border =
         "0px solid rgb(0, 123, 255)";
       break;
@@ -75,7 +78,8 @@ function handleButton(string) {
         "0px solid rgb(0, 123, 255)";
       document.getElementById("security").style.backgroundColor =
         "rgb(255, 123, 0)";
-      document.getElementById("spendspeed-2").style.border = "3px solid black";
+      document.getElementById("spendspeed-2").style.border =
+        "3px solid rgb(255, 180, 0)";
       document.getElementById("security-2").style.border =
         "0px solid rgb(0, 123, 255)";
       break;
