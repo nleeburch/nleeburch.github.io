@@ -116,10 +116,12 @@ button:disabled {
 #security {
   grid-row: 3/4;
   grid-column: 1/2;
+  background-color: rgb(255, 123, 0);
 }
-#spendingspeed {
+#spendspeed {
   grid-row: 3/4;
   grid-column: 2/3;
+  background-color: rgb(255, 123, 0);
 }
 #submit {
   grid-row: 4/5;

@@ -53,13 +53,13 @@ function handleButton(string) {
     case "security": {
       choice2 = string;
       document.getElementById("security").style.backgroundColor =
-        "rgb(0, 100, 200)";
+        "rgb(200, 100, 0)";
       document.getElementById("security").style.border =
         "5px solid rgb(146, 199, 255)";
       document.getElementById("spendspeed").style.border =
         "0px solid rgb(0, 123, 255)";
       document.getElementById("spendspeed").style.backgroundColor =
-        "rgb(0, 123, 255)";
+        "rgb(255, 123, 0)";
       document.getElementById("security-2").style.border = "3px solid black";
       document.getElementById("spendspeed-2").style.border =
         "0px solid rgb(0, 123, 255)";
@@ -68,13 +68,13 @@ function handleButton(string) {
     case "spendspeed": {
       choice2 = string;
       document.getElementById("spendspeed").style.backgroundColor =
-        "rgb(0, 100, 200)";
+        "rgb(200, 100, 0)";
       document.getElementById("spendspeed").style.border =
         "5px solid rgb(146, 199, 255)";
       document.getElementById("security").style.border =
         "0px solid rgb(0, 123, 255)";
       document.getElementById("security").style.backgroundColor =
-        "rgb(0, 123, 255)";
+        "rgb(255, 123, 0)";
       document.getElementById("spendspeed-2").style.border = "3px solid black";
       document.getElementById("security-2").style.border =
         "0px solid rgb(0, 123, 255)";
