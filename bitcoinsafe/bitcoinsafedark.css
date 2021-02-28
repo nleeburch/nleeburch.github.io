@@ -98,7 +98,7 @@ button:disabled {
   display: grid;
   grid-template-rows: 40px 80px 80px 80px;
   grid-template-columns: 240px 240px;
-  grid-gap: 3px;
+  grid-gap: 4px;
 }
 #prompt {
   grid-row: 1/2;
@@ -180,7 +180,8 @@ button:disabled {
   background-color: rgb(0, 123, 255);
   padding: 3px;
   border: 3px solid rgb(0, 123, 255);
-  border-radius: 5px;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
 }
 
 .row {
@@ -205,6 +206,11 @@ button:disabled {
   background-color: rgb(0, 100, 200);
   transition-duration: 0.3s;
   color: white;
+}
+
+.control:active {
+  transform: translateY(1px);
+  transition-duration: 0s;
 }
 
 .cell:active .comment {
@@ -293,6 +299,16 @@ button:disabled {
   font-size: 12px;
   height: 5vh;
   align-self: flex-end;
+}
+
+.legend .name {
+  border: 0px solid white;
+  border-top-left-radius: 5px;
+}
+
+.legend .easytosetup {
+  border: 0px solid white;
+  border-top-right-radius: 5px;
 }
 
 .bottom {
