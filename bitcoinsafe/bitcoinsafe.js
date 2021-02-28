@@ -8,6 +8,7 @@ let tempRow = {};
 let tempCell = {};
 let tempComment = {};
 let mergeFlag = 1;
+let filterFlag = 1;
 
 function swapStyleSheet(sheet) {
   document.getElementById("pagestyle").setAttribute("href", sheet);
@@ -29,6 +30,9 @@ function handleButton(string) {
         "0px solid rgb(0, 123, 255)";
       document.getElementById("setupspeed").style.backgroundColor =
         "rgb(0, 123, 255)";
+      document.getElementById("privacy-2").style.border = "3px solid black";
+      document.getElementById("setupspeed-2").style.border =
+        "0px solid rgb(0, 123, 255)";
       break;
     }
     case "setupspeed": {
@@ -41,6 +45,9 @@ function handleButton(string) {
         "0px solid rgb(0, 123, 255)";
       document.getElementById("privacy").style.backgroundColor =
         "rgb(0, 123, 255)";
+      document.getElementById("privacy-2").style.border =
+        "0px solid rgb(0, 123, 255)";
+      document.getElementById("setupspeed-2").style.border = "3px solid black";
       break;
     }
     case "security": {
@@ -49,22 +56,28 @@ function handleButton(string) {
         "rgb(0, 100, 200)";
       document.getElementById("security").style.border =
         "5px solid rgb(146, 199, 255)";
-      document.getElementById("spendingspeed").style.border =
+      document.getElementById("spendspeed").style.border =
         "0px solid rgb(0, 123, 255)";
-      document.getElementById("spendingspeed").style.backgroundColor =
+      document.getElementById("spendspeed").style.backgroundColor =
         "rgb(0, 123, 255)";
+      document.getElementById("security-2").style.border = "3px solid black";
+      document.getElementById("spendspeed-2").style.border =
+        "0px solid rgb(0, 123, 255)";
       break;
     }
-    case "spendingspeed": {
+    case "spendspeed": {
       choice2 = string;
-      document.getElementById("spendingspeed").style.backgroundColor =
+      document.getElementById("spendspeed").style.backgroundColor =
         "rgb(0, 100, 200)";
-      document.getElementById("spendingspeed").style.border =
+      document.getElementById("spendspeed").style.border =
         "5px solid rgb(146, 199, 255)";
       document.getElementById("security").style.border =
         "0px solid rgb(0, 123, 255)";
       document.getElementById("security").style.backgroundColor =
         "rgb(0, 123, 255)";
+      document.getElementById("spendspeed-2").style.border = "3px solid black";
+      document.getElementById("security-2").style.border =
+        "0px solid rgb(0, 123, 255)";
       break;
     }
   }
@@ -238,11 +251,28 @@ async function fetchData() {
         i++;
       }
     }
-    /*
-    if (data.feed.entry[i].gsx$completeinstructions.$t <= 3) {
-      continue;
+    if (filterFlag == 1) {
+      if (choice1 == "privacy" && data.feed.entry[i].gsx$privacy.$t <= 3) {
+        continue;
+      } else if (
+        choice1 == "setupspeed" &&
+        parseInt(data.feed.entry[i].gsx$setupspeed.$t) >= 1
+      ) {
+        continue;
+      }
+      if (
+        choice2 == "security" &&
+        (data.feed.entry[i].gsx$theftprevention.$t <= 3 ||
+          data.feed.entry[i].gsx$lossprevention <= 3)
+      ) {
+        continue;
+      } else if (
+        choice2 == "spendspeed" &&
+        parseInt(data.feed.entry[i].gsx$spendspeed.$t) >= 10
+      ) {
+        continue;
+      }
     }
-    */
     let newEntry = [
       data.feed.entry[i].gsx$reviewer.$t,
       data.feed.entry[i].gsx$name.$t,
@@ -392,9 +422,19 @@ function handleReload() {
 function handleMergeUnmerge() {
   mergeFlag = mergeFlag ? 0 : 1;
   if (mergeFlag) {
-    document.getElementById("merge/unmerge").innerText = "Unmerge";
+    document.getElementById("merge/unmerge").innerText = "Unmerge Data";
   } else {
-    document.getElementById("merge/unmerge").innerText = "Merge";
+    document.getElementById("merge/unmerge").innerText = "Merge Data";
+  }
+  handleReload();
+}
+
+function handleFilterUnfilter() {
+  filterFlag = filterFlag ? 0 : 1;
+  if (filterFlag) {
+    document.getElementById("filter/unfilter").innerText = "Unfilter Data";
+  } else {
+    document.getElementById("filter/unfilter").innerText = "Filter Data";
   }
   handleReload();
 }
@@ -402,6 +442,8 @@ function handleMergeUnmerge() {
 function handleSubmit() {
   document.getElementById("first-page").hidden = true;
   document.getElementById("first-page").style.display = "none";
+  handleButton(choice1);
+  handleButton(choice2);
   fetchData();
   document.getElementById("second-page").hidden = false;
 }

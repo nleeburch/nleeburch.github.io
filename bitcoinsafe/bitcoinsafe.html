@@ -23,6 +23,7 @@
       <hr />
     </div>
     <div id="first-page" class="first-page">
+      <div id="prompt">What kind of wallet do you want?</div>
       <button id="privacy" onclick="handleButton('privacy'); enableSubmit();">
         Privacy
       </button>
@@ -36,8 +37,8 @@
         Security
       </button>
       <button
-        id="spendingspeed"
-        onclick="handleButton('spendingspeed'); enableSubmit();"
+        id="spendspeed"
+        onclick="handleButton('spendspeed'); enableSubmit();"
       >
         Spending Speed
       </button>
@@ -74,12 +75,50 @@
         </div>
       </div>
       <div class="control-panel">
+        <div class="filters">
+          Filters:&nbsp;
+          <button
+            class="control"
+            id="privacy-2"
+            onclick="handleButton('privacy');"
+          >
+            Privacy
+          </button>
+          <button
+            class="control"
+            id="setupspeed-2"
+            onclick="handleButton('setupspeed');"
+          >
+            Setup Speed
+          </button>
+          <button
+            class="control"
+            id="security-2"
+            onclick="handleButton('security');"
+          >
+            Security
+          </button>
+          <button
+            class="control"
+            id="spendspeed-2"
+            onclick="handleButton('spendspeed');"
+          >
+            Spending Speed
+          </button>
+        </div>
+        <button
+          class="control"
+          id="filter/unfilter"
+          onclick="handleFilterUnfilter()"
+        >
+          Unfilter Data
+        </button>
         <button
           class="control"
           id="merge/unmerge"
           onclick="handleMergeUnmerge()"
         >
-          Unmerge
+          Unmerge Data
         </button>
         <button class="control" id="reload" onclick="handleReload()">
           Reload
