@@ -124,8 +124,8 @@ function sortEntries() {
     //filter sortedEntries for Fast Setup
     for (let j = 0; j < sortedEntries.length; j++) {
       for (let i = j + 1; i < sortedEntries.length; i++) {
-        let x = sortedEntries[j][4];
-        let y = sortedEntries[i][4];
+        let x = parseFloat(sortedEntries[j][4]);
+        let y = parseFloat(sortedEntries[i][4]);
         if (y < x) {
           //replace [0] with [i] and vice versa
           let temp = sortedEntries[j];
