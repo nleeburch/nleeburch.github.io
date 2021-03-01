@@ -10,6 +10,7 @@ let rating = {
 };
 
 /* 
+  it didn't upload correctly
     KEY:
     0 - name
     1 - url
