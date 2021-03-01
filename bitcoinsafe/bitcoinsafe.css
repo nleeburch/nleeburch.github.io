@@ -30,7 +30,6 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 input:checked[type="checkbox"] {
-  background: #3498db;
 }
 input[type="checkbox"]::before {
   position: absolute;
