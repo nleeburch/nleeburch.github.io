@@ -1,5 +1,6 @@
 let entries = [];
 let sortedEntries = [];
+let sortedEntries2 = [];
 let rating = {
   0: "Instant",
   1: "Terrible",
