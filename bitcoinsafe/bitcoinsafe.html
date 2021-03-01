@@ -1,152 +1,121 @@
-<head>
-  <link
-    id="pagestyle"
-    rel="stylesheet"
-    type="text/css"
-    href="bitcoinsafelight.css"
-    media="screen"
-  />
-</head>
-<body>
-  <div class="App">
-    <script src="bitcoinsafe.js"></script>
-    <div>
-      <div id="title">bitcoinSafe</div>
-      <div id="theme">
-        <button id="style1" onclick="swapStyleSheet('bitcoinsafelight.css')">
-          light
-        </button>
-        <button id="style2" onclick="swapStyleSheet('bitcoinsafedark.css')">
-          dark
-        </button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link href="bitcoinsafe.css" rel="stylesheet" type="text/css" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row bg-primary" style="height: 80px">
+        <div class="col-lg-12 text-center text-white align-self-end" id="title">
+          bitcoinsafe
+        </div>
       </div>
-      <hr />
-    </div>
-    <div id="first-page" class="first-page">
-      <div id="prompt">What kind of wallet do you want?</div>
-      <button id="privacy" onclick="handleButton('privacy'); enableSubmit();">
-        Privacy
-      </button>
-      <button
-        id="setupspeed"
-        onclick="handleButton('setupspeed'); enableSubmit();"
+
+      <div
+        class="row bg-primary text-light"
+        style="height: 80px"
+        id="toggle-box"
       >
-        Setup Speed
-      </button>
-      <button id="security" onclick="handleButton('security'); enableSubmit();">
-        Security
-      </button>
-      <button
-        id="spendspeed"
-        onclick="handleButton('spendspeed'); enableSubmit();"
+        <div class="col-4"></div>
+        <div class="col-4 my-auto">
+          <label for="">HIGH SECURITY</label>
+          <input type="checkbox" id="toggle" onclick="handleToggle()" />
+          <label for="">FAST SETUP</label>
+        </div>
+        <div class="col-4"></div>
+      </div>
+
+      <div
+        class="row my-auto"
+        style="height: 500px; padding: 30px"
+        id="products"
       >
-        Spending Speed
-      </button>
-      <br />
-      <button id="submit" disabled onclick="handleSubmit()">Submit</button>
+        <div class="col-12">
+          <div class="row justify-content-around">
+            <div
+              class="col-* bg-primary text-white"
+              id="product-1"
+              style="
+                height: 400px;
+                padding: 20px;
+                border-radius: 15px;
+                width: 300px;
+              "
+            ></div>
+            <div
+              class="col-* bg-primary text-white"
+              id="product-2"
+              style="
+                height: 400px;
+                padding: 20px;
+                border-radius: 15px;
+                width: 300px;
+              "
+            ></div>
+            <div
+              class="col-* bg-success text-white"
+              id="product-3"
+              style="
+                height: 400px;
+                padding: 20px;
+                border-radius: 15px;
+                width: 300px;
+              "
+            ></div>
+            <div
+              class="col-* container-md bg-primary text-white"
+              id="product-4"
+              style="
+                height: 400px;
+                padding: 20px;
+                border-radius: 15px;
+                width: 300px;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center bg-primary text-white align-content-center">
+        <div class="col-md-2">Contributor 1</div>
+        <div class="col-md-2">Contributor 2</div>
+        <div class="col-md-2">Contributor 3</div>
+        <div class="col-md-2">Contributor 4</div>
+        <div class="col-md-2">Contributor 5</div>
+        <div class="col-md-2">Contributor 6</div>
+      </div>
+      <div class="row text-center bg-primary text-white align-content-center">
+        <div class="col-md-12">
+          <a href="#" class="text-white">Go to Raw Data</a>
+        </div>
+      </div>
     </div>
 
-    <div class="second-page" id="second-page" hidden>
-      <button id="restart" onclick="handleRestart()">restart</button>
-      <div id="profiles" class="profiles">
-        <div>Exclude reviews:</div>
-        <div class="profile">
-          <img src="reviewers/JWWeatherman_.jpg" class="profile-picture" />
-          JW Weatherman
-          <input
-            type="checkbox"
-            id="JW Weatherman"
-            onchange="handleProfileCheck(id)"
-          />
-        </div>
-        <div class="profile">
-          <img src="reviewers/Bob.jpg" class="profile-picture" />
-          Bob
-          <input type="checkbox" id="Bob" onchange="handleProfileCheck(id)" />
-        </div>
-        <div class="profile">
-          <img src="reviewers/BenWestgate_.jpg" class="profile-picture" />
-          Ben Westgate
-          <input
-            type="checkbox"
-            id="Ben Westgate"
-            onchange="handleProfileCheck(id)"
-          />
-        </div>
-      </div>
-      <div class="control-panel">
-        <div id="entries" class="filters"></div>
-        <button class="control" id="reload" onclick="handleReload()">
-          Reload
-        </button>
-        <div class="filters">
-          <div class="filters">Filters:&nbsp;</div>
-          <button
-            class="control"
-            id="privacy-2"
-            onclick="handleButton('privacy');"
-          >
-            Privacy
-          </button>
-          <button
-            class="control"
-            id="setupspeed-2"
-            onclick="handleButton('setupspeed');"
-          >
-            Setup Speed
-          </button>
-          <button
-            class="control"
-            id="security-2"
-            onclick="handleButton('security');"
-          >
-            Security
-          </button>
-          <button
-            class="control"
-            id="spendspeed-2"
-            onclick="handleButton('spendspeed');"
-          >
-            Spending Speed
-          </button>
-        </div>
-        <button
-          class="control"
-          id="filter/unfilter"
-          onclick="handleFilterUnfilter()"
-        >
-          Unfilter Data
-        </button>
-        <button
-          class="control"
-          id="merge/unmerge"
-          onclick="handleMergeUnmerge()"
-        >
-          Unmerge Data
-        </button>
-      </div>
-      <div id="matrix" class="matrix">
-        <div class="row legend">
-          <div class="name cell legend">Name</div>
-          <div class="url cell legend">URL</div>
-          <div class="completeinstructions cell legend">
-            Complete Instructions
-          </div>
-          <div class="setupspeed cell legend">Setup Speed</div>
-          <div class="cost cell legend">Cost</div>
-          <div class="privacy cell legend">Privacy</div>
-          <div class="theftprevention cell legend">Theft Prevention</div>
-          <div class="lossprevention cell legend">Loss Prevention</div>
-          <div class="safesetup cell legend">Safe Setup</div>
-          <div class="inheritancesafety cell legend">Inheritance Safety</div>
-          <div class="spendspeed cell legend">Spend Speed</div>
-          <div class="easytosetup cell legend">Easy To Setup/Great UX</div>
-        </div>
-      </div>
-      <div class="bottom">
-        <hr />
-        bitcoinSafe
-      </div>
-    </div>
-  </div>
-</body>
+    <script src="bitcoinsafe.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

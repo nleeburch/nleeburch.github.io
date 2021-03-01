@@ -1,176 +1,56 @@
-var choice1 = "";
-var choice2 = "";
-var entries = [];
+let entries = [];
 let sortedEntries = [];
-let profileList = [];
-let tempArray = [];
-let tempRow = {};
-let tempCell = {};
-let tempComment = {};
-let mergeFlag = 1;
-let filterFlag = 1;
+let rating = {
+  0: "Instant",
+  1: "Terrible",
+  2: "Poor",
+  3: "Marginal",
+  4: "Good",
+  5: "Excellent",
+};
 
-function swapStyleSheet(sheet) {
-  document.getElementById("pagestyle").setAttribute("href", sheet);
-}
-
-function handleRestart() {
-  window.location.reload(true);
-}
-
-function handleButton(string) {
-  switch (string) {
-    case "privacy": {
-      choice1 = string;
-      document.getElementById("privacy").style.backgroundColor =
-        "rgb(0, 100, 200)";
-      document.getElementById("privacy").style.border =
-        "5px solid rgb(146, 199, 255)";
-      document.getElementById("setupspeed").style.border =
-        "0px solid rgb(0, 123, 255)";
-      document.getElementById("setupspeed").style.backgroundColor =
-        "rgb(0, 123, 255)";
-      document.getElementById("privacy-2").style.border =
-        "3px solid rgb(255, 180, 0)";
-      document.getElementById("setupspeed-2").style.border =
-        "0px solid rgb(0, 123, 255)";
-      break;
-    }
-    case "setupspeed": {
-      choice1 = string;
-      document.getElementById("setupspeed").style.backgroundColor =
-        "rgb(0, 100, 200)";
-      document.getElementById("setupspeed").style.border =
-        "5px solid rgb(146, 199, 255)";
-      document.getElementById("privacy").style.border =
-        "0px solid rgb(0, 123, 255)";
-      document.getElementById("privacy").style.backgroundColor =
-        "rgb(0, 123, 255)";
-      document.getElementById("privacy-2").style.border =
-        "0px solid rgb(0, 123, 255)";
-      document.getElementById("setupspeed-2").style.border =
-        "3px solid rgb(255, 180, 0)";
-      break;
-    }
-    case "security": {
-      choice2 = string;
-      document.getElementById("security").style.backgroundColor =
-        "rgb(200, 100, 0)";
-      document.getElementById("security").style.border =
-        "5px solid rgb(146, 199, 255)";
-      document.getElementById("spendspeed").style.border =
-        "0px solid rgb(0, 123, 255)";
-      document.getElementById("spendspeed").style.backgroundColor =
-        "rgb(255, 123, 0)";
-      document.getElementById("security-2").style.border =
-        "3px solid rgb(255, 180, 0)";
-      document.getElementById("spendspeed-2").style.border =
-        "0px solid rgb(0, 123, 255)";
-      break;
-    }
-    case "spendspeed": {
-      choice2 = string;
-      document.getElementById("spendspeed").style.backgroundColor =
-        "rgb(200, 100, 0)";
-      document.getElementById("spendspeed").style.border =
-        "5px solid rgb(146, 199, 255)";
-      document.getElementById("security").style.border =
-        "0px solid rgb(0, 123, 255)";
-      document.getElementById("security").style.backgroundColor =
-        "rgb(255, 123, 0)";
-      document.getElementById("spendspeed-2").style.border =
-        "3px solid rgb(255, 180, 0)";
-      document.getElementById("security-2").style.border =
-        "0px solid rgb(0, 123, 255)";
-      break;
-    }
-  }
-}
-
-function handleProfileCheck(id) {
-  if (document.getElementById(id).checked) {
-    profileList.push(id);
-  } else {
-    for (let i = 0; i < profileList.length; i++) {
-      if (profileList[i] == id) {
-        profileList.splice(i, 1);
-      }
-    }
-  }
-}
-
-function enableSubmit() {
-  if ((choice1 && choice2) !== "") {
-    document.getElementById("submit").disabled = false;
-  }
-}
-
-function buildCell(i, j, cellClass, cellType, comment) {
-  //create + append tempCell
-  tempCell = document.createElement(cellType);
-  tempCell.innerText = entries[i][j];
-  tempCell.id = "cell " + i + " " + j;
-  tempCell.classList.add(cellClass, "cell");
-  if (cellType == "a") {
-    tempCell.setAttribute("href", entries[i][j]);
-  }
-  document.getElementById("row " + i).appendChild(tempCell);
-
-  if (comment == true && entries[i][j + 1] !== "") {
-    //create + position + append tempComment
-    tempComment = document.createElement("div");
-    if (cellClass == "name") {
-      tempComment.innerText = "Reviewers: " + entries[i][0];
-    } else {
-      tempComment.innerText = entries[i][j + 1];
-    }
-    tempComment.id = "comment " + i + " " + j;
-    tempComment.classList.add("comment");
-    //position
-    tempComment.style.top = document
-      .getElementById("cell " + i + " " + j)
-      .getBoundingClientRect().top;
-    tempComment.style.left =
-      document.getElementById("cell " + i + " " + j).getBoundingClientRect()
-        .left +
-      document.getElementById("cell " + i + " " + j).getBoundingClientRect()
-        .width;
-    //append
-    document.getElementById("cell " + i + " " + j).appendChild(tempComment);
-  }
-}
-
-function mergeEntries() {
-  /* 
+/* 
     KEY:
-    0 - reviewer
-    1 - name
-    2 - url
-    3 - completeinstructions
-    4 - comments (completeinstructions)
-    5 - setupspeed
-    6 - comments_2 (setupspeed)
-    7 - cost
-    8 - comments_3 (cost)
-    9 - privacy
-    10 - comments_4 (privacy)
-    11 - theftprevention
-    12 - comments_5 (theftprevention)
-    13 - lossprevention
-    14 - comments_6 (lossprevention)
-    15 - safesetup
-    16 - comments_7 (safesetup)
-    17 - inheritancesafety
-    18 - comments_8 (inheritancesafety)
-    19 - spendspeed
-    20 - comments_9 (spendspeed)
-    21 - easytosetup
+    0 - name
+    1 - url
+    2 - completeinstructions
+    3 - comments (completeinstructions)
+    4 - setupspeed
+    5 - comments_2 (setupspeed)
+    6 - cost
+    7 - comments_3 (cost)
+    8 - privacy *
+    9 - comments_4 (privacy)
+    10 - theftprevention *
+    11 - comments_5 (theftprevention)
+    12 - lossprevention *
+    13 - comments_6 (lossprevention)
+    14 - safesetup *
+    15 - comments_7 (safesetup)
+    16 - inheritancesafety *
+    17 - comments_8 (inheritancesafety)
+    18 - spendspeed
+    19 - comments_9 (spendspeed)
+    20 - easytosetup
     */
+
+function eraseProducts() {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById("product-" + i).innerText = "";
+  }
+}
+
+async function handleToggle() {
+  eraseProducts();
+  fetchData();
+}
+
+function sortEntries() {
   while (entries.length > 0) {
     tempArray = [entries[0]];
     for (let j = 1; j < entries.length; j++) {
       //if we find a different review of the same name
-      if (entries[j][1] == entries[0][1]) {
+      if (entries[j][0] == entries[0][0]) {
         //push that review onto tempArray
         tempArray.push(entries[j]);
         //then splice the review out of entries
@@ -181,64 +61,165 @@ function mergeEntries() {
     entries.splice(0, 1);
     //create a mergedEntry
     let mergedEntry = tempArray[0];
-    for (let a = 4; a <= 20; a += 2) {
-      if (a == 6 || a == 20) {
-        mergedEntry[a] =
-          mergedEntry[0] +
-          ": " +
-          mergedEntry[a] +
-          " (rating: " +
-          mergedEntry[a - 1] +
-          ")";
+    //calculate average ratings
+    let h = 1;
+    //addition of h values
+    for (h; h < tempArray.length; h++) {
+      for (let k = 2; k <= 18; k += 2) {
+        if (k !== 6) {
+          mergedEntry[k] =
+            parseFloat(mergedEntry[k]) + parseFloat(tempArray[h][k]);
+        }
       }
     }
-    let h = 1;
-    for (h; h < tempArray.length; h++) {
-      mergedEntry[0] += ", " + tempArray[h][0];
-      mergedEntry[3] = parseInt(mergedEntry[3]) + parseInt(tempArray[h][3]);
-      mergedEntry[4] += "\n" + tempArray[h][0] + ": " + tempArray[h][4];
-      mergedEntry[5] += "*";
-      mergedEntry[6] +=
-        "\n" +
-        tempArray[h][0] +
-        ": " +
-        tempArray[h][6] +
-        "\n (rating: " +
-        tempArray[h][5] +
-        ")";
-      mergedEntry[8] += "\n" + tempArray[h][0] + ": " + tempArray[h][8];
-      mergedEntry[9] = parseInt(mergedEntry[9]) + parseInt(tempArray[h][9]);
-      mergedEntry[10] += "\n" + tempArray[h][0] + ": " + tempArray[h][10];
-      mergedEntry[11] = parseInt(mergedEntry[11]) + parseInt(tempArray[h][11]);
-      mergedEntry[12] += "\n" + tempArray[h][0] + ": " + tempArray[h][12];
-      mergedEntry[13] = parseInt(mergedEntry[13]) + parseInt(tempArray[h][13]);
-      mergedEntry[14] += "\n" + tempArray[h][0] + ": " + tempArray[h][14];
-      mergedEntry[15] = parseInt(mergedEntry[15]) + parseInt(tempArray[h][15]);
-      mergedEntry[16] += "\n" + tempArray[h][0] + ": " + tempArray[h][16];
-      mergedEntry[17] = parseInt(mergedEntry[17]) + parseInt(tempArray[h][17]);
-      mergedEntry[18] += "\n" + tempArray[h][0] + ": " + tempArray[h][18];
-      mergedEntry[19] += "*";
-      mergedEntry[20] +=
-        "\n" +
-        tempArray[h][0] +
-        ": " +
-        tempArray[h][20] +
-        "\n (rating: " +
-        tempArray[h][19] +
-        ")";
-    }
-    if (h >= 1) {
-      mergedEntry[3] /= h;
-      mergedEntry[9] /= h;
-      mergedEntry[11] /= h;
-      mergedEntry[13] /= h;
-      mergedEntry[15] /= h;
-      mergedEntry[17] /= h;
+    //division by h
+    if (h > 1) {
+      for (let k = 2; k <= 18; k += 2) {
+        if (k !== 6) {
+          mergedEntry[k] /= h;
+        }
+      }
     }
     sortedEntries.push(mergedEntry);
     i = 0;
   }
+
+  //filter sortedEntries for High Security
+  if (!document.getElementById("toggle").checked) {
+    for (let j = 0; j < sortedEntries.length; j++) {
+      for (let i = j + 1; i < sortedEntries.length; i++) {
+        let x =
+          sortedEntries[j][10] + sortedEntries[j][12] + sortedEntries[j][16];
+        let y =
+          sortedEntries[i][10] + sortedEntries[i][12] + sortedEntries[i][16];
+        if (y > x) {
+          let temp = sortedEntries[j];
+          sortedEntries[j] = sortedEntries[i];
+          sortedEntries[i] = temp;
+          i = j + 1;
+        }
+      }
+    }
+  } else {
+    //filter sortedEntries for Fast Setup
+    for (let j = 0; j < sortedEntries.length; j++) {
+      for (let i = j + 1; i < sortedEntries.length; i++) {
+        let x = sortedEntries[j][4];
+        let y = sortedEntries[i][4];
+        if (y < x) {
+          //replace [0] with [i] and vice versa
+          let temp = sortedEntries[j];
+          sortedEntries[j] = sortedEntries[i];
+          sortedEntries[i] = temp;
+          i = j + 1;
+        }
+      }
+    }
+  }
+
+  //reassign qualitative rating after sorting
+  for (let h = 0; h < sortedEntries.length; h++) {
+    for (let k = 8; k <= 16; k += 2) {
+      sortedEntries[h][k] = rating[Math.floor(sortedEntries[h][k])];
+    }
+    if (sortedEntries[h][4] == 0) {
+      sortedEntries[h][4] = "Instant";
+    } else {
+      sortedEntries[h][4] = parseFloat(sortedEntries[h][4]) + " hour(s)";
+    }
+    sortedEntries[h][18] = parseFloat(sortedEntries[h][18]) + " minute(s)";
+  }
   return sortedEntries;
+}
+
+function buildElement(i, j, id, text, type, checked) {
+  let category = document.createElement(type);
+  category.id = id;
+  category.innerText = text + ": " + entries[i][j];
+  if (checked == true) {
+    category.style.fontWeight = 800;
+  }
+  document.getElementById("product-" + (4 - i)).appendChild(category);
+}
+
+function showFour() {
+  let checkFlag = !document.getElementById("toggle").checked;
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < sortedEntries.length; j++) {
+      switch (j) {
+        case 0: {
+          buildElement(i, j, "name", "Name", "div");
+          break;
+        }
+        case 1: {
+          buildElement(i, j, "url", "URL", "a");
+          break;
+        }
+        case 2: {
+          buildElement(
+            i,
+            j,
+            "completeinstructions",
+            "Complete Instructions",
+            "div"
+          );
+          break;
+        }
+        case 4: {
+          buildElement(i, j, "setupspeed", "Setup Speed", "div", !checkFlag);
+          break;
+        }
+        case 6: {
+          buildElement(i, j, "cost", "Cost", "div");
+          break;
+        }
+        case 8: {
+          buildElement(i, j, "privacy", "Privacy", "div");
+          break;
+        }
+        case 10: {
+          buildElement(
+            i,
+            j,
+            "theftprevention",
+            "Theft Prevention",
+            "div",
+            checkFlag
+          );
+          break;
+        }
+        case 12: {
+          buildElement(
+            i,
+            j,
+            "lossprevention",
+            "Loss Prevention",
+            "div",
+            checkFlag
+          );
+          break;
+        }
+        case 14: {
+          buildElement(i, j, "safesetup", "Safe Setup", "div");
+          break;
+        }
+        case 16: {
+          buildElement(
+            i,
+            j,
+            "inheritancesafety",
+            "Inheritance Safety",
+            checkFlag
+          );
+          break;
+        }
+        case 18: {
+          buildElement(i, j, "spendspeed", "Spend Speed");
+          break;
+        }
+      }
+    }
+  }
 }
 
 async function fetchData() {
@@ -249,36 +230,7 @@ async function fetchData() {
   );
   let data = await response.json();
   for (let i = 0; i < data.feed.entry.length; i++) {
-    for (let j = 0; j < profileList.length; j++) {
-      if (data.feed.entry[i].gsx$reviewer.$t == profileList[j]) {
-        j = -1;
-        i++;
-      }
-    }
-    if (filterFlag == 1) {
-      if (choice1 == "privacy" && data.feed.entry[i].gsx$privacy.$t <= 3) {
-        continue;
-      } else if (
-        choice1 == "setupspeed" &&
-        parseInt(data.feed.entry[i].gsx$setupspeed.$t) >= 1
-      ) {
-        continue;
-      }
-      if (
-        choice2 == "security" &&
-        (data.feed.entry[i].gsx$theftprevention.$t <= 3 ||
-          data.feed.entry[i].gsx$lossprevention <= 3)
-      ) {
-        continue;
-      } else if (
-        choice2 == "spendspeed" &&
-        parseInt(data.feed.entry[i].gsx$spendspeed.$t) >= 10
-      ) {
-        continue;
-      }
-    }
     let newEntry = [
-      data.feed.entry[i].gsx$reviewer.$t,
       data.feed.entry[i].gsx$name.$t,
       data.feed.entry[i].gsx$url.$t,
       data.feed.entry[i].gsx$completeinstructions.$t,
@@ -301,154 +253,39 @@ async function fetchData() {
       data.feed.entry[i].gsx$comments_9.$t,
       data.feed.entry[i].gsx$easytosetupgreatux.$t,
     ];
-    entries.push(newEntry);
-  }
 
-  if (mergeFlag == 1) {
-    entries = mergeEntries();
-  }
-
-  document.getElementById("entries").innerText = "Entries: " + entries.length;
-  for (let i = 0; i < entries.length; i++) {
-    tempRow = document.createElement("div");
-    tempRow.classList.add("row");
-    tempRow.id = "row " + i;
-    document.getElementById("matrix").appendChild(tempRow);
-    for (let j = 0; j < entries[i].length; j++) {
-      switch (j) {
-        case 1: {
-          buildCell(i, j, "name", "div", true);
+    for (let i = 0; i < newEntry.length; i++) {
+      switch (newEntry[i]) {
+        case "Terrible": {
+          newEntry[i] = 1;
           break;
         }
-        case 2: {
-          buildCell(i, j, "url", "a");
+        case "Poor": {
+          newEntry[i] = 2;
           break;
         }
-        case 3: {
-          buildCell(i, j, "completeinstructions", "div", true);
+        case "Marginal": {
+          newEntry[i] = 3;
           break;
         }
-        case 5: {
-          buildCell(i, j, "setupspeed", "div", true);
+        case "Good": {
+          newEntry[i] = 4;
           break;
         }
-        case 7: {
-          buildCell(i, j, "cost", "div", true);
+        case "Excellent": {
+          newEntry[i] = 5;
           break;
         }
-        case 9: {
-          buildCell(i, j, "privacy", "div", true);
-          break;
-        }
-        case 11: {
-          buildCell(i, j, "theftprevention", "div", true);
-          break;
-        }
-        case 13: {
-          buildCell(i, j, "lossprevention", "div", true);
-          break;
-        }
-        case 15: {
-          buildCell(i, j, "safesetup", "div", true);
-          break;
-        }
-        case 17: {
-          buildCell(i, j, "inheritancesafety", "div", true);
-          break;
-        }
-        case 19: {
-          buildCell(i, j, "spendspeed", "div", true);
-          break;
-        }
-        case 21: {
-          buildCell(i, j, "easytosetup", "div");
-        }
-        default: {
+        case "Instant": {
+          newEntry[i] = 0;
           break;
         }
       }
     }
+    entries.push(newEntry);
   }
+  entries = sortEntries();
+  showFour();
 }
 
-function buildLegendCell(className, text) {
-  let cell = document.createElement("div");
-  cell.classList.add(className, "cell", "legend");
-  cell.innerText = text;
-  return cell;
-}
-
-function buildLegend() {
-  tempRow = document.createElement("div");
-  tempRow.classList.add("row", "legend");
-
-  tempRow.appendChild(buildLegendCell("name", "Name"));
-  tempRow.appendChild(buildLegendCell("url", "URL"));
-  tempRow.appendChild(
-    buildLegendCell("completeinstructions", "Complete Instructions")
-  );
-  tempRow.appendChild(buildLegendCell("setupspeed", "Setup Speed"));
-  tempRow.appendChild(buildLegendCell("cost", "Cost"));
-  tempRow.appendChild(buildLegendCell("privacy", "Privacy"));
-  tempRow.appendChild(buildLegendCell("theftprevention", "Theft Prevention"));
-  tempRow.appendChild(buildLegendCell("lossprevention", "Loss Prevention"));
-  tempRow.appendChild(buildLegendCell("safesetup", "Safe Setup"));
-  tempRow.appendChild(
-    buildLegendCell("inheritancesafety", "Inheritance Safety")
-  );
-  tempRow.appendChild(buildLegendCell("spendspeed", "Spend Speed"));
-  tempRow.appendChild(buildLegendCell("easytosetup", "Easy To Setup/Great UX"));
-
-  document.getElementById("matrix").appendChild(tempRow);
-  /*
-  <div class="row legend" >
-    <div class="name cell legend">Name</div>
-    <div class="url cell legend">URL</div>
-    <div class="completeinstructions cell legend">Complete Instructions</div>
-    <div class="setupspeed cell legend">Setup Speed</div>
-    <div class="cost cell legend">Cost</div>
-    <div class="privacy cell legend">Privacy</div>
-    <div class="theftprevention cell legend">Theft Prevention</div>
-    <div class="lossprevention cell legend">Loss Prevention</div>
-    <div class="safesetup cell legend">Safe Setup</div>
-    <div class="inheritancesafety cell legend">Inheritance Safety</div>
-    <div class="spendspeed cell legend">Spend Speed</div>
-    <div class="easytosetup cell legend">Easy To Setup/Great UX</div>
-  </div>
-  */
-}
-
-function handleReload() {
-  document.getElementById("matrix").innerHTML = "";
-  buildLegend();
-  fetchData();
-}
-
-function handleMergeUnmerge() {
-  mergeFlag = mergeFlag ? 0 : 1;
-  if (mergeFlag) {
-    document.getElementById("merge/unmerge").innerText = "Unmerge Data";
-  } else {
-    document.getElementById("merge/unmerge").innerText = "Merge Data";
-  }
-  handleReload();
-}
-
-function handleFilterUnfilter() {
-  filterFlag = filterFlag ? 0 : 1;
-  if (filterFlag) {
-    document.getElementById("filter/unfilter").innerText = "Unfilter Data";
-  } else {
-    document.getElementById("filter/unfilter").innerText = "Filter Data";
-  }
-  handleReload();
-}
-
-function handleSubmit() {
-  document.getElementById("first-page").hidden = true;
-  document.getElementById("first-page").style.display = "none";
-  handleButton(choice1);
-  handleButton(choice2);
-  fetchData();
-  document.getElementById("second-page").hidden = false;
-}
+fetchData();
