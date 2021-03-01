@@ -1,6 +1,5 @@
 let entries = [];
 let sortedEntries = [];
-let sortedEntries2 = [];
 let rating = {
   0: "Instant",
   1: "Terrible",
@@ -137,6 +136,8 @@ function sortEntries() {
       }
     }
   }
+
+  console.log(sortedEntries);
 
   //reassign qualitative rating after sorting
   for (let h = 0; h < sortedEntries.length; h++) {
