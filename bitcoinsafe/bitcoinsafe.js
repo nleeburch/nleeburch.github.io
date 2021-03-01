@@ -229,6 +229,7 @@ function showFour() {
             j,
             "inheritancesafety",
             "Inheritance Safety",
+            "div",
             checkFlag
           );
           break;
