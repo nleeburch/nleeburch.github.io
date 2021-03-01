@@ -137,8 +137,6 @@ function sortEntries() {
     }
   }
 
-  console.log(sortedEntries);
-
   //reassign qualitative rating after sorting
   for (let h = 0; h < sortedEntries.length; h++) {
     for (let k = 8; k <= 16; k += 2) {
