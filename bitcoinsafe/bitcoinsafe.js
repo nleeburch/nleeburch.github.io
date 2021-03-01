@@ -308,5 +308,4 @@ async function fetchData() {
   showFour();
 }
 
-alert(1);
 fetchData();
