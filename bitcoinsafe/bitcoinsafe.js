@@ -1,12 +1,13 @@
 let entries = [];
 let sortedEntries = [];
 let rating = {
-  0: "Instant",
-  1: "Terrible",
-  2: "Poor",
+  1: "Very Low",
+  2: "Low",
   3: "Marginal",
-  4: "Good",
-  5: "Excellent",
+  4: "High",
+  5: "Very High",
+  instant: "Instant",
+  free: "Free",
 };
 
 /* 
@@ -246,10 +247,16 @@ function showFour() {
 async function fetchData() {
   entries = [];
   sortedEntries = [];
+  /*
+  let response = await fetch(
+    "https://spreadsheets.google.com/feeds/list/1BxAiGnhCfFifd6T6Ky1m3gwdePvuS6QteXsc5KadlPI/od6/public/full?alt=json"
+  );
+  */
   let response = await fetch(
     "https://spreadsheets.google.com/feeds/list/1BxAiGnhCfFifd6T6Ky1m3gwdePvuS6QteXsc5KadlPI/od6/public/full?alt=json"
   );
   let data = await response.json();
+  console.log(data);
   for (let i = 0; i < data.feed.entry.length; i++) {
     let newEntry = [
       data.feed.entry[i].gsx$name.$t,
@@ -277,27 +284,27 @@ async function fetchData() {
 
     for (let i = 0; i < newEntry.length; i++) {
       switch (newEntry[i]) {
-        case "Terrible": {
+        case rating[1]: {
           newEntry[i] = 1;
           break;
         }
-        case "Poor": {
+        case rating[2]: {
           newEntry[i] = 2;
           break;
         }
-        case "Marginal": {
+        case rating[3]: {
           newEntry[i] = 3;
           break;
         }
-        case "Good": {
+        case rating[4]: {
           newEntry[i] = 4;
           break;
         }
-        case "Excellent": {
+        case rating[5]: {
           newEntry[i] = 5;
           break;
         }
-        case "Instant": {
+        case rating.instant: {
           newEntry[i] = 0;
           break;
         }
