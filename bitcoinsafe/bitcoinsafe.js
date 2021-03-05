@@ -250,6 +250,9 @@ async function fetchContributors() {
     profile.appendChild(name);
     profile.appendChild(twitterName);
     profile.appendChild(description);
+    profile.onclick = function () {
+      location.href = twitterName.href;
+    };
     document.getElementById("contributors").appendChild(profile);
   }
 }
