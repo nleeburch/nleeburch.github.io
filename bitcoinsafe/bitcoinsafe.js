@@ -16,6 +16,7 @@ let highSecurity = [
   "Coinbase",
 ];
 let fastSetup = [
+  "Wasabi Wallet",
   "Trezor Standard Setup",
   "Ledger Nano S Standard Setup",
   "BlueWallet on Daily Phone",
