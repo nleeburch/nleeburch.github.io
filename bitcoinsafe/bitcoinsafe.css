@@ -66,6 +66,7 @@ label {
   box-shadow: 0px 0px 5px #a0a0a0;
   transition-duration: 0.5s;
   line-height: 30px;
+  cursor: pointer;
 }
 #product-1:hover {
   transform: translate(0px, -20px);
@@ -77,6 +78,7 @@ label {
   box-shadow: 0px 0px 5px #a0a0a0;
   transition-duration: 0.5s;
   line-height: 30px;
+  cursor: pointer;
 }
 #product-2:hover {
   transform: translate(0px, -20px);
@@ -88,6 +90,7 @@ label {
   box-shadow: 0px 0px 5px #a0a0a0;
   transition-duration: 0.5s;
   line-height: 30px;
+  cursor: pointer;
 }
 #product-3:hover {
   transform: translate(0px, -20px);
@@ -99,6 +102,7 @@ label {
   box-shadow: 0px 0px 5px #a0a0a0;
   transition-duration: 0.5s;
   line-height: 30px;
+  cursor: pointer;
 }
 #product-4:hover {
   transform: translate(0px, -20px);

@@ -122,6 +122,9 @@ function buildElement(i, j, id, text, type, checked) {
     } else {
       category.style.color = "#181059";
     }
+    document.getElementById("product-" + (4 - i)).onclick = function () {
+      location.href = entries[i][j];
+    };
     document.getElementById("product-" + (4 - i)).appendChild(category);
   } else {
     let category = document.createElement(type);
