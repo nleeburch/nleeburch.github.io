@@ -15,47 +15,48 @@
     />
   </head>
   <body>
-    <script src="bitcoinsafe.js"></script>
     <div class="container-fluid">
-      <div class="row bg-primary" style="height: 80px">
-        <div class="col-lg-12 text-center text-white align-self-end" id="title">
+      <div
+        class="row"
+        style="height: 80px; background-color: rgb(246, 245, 250)"
+      >
+        <div class="col-lg-12 text-center align-self-end" id="title">
           bitcoinsafe
         </div>
       </div>
 
       <div
-        class="row bg-primary text-light"
-        style="height: 80px"
+        class="row"
+        style="height: 80px; background-color: rgb(246, 245, 250)"
         id="toggle-box"
       >
-        <div class="col-4"></div>
-        <div class="col-4 my-auto">
-          <label for="">HIGH SECURITY</label>
-          <input type="checkbox" id="toggle" onchange="handleToggle()" />
-          <label for="">FAST SETUP</label>
+        <div class="col-4 offset-4 align-self-center">
+          <div class="row">
+            <div class="col-12">
+              <label for="" id="highsecurity">HIGH SECURITY</label>
+              <input type="checkbox" id="toggle" onchange="handleToggle()" />
+              <label for="" id="fastsetup">FAST SETUP</label>
+            </div>
+          </div>
         </div>
-        <div class="col-4"></div>
       </div>
 
-      <div
-        class="row my-auto"
-        style="height: 500px; padding: 30px"
-        id="products"
-      >
+      <div class="row my-auto" style="padding: 30px" id="products">
         <div class="col-12">
           <div class="row justify-content-around">
             <div
-              class="col-* bg-primary text-white"
+              class="col-*"
               id="product-1"
               style="
                 height: 400px;
                 padding: 20px;
                 border-radius: 15px;
                 width: 300px;
+                text-overflow: ellipsis;
               "
             ></div>
             <div
-              class="col-* bg-primary text-white"
+              class="col-*"
               id="product-2"
               style="
                 height: 400px;
@@ -65,7 +66,7 @@
               "
             ></div>
             <div
-              class="col-* bg-success text-white"
+              class="col-* text-white"
               id="product-3"
               style="
                 height: 400px;
@@ -75,7 +76,7 @@
               "
             ></div>
             <div
-              class="col-* container-md bg-primary text-white"
+              class="col-*"
               id="product-4"
               style="
                 height: 400px;
@@ -87,19 +88,33 @@
           </div>
         </div>
       </div>
-      <div class="row text-center bg-primary text-white align-content-center">
-        <div class="col-md-2">Contributor 1</div>
-        <div class="col-md-2">Contributor 2</div>
-        <div class="col-md-2">Contributor 3</div>
-        <div class="col-md-2">Contributor 4</div>
-        <div class="col-md-2">Contributor 5</div>
-        <div class="col-md-2">Contributor 6</div>
+
+      <div
+        class="row text-center"
+        style="background-color: rgb(246, 245, 250); color: #181059"
+      >
+        <div class="col-12">
+          <div class="row text-center">
+            <div class="col-12" id="title">Contributors</div>
+          </div>
+          <div
+            class="row align-content-center justify-content-around"
+            id="contributors"
+          ></div>
+          <hr />
+        </div>
       </div>
-      <div class="row text-center bg-primary text-white align-content-center">
-        <div class="col-md-12">
-          <a href="#" class="text-white">Go to Raw Data</a>
+
+      <div class="row text-center align-content-center">
+        <div class="col-12" id="bottom">
+          <a
+            href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDR-NwIbu4SrbJtvoR_rBQvW66t4FNaMO2yxv7xuXgisyLChxZHSRUGcBcDVkP5x1Up6up8NDGqxL9/pubhtml#"
+            style="color: #181059"
+            >Go to Raw Data</a
+          >
         </div>
       </div>
     </div>
+    <script src="bitcoinsafe.js"></script>
   </body>
 </html>
