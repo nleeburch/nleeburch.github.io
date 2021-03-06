@@ -41,9 +41,7 @@ body {
   line-height: 19px;
   text-align: center;
   padding: 5px;
-
   color: #181059;
-
   opacity: 0.68;
 }
 
@@ -152,10 +150,10 @@ label {
 }
 
 .profile-picture {
-  height: 180px;
-  width: 180px;
+  height: 10vw;
+  width: 10vw;
   border: 1px solid #181059;
-  border-radius: 90px;
+  border-radius: 75px;
   box-shadow: 2px 2px 5px #a0a0a0;
   transition-duration: 0.5s;
 }
