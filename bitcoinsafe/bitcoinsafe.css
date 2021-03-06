@@ -82,6 +82,7 @@ label {
   font-weight: normal;
   pointer-events: none;
   font-family: Inter;
+  background: none;
   color: #181059;
   opacity: 0.96;
   margin-right: 10px;
