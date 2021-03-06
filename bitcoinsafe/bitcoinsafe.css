@@ -163,8 +163,8 @@ label {
 }
 
 #bottom {
-  background-color: #f6f5fa;
   color: #181059;
+  background: none;
 }
 
 #vector {
