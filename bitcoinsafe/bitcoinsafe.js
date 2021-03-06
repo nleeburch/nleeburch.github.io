@@ -45,11 +45,11 @@ function eraseProducts() {
 
 async function handleToggle() {
   if (!document.getElementById("toggle").checked) {
-    document.getElementById("highsecurity").style.textDecoration = "underline";
-    document.getElementById("fastsetup").style.textDecoration = "none";
+    document.getElementById("highsecurity").style.fontWeight = "bold";
+    document.getElementById("fastsetup").style.fontWeight = "normal";
   } else {
-    document.getElementById("highsecurity").style.textDecoration = "none";
-    document.getElementById("fastsetup").style.textDecoration = "underline";
+    document.getElementById("highsecurity").style.fontWeight = "normal";
+    document.getElementById("fastsetup").style.fontWeight = "bold";
   }
   eraseProducts();
   fetchData();
@@ -106,9 +106,10 @@ function buildElement(i, j, id, text, type, checked) {
     let category = document.createElement(type);
     category.id = id;
     category.innerText = entries[i][j];
-    category.style.fontSize = "18px";
-    category.classList.add("text-center");
-    category.style.fontWeight = 800;
+    category.style.fontSize = "24px";
+    category.classList.add("text-left");
+    category.style.fontWeight = 700;
+    category.style.lineHeight = "29px";
     document.getElementById("product-" + (4 - i)).appendChild(category);
   } else if (id == "url") {
     let category = document.createElement(type);
@@ -116,6 +117,7 @@ function buildElement(i, j, id, text, type, checked) {
     category.innerText = entries[i][j];
     category.href = entries[i][j];
     category.style.fontSize = "16px";
+    category.style.lineHeight = "19px";
     category.style.textDecoration = "underline";
     if (4 - i == 3) {
       category.style.color = "white";
@@ -129,9 +131,15 @@ function buildElement(i, j, id, text, type, checked) {
   } else {
     let category = document.createElement(type);
     category.id = id;
+    category.style.fontSize = "16px";
+    category.style.lineHeight = "19px";
+    category.style.marginTop = "10px";
     category.innerText = text + ": " + entries[i][j];
     if (checked == true) {
-      category.style.fontWeight = 800;
+      category.style.fontWeight = "bold";
+    } else {
+      category.style.fontWeight = "normal";
+      category.style.opacity = 0.68;
     }
     document.getElementById("product-" + (4 - i)).appendChild(category);
   }
@@ -309,6 +317,5 @@ async function fetchData() {
   showFour();
 }
 
-document.getElementById("highsecurity").style.textDecoration = "underline";
-fetchData();
+handleToggle();
 fetchContributors();
