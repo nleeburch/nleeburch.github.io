@@ -167,7 +167,6 @@ label {
 #bottom {
   background-color: #f6f5fa;
   color: #181059;
-  z-index: -1;
 }
 
 #vector {
@@ -175,5 +174,4 @@ label {
   opacity: 0.5;
   left: -5px;
   top: -5px;
-  z-index: 0;
 }
