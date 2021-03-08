@@ -39,7 +39,10 @@ KEY:
 
 function eraseProducts() {
   for (let i = 1; i <= 4; i++) {
-    document.getElementById("product-" + i).innerText = "";
+    document.getElementById("product-" + i + "-title").innerText = "";
+  }
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById("product-" + i + "-list").innerHTML = "";
   }
 }
 
@@ -55,67 +58,16 @@ async function handleToggle() {
   fetchData();
 }
 
-function sortEntries() {
-  //filter sortedEntries for High Security
-  if (!document.getElementById("toggle").checked) {
-    for (let j = 0; j < entries.length; j++) {
-      for (let i = j + 1; i < entries.length; i++) {
-        let x = entries[j][4] + entries[j][5] + entries[j][7];
-        let y = entries[i][4] + entries[i][5] + entries[i][7];
-        if (y > x) {
-          let temp = entries[j];
-          entries[j] = entries[i];
-          entries[i] = temp;
-          i = j + 1;
-        }
-      }
-    }
-  } else {
-    //filter sortedEntries for Fast Setup
-    for (let j = 0; j < entries.length; j++) {
-      for (let i = j + 1; i < entries.length; i++) {
-        let x = parseFloat(entries[j][9]);
-        let y = parseFloat(entries[i][9]);
-        if (y < x) {
-          //replace [0] with [i] and vice versa
-          let temp = entries[j];
-          entries[j] = entries[i];
-          entries[i] = temp;
-          i = j + 1;
-        }
-      }
-    }
-  }
-
-  //reassign qualitative rating after sorting
-  for (let h = 0; h < entries.length; h++) {
-    for (let k = 2; k <= 7; k++) {
-      entries[h][k] = rating[Math.floor(entries[h][k])];
-    }
-    if (entries[h][9] == 0) {
-      entries[h][9] = "Instant";
-    } else {
-      entries[h][9] = parseFloat(entries[h][9]) + " hour(s)";
-    }
-    entries[h][8] = parseFloat(entries[h][8]) + " minute(s)";
-  }
-}
-
 function buildElement(i, j, id, text, type, checked) {
   if (id == "name") {
-    let category = document.createElement(type);
-    category.id = id;
-    category.innerText = entries[i][j];
-    category.style.fontSize = "24px";
-    category.classList.add("text-left");
-    category.style.fontWeight = 700;
-    category.style.lineHeight = "29px";
-    document.getElementById("product-" + (4 - i)).appendChild(category);
+    document.getElementById("product-" + (4 - i) + "-title").innerText =
+      entries[i][j];
   } else if (id == "url") {
+    let list = document.createElement("li");
     let category = document.createElement(type);
-    category.id = id;
     category.innerText = entries[i][j];
     category.href = entries[i][j];
+    /*
     category.style.fontSize = "16px";
     category.style.lineHeight = "19px";
     category.style.textDecoration = "underline";
@@ -127,21 +79,28 @@ function buildElement(i, j, id, text, type, checked) {
     document.getElementById("product-" + (4 - i)).onclick = function () {
       location.href = entries[i][j];
     };
-    document.getElementById("product-" + (4 - i)).appendChild(category);
+    */
+    list.appendChild(category);
+    document.getElementById("product-" + (4 - i) + "-list").appendChild(list);
   } else {
+    let list = document.createElement("li");
     let category = document.createElement(type);
-    category.id = id;
+    /*
     category.style.fontSize = "16px";
     category.style.lineHeight = "19px";
     category.style.marginTop = "10px";
+    */
     category.innerText = text + ": " + entries[i][j];
+    /*
     if (checked == true) {
       category.style.fontWeight = "bold";
     } else {
       category.style.fontWeight = "normal";
       category.style.opacity = 0.68;
     }
-    document.getElementById("product-" + (4 - i)).appendChild(category);
+    */
+    list.appendChild(category);
+    document.getElementById("product-" + (4 - i) + "-list").appendChild(list);
   }
 }
 
@@ -241,18 +200,37 @@ async function fetchContributors() {
     ];
     contributors.push(newEntry);
   }
+  /*
+<div class="col-lg-3">
+            <img
+              class="rounded-circle"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+              alt="Generic placeholder image"
+              width="140"
+              height="140"
+            />
+            <h2>Heading</h2>
+            <p>Donec sed odio dui.</p>
+            <p>
+              <a class="btn btn-secondary" href="#" role="button"
+                >View details »</a
+              >
+            </p>
+          </div>
+*/
+
   for (let i = 0; i < contributors.length; i++) {
     let profile = document.createElement("div");
-    profile.classList.add("col-2", "text-center", "profile");
+    profile.classList.add("col-lg-3", "text-center", "profile");
     let image = document.createElement("img");
     image.src = "reviewers/JWWeatherman_.jpg";
     image.classList.add("profile-picture");
-    let name = document.createElement("div");
+    let name = document.createElement("h2");
     name.innerText = contributors[i][0];
     let twitterName = document.createElement("a");
     twitterName.href = "https://twitter.com/" + contributors[i][1];
     twitterName.innerText = "@" + contributors[i][1];
-    let description = document.createElement("div");
+    let description = document.createElement("p");
     description.innerText = contributors[i][2];
     profile.appendChild(image);
     profile.appendChild(name);
@@ -318,4 +296,4 @@ async function fetchData() {
 }
 
 handleToggle();
-fetchContributors();
+//fetchContributors();
