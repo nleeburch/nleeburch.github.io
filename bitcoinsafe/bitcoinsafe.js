@@ -189,24 +189,6 @@ async function fetchContributors() {
     ];
     contributors.push(newEntry);
   }
-  /*
-<div class="col-lg-3">
-            <img
-              class="rounded-circle"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-              alt="Generic placeholder image"
-              width="140"
-              height="140"
-            />
-            <h2>Heading</h2>
-            <p>Donec sed odio dui.</p>
-            <p>
-              <a class="btn btn-secondary" href="#" role="button"
-                >View details »</a
-              >
-            </p>
-          </div>
-*/
 
   for (let i = 0; i < contributors.length; i++) {
     let profile = document.createElement("div");
@@ -285,6 +267,5 @@ async function fetchData() {
   }
   showFour();
 }
-
 handleToggle();
 fetchContributors();
