@@ -55,6 +55,8 @@ input[type="checkbox"] {
   height: 24px;
   background: #181059;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   border-radius: 62px;
   outline: none;
   transition: 0.4s;
