@@ -13,7 +13,7 @@ let highSecurity = [
   "Yeti Bitcoin Wallet Level 3",
   "Yeti Bitcoin Wallet Level 2",
   "Yeti Bitcoin Wallet Level 1",
-  "Coinbase",
+  "Jade Preconfigured with Daily Use Phone 2 of 2",
 ];
 let fastSetup = [
   "Wasabi Wallet",
