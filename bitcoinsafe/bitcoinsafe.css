@@ -171,4 +171,5 @@ label {
   opacity: 0.15;
   left: -5px;
   top: -5px;
+  z-index: -1;
 }
