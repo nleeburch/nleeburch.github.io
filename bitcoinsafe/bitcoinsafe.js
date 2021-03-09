@@ -67,9 +67,6 @@ function buildElement(i, j, id, text, type, checked) {
     let category = document.createElement(type);
     category.innerText = entries[i][j];
     category.href = entries[i][j];
-    /*
-    category.style.fontSize = "16px";
-    category.style.lineHeight = "19px";
     category.style.textDecoration = "underline";
     if (4 - i == 3) {
       category.style.color = "white";
@@ -79,26 +76,18 @@ function buildElement(i, j, id, text, type, checked) {
     document.getElementById("product-" + (4 - i)).onclick = function () {
       location.href = entries[i][j];
     };
-    */
     list.appendChild(category);
     document.getElementById("product-" + (4 - i) + "-list").appendChild(list);
   } else {
     let list = document.createElement("li");
     let category = document.createElement(type);
-    /*
-    category.style.fontSize = "16px";
-    category.style.lineHeight = "19px";
-    category.style.marginTop = "10px";
-    */
     category.innerText = text + ": " + entries[i][j];
-    /*
     if (checked == true) {
       category.style.fontWeight = "bold";
     } else {
       category.style.fontWeight = "normal";
       category.style.opacity = 0.68;
     }
-    */
     list.appendChild(category);
     document.getElementById("product-" + (4 - i) + "-list").appendChild(list);
   }
@@ -221,7 +210,7 @@ async function fetchContributors() {
 
   for (let i = 0; i < contributors.length; i++) {
     let profile = document.createElement("div");
-    profile.classList.add("col-lg-3", "text-center", "profile");
+    profile.classList.add("col-lg-3", "profile");
     let image = document.createElement("img");
     image.src = "reviewers/JWWeatherman_.jpg";
     image.classList.add("profile-picture");
@@ -229,7 +218,9 @@ async function fetchContributors() {
     name.innerText = contributors[i][0];
     let twitterName = document.createElement("a");
     twitterName.href = "https://twitter.com/" + contributors[i][1];
-    twitterName.innerText = "@" + contributors[i][1];
+    if (contributors[i][1] !== "") {
+      twitterName.innerText = "@" + contributors[i][1];
+    }
     let description = document.createElement("p");
     description.innerText = contributors[i][2];
     profile.appendChild(image);
@@ -296,4 +287,4 @@ async function fetchData() {
 }
 
 handleToggle();
-//fetchContributors();
+fetchContributors();
