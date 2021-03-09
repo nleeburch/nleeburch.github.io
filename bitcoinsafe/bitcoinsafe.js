@@ -194,7 +194,7 @@ async function fetchContributors() {
     let profile = document.createElement("div");
     profile.classList.add("col-lg-3", "profile");
     let image = document.createElement("img");
-    image.src = "reviewers/JWWeatherman_.jpg";
+    image.src = "profile-pictures/" + contributors[i][1] + ".jpg";
     image.classList.add("profile-picture");
     let name = document.createElement("h2");
     name.innerText = contributors[i][0];
