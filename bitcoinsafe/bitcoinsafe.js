@@ -194,8 +194,8 @@ async function fetchContributors() {
     let profile = document.createElement("div");
     profile.classList.add("col-lg-3", "profile");
     let image = document.createElement("img");
-    image.src = "profile-pictures/" + contributors[i][1] + ".jpg";
     image.classList.add("profile-picture");
+    image.src = "profile-pictures/" + contributors[i][1] + ".jpg";
     let name = document.createElement("h2");
     name.innerText = contributors[i][0];
     let twitterName = document.createElement("a");
